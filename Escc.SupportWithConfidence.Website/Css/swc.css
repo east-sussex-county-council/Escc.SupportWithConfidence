@@ -1,0 +1,9 @@
+﻿/* Position the expand and collapse links on the search screen category list */
+ul#navigation li { position:relative; }
+.expand, .collapse { position: absolute; top: 0; left: 250px; }
+
+/* Stop sub-categories disappearing in IE7 */
+.ie7 #navigation li ul { display: inline-block; }
+
+/* Stop peekaboo effect on categories background in IE6 */
+.ie6 ul#navigation { display: inline-block; }

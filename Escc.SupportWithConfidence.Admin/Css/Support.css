@@ -1,0 +1,10 @@
+﻿ ul#navigation li{position:relative;}
+.expand {position:absolute; top:0; left:250px;}
+.collapse{position:absolute; top:0; left:250px;}
+dl.itemDetail dt  {width:32%;}
+/*#showall {position:relative; top:-18px; left:160px;}*/
+.button {cursor:pointer;}
+
+
+
+.photo {position:absolute; top: 140px; left:440px;}

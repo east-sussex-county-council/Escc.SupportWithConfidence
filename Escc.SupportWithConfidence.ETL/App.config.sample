@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="exceptionless" type="Exceptionless.Configuration.ExceptionlessSection, Exceptionless" />
+  </configSections>
+  <connectionStrings>
+    <add name="livedb" connectionString="" />
+    <add name="testdb" connectionString="" />
+  </connectionStrings>
+  <appSettings>
+    <add key="Save_Categories" value="" />
+    <add key="Save_Import" value="" />
+    <add key="Save_Provider" value="" />
+    <add key="Save_ProviderCategory" value="" />
+    <!-- LIVE EXPORT-->
+    <add key="ChildCategories" value="" />
+    <add key="ParentCategories" value="" />
+    <add key="ProviderData" value="" />
+  </appSettings>
+  <exceptionless apiKey="" serverUrl="" />
+</configuration>

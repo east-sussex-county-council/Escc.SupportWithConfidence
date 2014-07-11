@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+      <section name="Escc.SupportWithConfidence.Controls.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+      <section name="EsccWebTeam.SupportWithConfidence.Controls.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    </sectionGroup>
+  </configSections>
+  <connectionStrings>
+    <add name="SupportwithConfidenceUser" connectionString=""></add>
+  </connectionStrings>
+  <appSettings>
+    <add key="GetProviderById" value=""/>
+    <add key="GetProviderByCategoryIdFilteredOnPostcode" value=""/>
+  </appSettings>
+  <applicationSettings>
+    <Escc.SupportWithConfidence.Controls.Properties.Settings>
+      <setting name="Escc_SupportWithConfidence_Controls_AddressFinder_AddressFinder"
+        serializeAs="String">
+        <value></value>
+      </setting>
+    </Escc.SupportWithConfidence.Controls.Properties.Settings>
+    <EsccWebTeam.SupportWithConfidence.Controls.Properties.Settings>
+      <setting name="EsccWebTeam_SupportWithConfidence_Controls_AddressFinder_AddressFinder"
+        serializeAs="String">
+        <value></value>
+      </setting>
+    </EsccWebTeam.SupportWithConfidence.Controls.Properties.Settings>
+  </applicationSettings>
+  <system.serviceModel>
+    <bindings />
+    <client />
+  </system.serviceModel>
+</configuration>
