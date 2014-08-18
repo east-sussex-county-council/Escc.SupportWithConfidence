@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using EsccWebTeam.Gdsc;
 using eastsussexgovuk.webservices.TextXhtml.HouseStyle;
+using Escc.AddressAndPersonalDetails;
 
 namespace Escc.SupportWithConfidence.Controls
 {

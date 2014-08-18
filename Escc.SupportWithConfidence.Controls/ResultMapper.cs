@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Web;
-using EsccWebTeam.Gdsc;
+using Escc.AddressAndPersonalDetails;
 
 namespace Escc.SupportWithConfidence.Controls
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using EsccWebTeam.Gdsc;
+using Escc.AddressAndPersonalDetails;
 
 namespace Escc.SupportWithConfidence.Controls
 {
