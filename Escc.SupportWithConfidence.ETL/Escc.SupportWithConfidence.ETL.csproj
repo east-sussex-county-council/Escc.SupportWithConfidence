@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryDataTable.cs" />
+    <Compile Include="CategoryTransformation.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="DataAccessTest.cs" />

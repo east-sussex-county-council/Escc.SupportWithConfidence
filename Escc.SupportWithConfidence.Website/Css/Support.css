@@ -1,7 +1,7 @@
 ﻿.formBox h2 { color: #000; }
- ul#navigation li{position:relative;}
-.expand {position:absolute; top:0; left:250px;}
-.collapse{position:absolute; top:0; left:250px;}
+ ul#navigation li{position:relative;margin: 0.5em 0;}
+.expand {position:absolute; top:0; left:280px;}
+.collapse{position:absolute; top:0; left:280px;}
 
 #showall {position:relative; top:-18px; left:160px;}
 .button {cursor:pointer;}

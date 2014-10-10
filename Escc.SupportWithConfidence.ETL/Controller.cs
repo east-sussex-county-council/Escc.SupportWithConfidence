@@ -1,6 +1,4 @@
-﻿using Microsoft.ApplicationBlocks.ExceptionManagement;
-using System;
-
+﻿
 namespace Escc.SupportWithConfidence.ETL
 {
     /// <summary>
@@ -45,23 +43,23 @@ namespace Escc.SupportWithConfidence.ETL
 
         public Controller()
         {
-           
-                _category = new CategoryDataTable();
-                _import = new ImportDataTable();
-                _provider = new ProviderDataTable(_import.Table);
-                _providerCategory = new ProviderCategoryDataTable(_import.Table, _category.Table);
 
-                // Very simple validation process of checking that all the import tables have atleast one row. If they do the hold some rows then the extract and transformation step is complete and
-                // the data is ready for loading e.g. saving to the support with confidence database
-                if ((_category.Table.Rows.Count > 0) & (_import.Table.Rows.Count > 0) & (_provider.Table.Rows.Count > 0) & (_providerCategory.Table.Rows.Count > 0))
-                {
-                    IsReady = true;
-                }
-                else
-                {
-                    IsReady = false;
-                }
-           
+            _category = new CategoryDataTable();
+            _import = new ImportDataTable();
+            _provider = new ProviderDataTable(_import.Table);
+            _providerCategory = new ProviderCategoryDataTable(_import.Table, _category.Table);
+
+            // Very simple validation process of checking that all the import tables have atleast one row. If they do the hold some rows then the extract and transformation step is complete and
+            // the data is ready for loading e.g. saving to the support with confidence database
+            if ((_category.Table.Rows.Count > 0) & (_import.Table.Rows.Count > 0) & (_provider.Table.Rows.Count > 0) & (_providerCategory.Table.Rows.Count > 0))
+            {
+                IsReady = true;
+            }
+            else
+            {
+                IsReady = false;
+            }
+
 
 
         }
@@ -78,7 +76,7 @@ namespace Escc.SupportWithConfidence.ETL
             Provider.Commit();
             Category.Commit();
             _providerCategory.Commit();
-            DataAccess.Save("usp_Admin_PostLoad", null);
+            DataAccess.Save("usp_Admin_PostLoad_2", null);
         }
         #endregion
 

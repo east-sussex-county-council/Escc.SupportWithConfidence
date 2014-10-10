@@ -1,10 +1,9 @@
-﻿using System;
+﻿using LumenWorks.Framework.IO.Csv;
+using System;
 using System.Configuration;
 using System.Data;
-using LumenWorks.Framework.IO.Csv;
-using System.IO;
 using System.Data.SqlClient;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.IO;
 
 namespace Escc.SupportWithConfidence.ETL
 {
@@ -16,7 +15,7 @@ namespace Escc.SupportWithConfidence.ETL
     public class CategoryDataTable : IImportable
     {
         #region Fields
-        
+
         DataTable _dtCategory = new DataTable("Category");
         #endregion
 
@@ -31,7 +30,7 @@ namespace Escc.SupportWithConfidence.ETL
         #endregion
 
         #region Constructor
-     
+
         /// <summary>
         /// Setup category table and fill it with data from the header and categories csv files
         /// </summary>
@@ -44,15 +43,15 @@ namespace Escc.SupportWithConfidence.ETL
             _dtCategory.Columns.Add("ProviderTypeId", typeof(Int32));
             _dtCategory.Columns.Add("IsActive", typeof(bool));
 
-          
-                Fill();
-           
-           
+
+            Fill();
+
+
         }
         #endregion
 
         #region Implemented Interface
-     
+
         /// <summary>
         /// Create a table of categories from the header and categories csv files
         /// The flare data is extended to includes extra fields to support future filtering and ordering options
@@ -153,7 +152,7 @@ namespace Escc.SupportWithConfidence.ETL
                 return _dtCategory;
             }
         }
-  
+
         /// <summary>
         /// This method saves the data into SupportWithConfidence on essqlpub01s via the proxy database on esdbcontent01s
         /// Commit is only called once the controller.IsReady returns true. This only happens if all of the datatables
@@ -166,7 +165,7 @@ namespace Escc.SupportWithConfidence.ETL
 
             foreach (DataRow item in _dtCategory.Rows)
             {
-               
+
                 parameters[0] = new SqlParameter("@Id", SqlDbType.BigInt) { Value = (int)item["Id"] };
                 parameters[1] = new SqlParameter("@Sequence", SqlDbType.BigInt) { Value = (int)item["Sequence"] };
                 parameters[2] = new SqlParameter("@Code", SqlDbType.VarChar) { Value = item["Code"] };
@@ -179,13 +178,34 @@ namespace Escc.SupportWithConfidence.ETL
                 {
                     parameters[4] = new SqlParameter("@ParentId", SqlDbType.BigInt) { Value = (int)item["ParentId"] };
                 }
-                                
+
                 parameters[5] = new SqlParameter("@Depth", SqlDbType.Int) { Value = (int)item["Depth"] };
                 parameters[6] = new SqlParameter("@ProviderTypeId", SqlDbType.BigInt) { Value = (int)item["ProviderTypeId"] };
                 parameters[7] = new SqlParameter("@IsActive", SqlDbType.Bit) { Value = (bool)item["IsActive"] };
 
-                DataAccess.Save(ConfigurationManager.AppSettings["Save_Categories"], parameters);
-                
+
+                if (ConfigurationManager.AppSettings["CategoryTransformationEnabled"] == "true")
+                {
+                    if (CategoryTransformation.ExcludeCategory(parameters[2].Value.ToString()))
+                    {
+                        continue;
+                    }
+
+                    var transformedCategory = parameters[3].Value.ToString();
+                    
+                    transformedCategory = CategoryTransformation.ProperCase(transformedCategory);
+                    transformedCategory = CategoryTransformation.ReplaceAmpersand(transformedCategory);
+                    transformedCategory = CategoryTransformation.SubsituteCategory(transformedCategory);
+
+                    parameters[3].Value = transformedCategory;
+
+                    DataAccess.Save(ConfigurationManager.AppSettings["Save_Categories"], parameters);
+                }
+                else
+                {
+                    
+                    DataAccess.Save(ConfigurationManager.AppSettings["Save_Categories"], parameters);
+                }
             }
 
 
