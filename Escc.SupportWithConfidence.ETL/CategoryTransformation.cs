@@ -52,7 +52,7 @@ namespace Escc.SupportWithConfidence.ETL
                 case "Home maintenance":
                     category = "Home maintenance and gardening";
                     break;
-                case "Gardening maintenance":
+                case "Garden maintenance":
                     category = "Gardening";
                     break;
                 case "Home and property maintenance":
@@ -80,7 +80,7 @@ namespace Escc.SupportWithConfidence.ETL
                     category = "Home care (domiciliary)";
                     break;
                 case "Domiciliary care agency":
-                    category = "Home care agency";
+                    category = "Home care agencies";
                     break;
                 case "Complimentary and therapeutic services":
                     category = "Complementary and therapeutic services";
