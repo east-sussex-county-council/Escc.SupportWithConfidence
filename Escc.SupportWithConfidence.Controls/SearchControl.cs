@@ -65,7 +65,7 @@ namespace Escc.SupportWithConfidence.Controls
 
             var linkDisclaimer =
                 new LiteralControl(
-                    "<p class=\"text\"><a href=\"/socialcare/athome/approvedproviders/disclaimer.htm\">Disclaimer</a></p>");
+                    "<p class=\"text\"><a href=\"/socialcare/providers/training/pas/disclaimer.htm\">Disclaimer</a></p>");
             Controls.Add(linkDisclaimer);
         }
     }

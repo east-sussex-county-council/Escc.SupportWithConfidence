@@ -159,7 +159,7 @@ namespace Escc.SupportWithConfidence.Controls
                 var linkBottomSearch = new LiteralControl("<p><a href=\"search.aspx\" class=\"newsearch\">New search</a></p>");
                 Controls.Add(linkBottomSearch);
 
-                var linkDisclaimer = new LiteralControl("<p><a href=\"/socialcare/athome/approvedproviders/disclaimer.htm\">Disclaimer</a></p>");
+                var linkDisclaimer = new LiteralControl("<p><a href=\"/socialcare/providers/training/pas/disclaimer.htm\">Disclaimer</a></p>");
                 Controls.Add(linkDisclaimer);
 
                 Controls.Add(new LiteralControl("</div>"));
