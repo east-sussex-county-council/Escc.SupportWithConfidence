@@ -21,12 +21,12 @@ namespace Escc.SupportWithConfidence.Controls
 
             var heading =
                 new LiteralControl(
-                    "<hgroup><h1><img src=\"/socialcare/athome/approvedproviders/images/swc_logo_header.jpg\" alt=\"'Support with confidence' approved care providers in East Sussex\" /></h1>");
+                    "<h1><img src=\"" + ResolveUrl("images/swc_logo_header.jpg") + "\" alt=\"'Support with confidence' approved care providers in East Sussex\" /></h1>");
             // LiteralControl heading = new LiteralControl("<hgroup><h1>East Sussex 'Support with confidence' directory</h1>");
             Controls.Add(heading);
 
             var subheading =
-                new LiteralControl("<h2>Find providers of care and support services where you live</h2></hgroup>");
+                new LiteralControl("<h2>Find providers of care and support services where you live</h2>");
             Controls.Add(subheading);
             Controls.Add(new LiteralControl("</div>")); // close .text
 

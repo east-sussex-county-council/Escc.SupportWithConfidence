@@ -74,7 +74,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Css\Support.css" />
     <Content Include="Css\swc.css" />
     <Content Include="Detail.aspx" />
     <Content Include="images\bwc_logo.jpg" />
