@@ -1,9 +1,10 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
+using Dapper;
 using Escc.Data.Ado;
-using Microsoft.ApplicationBlocks.Data;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
+using Exceptionless;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -17,15 +18,29 @@ namespace Escc.SupportWithConfidence.Controls
         {
             try
             {
-                var cn = connectionType == ConnectionType.User ? new SqlConnection(ConfigurationManager.ConnectionStrings["SupportwithConfidenceUser"].ConnectionString) : new SqlConnection(ConfigurationManager.ConnectionStrings["SupportwithConfidenceAdmin"].ConnectionString);
+                using (var cn = (connectionType == ConnectionType.User) ? new SqlConnection(ConfigurationManager.ConnectionStrings["SupportwithConfidenceUser"].ConnectionString) : new SqlConnection(ConfigurationManager.ConnectionStrings["SupportwithConfidenceAdmin"].ConnectionString))
+                {
+                    using (var command = new SqlCommand(storedProcedureName, cn))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddRange(parameters);
+                        
+                        using (var adapter = new SqlDataAdapter(command))
+                        {
+                            using (var ds = new DataSet())
+                            {
+                                ds.Locale = CultureInfo.CurrentCulture;
+                                adapter.Fill(ds);
 
-                DataSet ds = SqlHelper.ExecuteDataset(cn, CommandType.StoredProcedure, storedProcedureName, parameters);
-
-                return ds;
+                                return ds;
+                            }
+                        }
+                    }
+                }
             }
             catch (SqlException ex)
             {
-                ExceptionManager.Publish(ex);
+                ex.ToExceptionless().Submit();
 
                 return null;
             }
@@ -34,20 +49,20 @@ namespace Escc.SupportWithConfidence.Controls
 
 
 
-        private static bool SaveToDatabase(string storedProcedureName, SqlParameter[] parameters)
+        private static bool SaveToDatabase(string storedProcedureName, DynamicParameters parameters)
         {
             try
             {
-                var cn  =   new SqlConnection(ConfigurationManager.ConnectionStrings["SupportwithConfidenceAdmin"].ConnectionString);
-              
-
-                SqlHelper.ExecuteNonQuery(cn, CommandType.StoredProcedure, storedProcedureName, parameters);
+                using (var cn = new SqlConnection(ConfigurationManager.ConnectionStrings["SupportwithConfidenceAdmin"].ConnectionString))
+                {
+                    cn.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+                }
                 return true;
                
             }
             catch (SqlException ex)
             {
-                ExceptionManager.Publish(ex);
+                ex.ToExceptionless().Submit();
                 return false;
 
                 
@@ -167,20 +182,18 @@ namespace Escc.SupportWithConfidence.Controls
 
         public static bool SaveProviderInformation(int id, string experience, string expertise, string background, string accreditation, string services, string costs, string crb, bool publishToWeb)
         {
-            var parameters = new SqlParameter[9];
-            parameters[0] = new SqlParameter("@FlareId", SqlDbType.Int) { Value = id };
-            parameters[1] = new SqlParameter("@Experience", SqlDbType.Text) { Value = experience };
-            parameters[2] = new SqlParameter("@Expertise", SqlDbType.Text) { Value = expertise };
-            parameters[3] = new SqlParameter("@Background", SqlDbType.Text) { Value = background };
-            parameters[4] = new SqlParameter("@Accreditation", SqlDbType.Text) { Value = accreditation };
-            parameters[5] = new SqlParameter("@Services", SqlDbType.Text) { Value = services };
-            parameters[6] = new SqlParameter("@Costs", SqlDbType.Text) { Value = costs };
-            parameters[7] = new SqlParameter("@Crb", SqlDbType.Text) { Value = crb };
-            parameters[8] = new SqlParameter("@PublishToWeb", SqlDbType.Bit) { Value = publishToWeb };
+            var parameters = new DynamicParameters();
+            parameters.Add("@FlareId", id, DbType.Int32);
+            parameters.Add("@Experience", experience, DbType.AnsiString);
+            parameters.Add("@Expertise", expertise, DbType.AnsiString);
+            parameters.Add("@Background", background, DbType.AnsiString);
+            parameters.Add("@Accreditation", accreditation, DbType.AnsiString);
+            parameters.Add("@Services", services, DbType.AnsiString);
+            parameters.Add("@Costs", costs, DbType.AnsiString);
+            parameters.Add("@Crb", crb, DbType.AnsiString);
+            parameters.Add("@PublishToWeb", publishToWeb, DbType.Boolean);
 
            return SaveToDatabase("usp_Admin_ProviderExtra_Update", parameters);
-
-
         }
 
         public static DataSet GetAllProvidersPaged(int pageIndex, int pageSize)
@@ -206,8 +219,8 @@ namespace Escc.SupportWithConfidence.Controls
 
         public static bool GetImage(int id)
         {
-            var parameters = new SqlParameter[1];
-            parameters[0] = new SqlParameter("@FlareId", SqlDbType.Int) { Value = id };
+            var parameters = new DynamicParameters();
+            parameters.Add("@FlareId", id, DbType.Int32);
           
             return SaveToDatabase("usp_Admin_ProviderExtra_Select_Photo", parameters);
         }
@@ -277,10 +290,10 @@ namespace Escc.SupportWithConfidence.Controls
             if (fileId > 0)
             {
 
-                var parameters = new SqlParameter[3];
-                parameters[0] = new SqlParameter("@FlareId", SqlDbType.Int) { Value = flareId };
-                parameters[1] = new SqlParameter("@PhotographId", SqlDbType.Int) { Value = fileId };
-                parameters[2] = new SqlParameter("@Remove", SqlDbType.Bit) { Value = false };
+                var parameters = new DynamicParameters();
+                parameters.Add("@FlareId", flareId, DbType.Int32);
+                parameters.Add("@PhotographId", fileId, DbType.Int32);
+                parameters.Add("@Remove", false, DbType.Boolean);
                 bool success = SaveToDatabase("usp_Admin_ProviderExtra_Update_Photo", parameters);
 
                 if (success)

@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Escc.FormControls.WebForms.AddressFinder;
 using EsccWebTeam.Data.Web;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
+using Exceptionless;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -263,7 +263,7 @@ namespace Escc.SupportWithConfidence.Controls
             }
             catch (Exception ex)
             {
-                ExceptionManager.Publish(ex);
+                ex.ToExceptionless().Submit();
                 return _location;
             }
 

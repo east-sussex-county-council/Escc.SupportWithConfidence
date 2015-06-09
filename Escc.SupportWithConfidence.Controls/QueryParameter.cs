@@ -2,7 +2,7 @@
 using System.Text;
 using System.Web;
 using EsccWebTeam.SupportWithConfidence.Controls;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
+using Exceptionless;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -64,15 +64,15 @@ namespace Escc.SupportWithConfidence.Controls
                             }
                             catch (OverflowException oEx)
                             {
-                                ExceptionManager.Publish(oEx);
+                                oEx.ToExceptionless().Submit();
                             }
                             catch (FormatException fEx)
                             {
-                                ExceptionManager.Publish(fEx);
+                                fEx.ToExceptionless().Submit();
                             }
                             catch (Exception ex)
                             {
-                                ExceptionManager.Publish(ex);
+                                ex.ToExceptionless().Submit();
                             }
                             break;
 
@@ -95,15 +95,15 @@ namespace Escc.SupportWithConfidence.Controls
                             }
                             catch (OverflowException oEx)
                             {
-                                ExceptionManager.Publish(oEx);
+                                oEx.ToExceptionless().Submit();
                             }
                             catch (FormatException fEx)
                             {
-                                ExceptionManager.Publish(fEx);
+                                fEx.ToExceptionless().Submit();
                             }
                             catch (Exception ex)
                             {
-                                ExceptionManager.Publish(ex);
+                                ex.ToExceptionless().Submit();
                             }
                             break;
 
@@ -138,15 +138,15 @@ namespace Escc.SupportWithConfidence.Controls
                             }
                             catch (OverflowException oEx)
                             {
-                                ExceptionManager.Publish(oEx);
+                                oEx.ToExceptionless().Submit();
                             }
                             catch (FormatException fEx)
                             {
-                                ExceptionManager.Publish(fEx);
+                                fEx.ToExceptionless().Submit();
                             }
                             catch (Exception ex)
                             {
-                                ExceptionManager.Publish(ex);
+                                ex.ToExceptionless().Submit();
                             }
                             break;
 
@@ -161,15 +161,15 @@ namespace Escc.SupportWithConfidence.Controls
                             }
                             catch (OverflowException oEx)
                             {
-                                ExceptionManager.Publish(oEx);
+                                oEx.ToExceptionless().Submit();
                             }
                             catch (FormatException fEx)
                             {
-                                ExceptionManager.Publish(fEx);
+                                fEx.ToExceptionless().Submit();
                             }
                             catch (Exception ex)
                             {
-                                ExceptionManager.Publish(ex);
+                                ex.ToExceptionless().Submit();
                             }
                             break;
 
@@ -184,15 +184,15 @@ namespace Escc.SupportWithConfidence.Controls
                             }
                             catch (OverflowException oEx)
                             {
-                                ExceptionManager.Publish(oEx);
+                                oEx.ToExceptionless().Submit();
                             }
                             catch (FormatException fEx)
                             {
-                                ExceptionManager.Publish(fEx);
+                                fEx.ToExceptionless().Submit();
                             }
                             catch (Exception ex)
                             {
-                                ExceptionManager.Publish(ex);
+                                ex.ToExceptionless().Submit();
                             }
                             break;
 
