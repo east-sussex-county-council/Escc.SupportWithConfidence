@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="SWC" Namespace="Escc.SupportWithConfidence.Controls" Assembly="Escc.SupportWithConfidence.Controls" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="metadata">
-		<Egms:MetadataControl id="headContent" title="Support with Confidence" 
+		<Metadata:MetadataControl id="headContent" title="Support with Confidence" 
 		IpsvPreferredTerms="Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans"
 			lgiltype="Applications for service" 
 			lgtltype="Forms" 

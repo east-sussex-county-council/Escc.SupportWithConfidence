@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Escc.SupportWithConfidence.Website
-{
-
-
-    public partial class Results
-    {
-
+namespace Escc.SupportWithConfidence.Website {
+    
+    
+    public partial class Results {
+        
         /// <summary>
         /// headContent control.
         /// </summary>
@@ -21,8 +19,8 @@ namespace Escc.SupportWithConfidence.Website
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::EsccWebTeam.Egms.MetadataControl headContent;
-
+        protected global::Escc.Web.Metadata.MetadataControl headContent;
+        
         /// <summary>
         /// results control.
         /// </summary>

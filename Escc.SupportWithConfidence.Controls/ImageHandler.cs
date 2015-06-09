@@ -1,5 +1,5 @@
-﻿using EsccWebTeam.Data.Ado;
-using EsccWebTeam.DatabaseFileControls;
+﻿using Escc.Data.Ado;
+using Escc.DatabaseFileControls.WebForms;
 
 namespace Escc.SupportWithConfidence.Controls
 {

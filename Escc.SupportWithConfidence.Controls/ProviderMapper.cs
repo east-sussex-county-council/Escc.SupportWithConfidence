@@ -19,7 +19,6 @@ namespace Escc.SupportWithConfidence.Controls
         {
             var data = DataAccess.GetProvider(providerId);
 
-
             MapData(data);
 
         }

@@ -4,8 +4,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using eastsussexgovuk.webservices.FormControls.Validators;
-using EsccWebTeam.DatabaseFileControls;
+using Escc.DatabaseFileControls.WebForms;
+using Escc.FormControls.WebForms.Validators;
 
 namespace Escc.SupportWithConfidence.Controls
 {

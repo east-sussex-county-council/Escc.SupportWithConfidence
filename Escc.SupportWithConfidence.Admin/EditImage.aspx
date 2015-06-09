@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EditImage.aspx.cs" Inherits="Escc.SupportWithConfidence.Admin.EditImage" %>
 <asp:Content runat="server" ContentPlaceHolderID="metadata">
-		<Egms:MetadataControl id="headContent" title="Support with Confidence" 
+		<Metadata:MetadataControl id="headContent" title="Support with Confidence" 
 		IpsvPreferredTerms="Trading standards;Consumer affairs;Fair trading"
 			lgiltype="Applications for service" 
 			lgtltype="Forms" 

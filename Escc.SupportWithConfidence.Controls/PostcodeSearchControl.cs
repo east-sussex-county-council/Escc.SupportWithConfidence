@@ -7,9 +7,8 @@ using System.Web;
 using System.Web.Services.Protocols;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Escc.FormControls.WebForms.AddressFinder;
 using EsccWebTeam.Data.Web;
-using EsccWebTeam.EastSussexGovUK;
-using EsccWebTeam.FormControls.AddressFinder;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -24,9 +23,7 @@ namespace Escc.SupportWithConfidence.Controls
 
 
 
-        private AddressFinder.AggregateEN _location = new AddressFinder.AggregateEN();
-
-        private bool _isTown;
+        private AggregateEN _location = new AggregateEN();
 
         private string _buttonText = "Sort results";
         public string ButtonText
@@ -63,40 +60,15 @@ namespace Escc.SupportWithConfidence.Controls
                 Controls.Add(advice);
             }
 
-            var formPartOpen = new LiteralControl("<div class=\"formPart\">");
-
-
             var lblPostcode = new Label { Text = _postcodeText, ID = "lblPostcode", AssociatedControlID = "txbPostcode", CssClass = "formLabel" };
             var txbPostcode = new TextBox { ID = "txbPostcode", CssClass = "formControl", TextMode = TextBoxMode.SingleLine };
-            var formPartClose = new LiteralControl("</div>");
-
-            var formButtonsOpen = new LiteralControl("<div class=\"formButtons\">");
             var btnSearch = new Button { ID = "btnSearch", Text = _buttonText, CssClass = "button" };
-            var formButtonsClose = new LiteralControl("</div>");
-
 
             btnSearch.Click += btnSearch_Click;
 
-            var siteContext = new EastSussexGovUKContext();
-
-            if (siteContext.ViewIsLegacy)
-            {
-                Controls.Add(formPartOpen);
-                Controls.Add(lblPostcode);
-                Controls.Add(txbPostcode);
-                Controls.Add(formPartClose);
-                Controls.Add(formButtonsOpen);
-                Controls.Add(btnSearch);
-                Controls.Add(formButtonsClose);
-            }
-            else
-            {
-                Controls.Add(lblPostcode);
-                Controls.Add(txbPostcode);
-                Controls.Add(btnSearch);
-            }
-
-
+            Controls.Add(lblPostcode);
+            Controls.Add(txbPostcode);
+            Controls.Add(btnSearch);
         }
 
         [Obsolete("Need to update code to call EsccWebTeam.Data.Web.Iri.RemoveParameterFromQueryString")]
@@ -242,7 +214,7 @@ namespace Escc.SupportWithConfidence.Controls
         }
 
 
-        private AddressFinder.AggregateEN Lookup(string addressTerm)
+        private AggregateEN Lookup(string addressTerm)
         {
             //Look up Postcode Service Full or Partial]
 
@@ -252,7 +224,7 @@ namespace Escc.SupportWithConfidence.Controls
 
 
 
-            var finder = new AddressFinder.AddressFinder();
+            var finder = new AddressFinder();
 
             try
             {
@@ -272,8 +244,6 @@ namespace Escc.SupportWithConfidence.Controls
                 {
                     _location.Easting = Convert.ToInt32(dt.Rows[0]["Easting"]);
                     _location.Northing = Convert.ToInt32(dt.Rows[0]["Northing"]);
-
-                    if (_location != null) { _isTown = true; }
 
                     return _location;
                 }

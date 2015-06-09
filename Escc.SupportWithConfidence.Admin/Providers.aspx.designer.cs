@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Escc.SupportWithConfidence.Admin
-{
-
-
-    public partial class Providers
-    {
-
+namespace Escc.SupportWithConfidence.Admin {
+    
+    
+    public partial class Providers {
+        
         /// <summary>
         /// headContent control.
         /// </summary>
@@ -21,8 +19,8 @@ namespace Escc.SupportWithConfidence.Admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::EsccWebTeam.Egms.MetadataControl headContent;
-
+        protected global::Escc.Web.Metadata.MetadataControl headContent;
+        
         /// <summary>
         /// Adminproviderresultcontrol1 control.
         /// </summary>

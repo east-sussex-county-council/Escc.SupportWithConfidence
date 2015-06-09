@@ -4,7 +4,6 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Drawing.Drawing2D;
 using Escc.SupportWithConfidence.Controls;
-using EsccWebTeam.Data.Ado;
 
 
 namespace Escc.SupportWithConfidence.Admin

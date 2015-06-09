@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using EsccWebTeam.Data.Ado;
+using Escc.Data.Ado;
 using Microsoft.ApplicationBlocks.Data;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 

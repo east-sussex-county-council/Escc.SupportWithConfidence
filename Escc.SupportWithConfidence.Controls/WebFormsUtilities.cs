@@ -1,13 +1,13 @@
 using System;
 using System.Data;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using System.Drawing;
 using System.Net.Mail;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
-namespace MSCMSEastSussexControls
+namespace Escc.SupportWithConfidence.Controls
 {
 	/// <summary>
 	/// Summary description for WebFormsUtilities.

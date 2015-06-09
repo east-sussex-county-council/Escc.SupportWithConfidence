@@ -20,7 +20,6 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,8 +39,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EsccWebTeam.Egms">
-      <HintPath>..\..\Shared\EsccWebTeam.Egms.dll</HintPath>
+    <Reference Include="Escc.AddressAndPersonalDetails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=06fad7304560ae6f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Escc.AddressAndPersonalDetails.1.0.0\lib\Escc.AddressAndPersonalDetails.dll</HintPath>
+    </Reference>
+    <Reference Include="Escc.ClientDependencyFramework.WebForms">
+      <HintPath>..\packages\Escc.ClientDependencyFramework.WebForms.1.0.0\lib\Escc.ClientDependencyFramework.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Escc.Web.Metadata">
+      <HintPath>..\packages\Escc.Web.Metadata.1.0.0\lib\Escc.Web.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="Exceptionless">
+      <HintPath>..\packages\Exceptionless.1.5.2121\lib\net40\Exceptionless.dll</HintPath>
+    </Reference>
+    <Reference Include="Exceptionless.Models">
+      <HintPath>..\packages\Exceptionless.1.5.2121\lib\net40\Exceptionless.Models.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
@@ -72,6 +84,7 @@
     <Content Include="Results.aspx" />
     <Content Include="Scripts\button.js" />
     <Content Include="Scripts\CategoryShowHide.js" />
+    <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
@@ -82,6 +95,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="yuicompressor-2.4.6.jar" />
+    <None Include="Web.example.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Detail.aspx.cs">
@@ -109,17 +123,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ImageHandler.ashx" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Css\min\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Escc.EastSussexGovUK\EsccWebTeam.EastSussexGovUK.csproj">
+      <Project>{1426fef0-23dc-4c23-ae15-67f2527bd741}</Project>
+      <Name>EsccWebTeam.EastSussexGovUK</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Escc.SupportWithConfidence.Controls\Escc.SupportWithConfidence.Controls.csproj">
       <Project>{60b61d3a-890f-4040-82f2-38d3aada5fbb}</Project>
       <Name>Escc.SupportWithConfidence.Controls</Name>
@@ -136,20 +148,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>56977</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/socialcare/athome/approvedproviders</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>http://localhost/socialcare/athome/approvedproviders/</CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

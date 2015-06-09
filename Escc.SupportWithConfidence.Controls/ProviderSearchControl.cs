@@ -2,7 +2,6 @@
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using EsccWebTeam.EastSussexGovUK;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -13,8 +12,6 @@ namespace Escc.SupportWithConfidence.Controls
             base.CreateChildControls();
             EnsureChildControls();
 
-
-            var formPartOpen = new LiteralControl("<div class=\"formPart\">");
             var lblProvider = new Label
                 {
                     Text = @"Provider name",
@@ -28,34 +25,13 @@ namespace Escc.SupportWithConfidence.Controls
                     CssClass = "formControl",
                     TextMode = TextBoxMode.SingleLine
                 };
-            var formPartClose = new LiteralControl("</div>");
 
-            var formButtonsOpen = new LiteralControl("<div class=\"formButtons\">");
             var btnSearch = new Button {ID = "btnSearch", Text = @"Search", CssClass = "button"};
-            var formButtonsClose = new LiteralControl("</div>");
-            
-
-
             btnSearch.Click += btnSearch_Click;
 
-            var siteContext = new EastSussexGovUKContext();
-
-            if (siteContext.ViewIsLegacy)
-            {
-                Controls.Add(formPartOpen);
-                Controls.Add(lblProvider);
-                Controls.Add(txbProvider);
-                Controls.Add(formPartClose);
-                Controls.Add(formButtonsOpen);
-                Controls.Add(btnSearch);
-                Controls.Add(formButtonsClose);
-            }
-            else
-            {
-                Controls.Add(lblProvider);
-                Controls.Add(txbProvider);
-                Controls.Add(btnSearch);
-            }
+            Controls.Add(lblProvider);
+            Controls.Add(txbProvider);
+            Controls.Add(btnSearch);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

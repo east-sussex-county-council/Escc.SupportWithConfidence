@@ -1,10 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Detail.aspx.cs" Inherits="Escc.SupportWithConfidence.Website.Detail" %>
-<%@ Register TagPrefix="SWC" Namespace="Escc.SupportWithConfidence.Controls" Assembly="Escc.SupportWithConfidence.Controls" %>
 <%@ Register TagPrefix="SWC" TagName="Related" Src="~/Related.ascx" %>
 <%@ Register TagPrefix="swc" Namespace="Escc.SupportWithConfidence.Controls" Assembly="Escc.SupportWithConfidence.Controls" %>
 
 <asp:Content id="Content1" runat="server" ContentPlaceHolderID="metadata">
-		<Egms:MetadataControl id="headContent" title="Support with Confidence" 
+		<Metadata:MetadataControl id="headContent" title="Support with Confidence" 
 		IpsvPreferredTerms="Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans"
 			lgiltype="Applications for service" 
 			lgtltype="Forms" 

@@ -6,8 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using EsccWebTeam.Data.Ado;
-using EsccWebTeam.DatabaseFileControls;
+using Escc.DatabaseFileControls.WebForms;
 
 
 namespace Escc.SupportWithConfidence.Controls
