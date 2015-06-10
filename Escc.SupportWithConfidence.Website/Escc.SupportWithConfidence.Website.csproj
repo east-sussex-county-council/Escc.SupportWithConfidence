@@ -108,7 +108,7 @@
     <Content Include="images\bwc_logo.jpg" />
     <Content Include="images\swc_logo_banner.jpg" />
     <Content Include="images\swc_logo_header.jpg" />
-    <Content Include="js\min\button.min.js" />
+    <Content Include="js\min\button.js" />
     <Content Include="js\min\categoryshowhide.js" />
     <Content Include="Related.ascx" />
     <Content Include="Results.aspx" />
