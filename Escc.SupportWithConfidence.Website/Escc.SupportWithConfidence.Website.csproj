@@ -42,6 +42,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EcmaScript.NET, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YUICompressor.NET.MSBuild.2.7.0.0\lib\NET20\EcmaScript.NET.dll</HintPath>
+    </Reference>
     <Reference Include="Escc.AddressAndPersonalDetails, Version=1.0.0.0, Culture=neutral, PublicKeyToken=06fad7304560ae6f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Escc.AddressAndPersonalDetails.1.0.0\lib\Escc.AddressAndPersonalDetails.dll</HintPath>
@@ -68,6 +72,10 @@
     <Reference Include="Exceptionless.Web">
       <HintPath>..\packages\Exceptionless.Web.1.5.2121\lib\net45\Exceptionless.Web.dll</HintPath>
     </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
@@ -84,29 +92,36 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Yahoo.Yui.Compressor, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YUICompressor.NET.MSBuild.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+    <Reference Include="Yahoo.Yui.Compressor.Build.MsBuild, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YUICompressor.NET.MSBuild.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.Build.MsBuild.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Css\swc.css" />
+    <Content Include="Css\min\swc.css" />
+    <None Include="Css\swc.css" />
     <Content Include="Detail.aspx" />
     <Content Include="images\bwc_logo.jpg" />
     <Content Include="images\swc_logo_banner.jpg" />
     <Content Include="images\swc_logo_header.jpg" />
     <Content Include="Related.ascx" />
     <Content Include="Results.aspx" />
-    <Content Include="Scripts\button.js" />
-    <Content Include="Scripts\CategoryShowHide.js" />
+    <Content Include="js\button.js" />
+    <Content Include="js\CategoryShowHide.js" />
     <Content Include="packages.config" />
-    <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.4.1.js" />
-    <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Scripts\jquery.accordion.min.js" />
-    <Content Include="Scripts\Postcodebutton.js" />
+    <None Include="js\jquery-1.4.1-vsdoc.js" />
+    <None Include="js\jquery-1.4.1.js" />
+    <None Include="js\jquery-1.4.1.min.js" />
     <Content Include="Search.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="yuicompressor-2.4.6.jar" />
     <None Include="Web.example.config" />
+    <Content Include="YUICompressor.msbuild" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Detail.aspx.cs">
@@ -135,9 +150,7 @@
   <ItemGroup>
     <Content Include="ImageHandler.ashx" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Css\min\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Escc.EastSussexGovUK\EsccWebTeam.EastSussexGovUK.csproj">
       <Project>{1426fef0-23dc-4c23-ae15-67f2527bd741}</Project>
@@ -164,6 +177,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release" (if not exist "$(ProjectDir)css\min" md "$(ProjectDir)css\min")
+if "$(ConfigurationName)" == "Release" del "$(ProjectDir)css\min\*.*" /Q 
+if "$(ConfigurationName)" == "Release" (if not exist "$(ProjectDir)js\min" md "$(ProjectDir)js\min")
+if "$(ConfigurationName)" == "Release" del "$(ProjectDir)js\min\*.*" /Q 
+"$(MSBuildBinPath)\msbuild.exe" "$(ProjectDir)YUICompressor.msbuild" /p:ConfigurationName=$(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

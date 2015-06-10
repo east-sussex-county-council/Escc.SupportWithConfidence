@@ -27,6 +27,5 @@
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="javascript">
-    <script src="Scripts/CategoryShowHide.js" type="text/javascript"></script>
-    <script src="Scripts/button.js" type="text/javascript"></script>
+    <ClientDependency:Script Files="SupportWithConfidenceCategories;SupportWithConfidenceEnterFix" runat="server" />
 </asp:Content>
