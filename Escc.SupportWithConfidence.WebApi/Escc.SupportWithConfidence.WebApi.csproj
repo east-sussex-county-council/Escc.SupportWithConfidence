@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\production.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
