@@ -108,10 +108,12 @@
     <Content Include="images\bwc_logo.jpg" />
     <Content Include="images\swc_logo_banner.jpg" />
     <Content Include="images\swc_logo_header.jpg" />
+    <Content Include="js\min\button.min.js" />
+    <Content Include="js\min\categoryshowhide.js" />
     <Content Include="Related.ascx" />
     <Content Include="Results.aspx" />
-    <Content Include="js\button.js" />
-    <Content Include="js\CategoryShowHide.js" />
+    <None Include="js\button.js" />
+    <None Include="js\CategoryShowHide.js" />
     <Content Include="packages.config" />
     <None Include="js\jquery-1.4.1-vsdoc.js" />
     <None Include="js\jquery-1.4.1.js" />
