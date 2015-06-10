@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Escc.Data.Ado;
 using Escc.SupportWithConfidence.Controls;
+using Exceptionless;
 
 namespace Escc.SupportWithConfidence.WebApi.Controllers
 {
@@ -22,8 +23,16 @@ namespace Escc.SupportWithConfidence.WebApi.Controllers
         [HttpGet]
         public DataSet ByProviderId(int id, bool approved=true)
         {
-            var dataSource = new SqlServerProviderDataSource();
-            return dataSource.GetProviderById(id, approved);
+            try
+            {
+                var dataSource = new SqlServerProviderDataSource();
+                return dataSource.GetProviderById(id, approved);
+            }
+            catch (Exception e)
+            {
+                e.ToExceptionless().Submit();
+                throw;
+            }
         }
 
         /// <summary>
@@ -38,8 +47,16 @@ namespace Escc.SupportWithConfidence.WebApi.Controllers
         [HttpGet]
         public DataSet GetAll(int easting, int northing, int page, int pagesize, int category)
         {
-            var dataSource = new SqlServerProviderDataSource();
-            return dataSource.GetPagedResultsByCategoryId(easting, northing, page, pagesize, category);
+            try
+            {
+                var dataSource = new SqlServerProviderDataSource();
+                return dataSource.GetPagedResultsByCategoryId(easting, northing, page, pagesize, category);
+            }
+            catch (Exception e)
+            {
+                e.ToExceptionless().Submit();
+                throw;
+            }
         }
 
         /// <summary>
@@ -53,25 +70,16 @@ namespace Escc.SupportWithConfidence.WebApi.Controllers
         /// <returns></returns>
         public DataSet GetAll(int easting, int northing, int page, int pagesize, string search)
         {
-            var dataSource = new SqlServerProviderDataSource();
-            return dataSource.GetPagedResultsForSearchTerm(page, pagesize, easting, northing, search);
-        }
-
-        /// <summary>
-        /// Gets an image file from the database
-        /// </summary>
-        /// <param name="id">The record id for the stored image</param>
-        /// <param name="includeBlobData">If false, a special stored procedure is called that gets just the file details without the actual BLOB data.
-        /// If true, the normal file retrieval stored procedure is called.</param>
-        /// <returns>
-        /// The file data for the stored image
-        /// </returns>
-        [HttpGet]
-        [ActionName("Image")]
-        public DatabaseFileData GetImage(int id, bool includeBlobData=false)
-        {
-            var dataSource = new SqlServerProviderDataSource();
-            return dataSource.GetImageFromDb(id, includeBlobData);
+            try
+            {
+                var dataSource = new SqlServerProviderDataSource();
+                return dataSource.GetPagedResultsForSearchTerm(page, pagesize, easting, northing, search);
+            }
+            catch (Exception e)
+            {
+                e.ToExceptionless().Submit();
+                throw;
+            }
         }
     }
 }

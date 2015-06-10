@@ -76,7 +76,7 @@ namespace Escc.SupportWithConfidence.Controls
         public DatabaseFileData GetImageFromDb(int imageDataId, bool includeBlobData)
         {
             var api = new WebApiRequest();
-            return api.Get<DatabaseFileData>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Providers/Image/" + imageDataId + "?includeBlobData=" + includeBlobData));
+            return api.Get<DatabaseFileData>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Images/" + imageDataId + "?includeBlobData=" + includeBlobData));
         }
     }
 }

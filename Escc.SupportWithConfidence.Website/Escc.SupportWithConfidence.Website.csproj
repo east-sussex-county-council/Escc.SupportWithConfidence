@@ -114,7 +114,7 @@
     <Content Include="Results.aspx" />
     <None Include="js\button.js" />
     <None Include="js\CategoryShowHide.js" />
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
     <None Include="js\jquery-1.4.1-vsdoc.js" />
     <None Include="js\jquery-1.4.1.js" />
     <None Include="js\jquery-1.4.1.min.js" />
@@ -123,7 +123,7 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Web.example.config" />
-    <Content Include="YUICompressor.msbuild" />
+    <None Include="YUICompressor.msbuild" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Detail.aspx.cs">
