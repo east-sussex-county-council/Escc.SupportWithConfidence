@@ -8,16 +8,29 @@ namespace Escc.SupportWithConfidence.Controls
 {
     public class ProviderMapper 
     {
+        private readonly IProviderDataSource _dataSource;
+        private readonly IProviderDataRepository _repository;
+
+        public ProviderMapper(IProviderDataSource dataSource)
+        {
+            _dataSource = dataSource;
+        }
+        
+        public ProviderMapper(IProviderDataRepository repository)
+        {
+            _repository = repository;
+        }
+
         public void Map(int providerId)
         {
-            var data = DataAccess.GetProviderById(providerId, true);
+            var data = _dataSource.GetProviderById(providerId, true);
             MapData(data);
            
         }
 
         public void GetProvider(int providerId)
         {
-            var data = DataAccess.GetProvider(providerId);
+            var data = _repository.GetProvider(providerId);
 
             MapData(data);
 
@@ -25,13 +38,13 @@ namespace Escc.SupportWithConfidence.Controls
 
         public void Map(int pageIndex, int pageSize)
         {
-            var data = DataAccess.GetAllProvidersPaged(pageIndex, pageSize);
+            var data = _repository.GetAllProvidersPaged(pageIndex, pageSize);
             MapData(data);
         }
 
         public void Map()
         {
-            var data = DataAccess.GetAllProviders();
+            var data = _repository.GetAllProviders();
             MapData(data);
         }
 

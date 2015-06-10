@@ -231,7 +231,7 @@ namespace Escc.SupportWithConfidence.Admin
 //            DatabaseFileData fileData = new DatabaseFileData(fs, filename, "alt text");
 //          
 //
-//           int fileDataId = DataAccess.SaveImageToDb(0, fileData, "me", "");
+//           int fileDataId = SqlServerProviderRepository.SaveImageToDb(0, fileData, "me", "");
 //
 //           fs.Close();
 //           if (fileDataId > 0)

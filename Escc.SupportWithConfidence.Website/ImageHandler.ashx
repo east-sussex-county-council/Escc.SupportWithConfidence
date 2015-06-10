@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="ImageHandler.ashx.cs" Class="EsccWebTeam.SupportWithConfidence.Controls.ImageHandler" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="ImageHandler.ashx.cs" Class="Escc.SupportWithConfidence.Controls.ImageHandler" %>

@@ -41,7 +41,7 @@ namespace Escc.SupportWithConfidence.Controls
             base.CreateChildControls();
             EnsureChildControls();
 
-            var controller = new SearchController();
+            var controller = new SearchController(new WebApiProviderDataSource());
 
             IList<IResult> results = controller.GetResults();
 

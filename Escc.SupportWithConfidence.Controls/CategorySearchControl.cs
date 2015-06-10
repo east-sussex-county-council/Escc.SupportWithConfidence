@@ -11,7 +11,24 @@ namespace Escc.SupportWithConfidence.Controls
     /// </summary>
     public class CategorySearchControl : WebControl, INamingContainer
     {
+        private readonly IProviderDataSource _dataSource;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CategorySearchControl"/> class.
+        /// </summary>
+        public CategorySearchControl()
+        {
+            _dataSource = new SqlServerProviderDataSource();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CategorySearchControl"/> class.
+        /// </summary>
+        /// <param name="dataSource">The data source.</param>
+        public CategorySearchControl(IProviderDataSource dataSource)
+        {
+            _dataSource = dataSource;
+        }
 
         private bool _hasProvider;
 
@@ -31,7 +48,7 @@ namespace Escc.SupportWithConfidence.Controls
 
 
             // Get categories from the database table Category
-            var categories = DataAccess.GetAllCategoriesWithProvider(_hasProvider);
+            var categories = _dataSource.GetAllCategoriesWithProvider(_hasProvider);
 
             // Get category collection that is structured as a family tree
             var categorymapper = new CategoryMapper(categories);

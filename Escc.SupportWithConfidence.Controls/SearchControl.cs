@@ -34,7 +34,7 @@ namespace Escc.SupportWithConfidence.Controls
             Controls.Add(formBoxOpenCategory);
             var categoryheading = new LiteralControl("<h2>List by category</h2>");
             Controls.Add(categoryheading);
-            Controls.Add(new CategorySearchControl {HasProvider = true});
+            Controls.Add(new CategorySearchControl(new WebApiProviderDataSource()) {HasProvider = true});
             var formBoxCloseCategory = new LiteralControl("</div>");
             Controls.Add(formBoxCloseCategory);
 

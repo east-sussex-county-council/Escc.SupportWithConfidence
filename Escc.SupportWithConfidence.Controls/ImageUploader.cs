@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Security.Principal;
@@ -39,7 +40,7 @@ namespace Escc.SupportWithConfidence.Controls
             CssClass = "imageupload";
 
 
-            Uri imageUrl = MultiFileAttachmentBaseControl.GetImageUrl(_fileDataId, DataAccess.DotNetProjectName);
+            Uri imageUrl = MultiFileAttachmentBaseControl.GetImageUrl(_fileDataId, DotNetProjectName);
             if (imageUrl != null)
             {
                 HttpContext.Current.Session.Add("CroppedImagePath", imageUrl);
@@ -103,7 +104,7 @@ namespace Escc.SupportWithConfidence.Controls
             /*
            if (isRemoved)
            {
-               int fileDataId = DataAccess.SaveImageToDb(FileDataId, null, user, FlareId, true);
+               int fileDataId = SqlServerProviderDataRepository.SaveImageToDb(FileDataId, null, user, FlareId, true);
 
                if (fileDataId > 0)
                {
@@ -118,7 +119,7 @@ namespace Escc.SupportWithConfidence.Controls
 
                var fileData = new DatabaseFileData(fs, filename, "Provider photo");
 
-               int fileDataId = DataAccess.SaveImageToDb(FileDataId, fileData, user, FlareId, false);
+               int fileDataId = SqlServerProviderDataRepository.SaveImageToDb(FileDataId, fileData, user, FlareId, false);
 
                fs.Close();
                if (fileDataId > 0)
@@ -228,6 +229,11 @@ namespace Escc.SupportWithConfidence.Controls
 
             // Save resized picture
             newImage.Save(newFile);
+        }
+
+        public static string DotNetProjectName
+        {
+            get { return ConfigurationManager.AppSettings["ProjectName"]; }
         }
     }
 }

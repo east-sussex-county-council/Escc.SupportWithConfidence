@@ -36,7 +36,11 @@
     <Compile Include="CategoryMapper.cs" />
     <Compile Include="CategorySearchControl.cs" />
     <Compile Include="ConnectionType.cs" />
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="IProviderDataRepository.cs" />
+    <Compile Include="SqlServerProviderDataRepository.cs" />
+    <Compile Include="IProviderDataSource.cs" />
+    <Compile Include="SqlServerProviderDataSource.cs" />
+    <Compile Include="WebApiProviderDataSource.cs" />
     <Compile Include="WebFormsUtilities.cs" />
     <Compile Include="EditCategoryControl.cs" />
     <Compile Include="ImageHandler.cs" />
@@ -107,6 +111,10 @@
     <ProjectReference Include="..\..\Escc.Data.Web\EsccWebTeam.Data.Web.csproj">
       <Project>{9c56d3dd-4952-4a1b-9ad6-907a1142872f}</Project>
       <Name>EsccWebTeam.Data.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Escc.Data.Xml\EsccWebTeam.Data.Xml.csproj">
+      <Project>{86b2725c-9c37-44a4-93c7-f5122afa0809}</Project>
+      <Name>EsccWebTeam.Data.Xml</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Escc.HouseStyle\EsccWebTeam.HouseStyle.csproj">
       <Project>{1c429378-dbf2-4af7-88ac-c059aa163682}</Project>

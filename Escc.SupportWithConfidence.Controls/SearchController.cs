@@ -6,11 +6,13 @@ namespace Escc.SupportWithConfidence.Controls
     // Look at the querystring and decide how best to create the data for repeater to use
     public class SearchController
     {
+        private readonly IProviderDataSource _dataSource;
         private readonly ResultMapper _mapper = new ResultMapper();
 
 
-        public SearchController()
+        public SearchController(IProviderDataSource dataSource)
         {
+            _dataSource = dataSource;
             QueryStringParameters = new QueryParameter();
             CategoryHeading = string.Empty;
         }
@@ -32,7 +34,7 @@ namespace Escc.SupportWithConfidence.Controls
                 case SearchCall.Category:
 
                     _mapper.Map(
-                        DataAccess.GetPagedResultsByCategoryId(QueryStringParameters.Easting, QueryStringParameters.Northing,
+                        _dataSource.GetPagedResultsByCategoryId(QueryStringParameters.Easting, QueryStringParameters.Northing,
                                                                QueryStringParameters.CurrentResultPage, QueryStringParameters.PageSize,
                                                                QueryStringParameters.CategoryId), QueryStringParameters);
                     TotalResults = _mapper.TotalResults;
@@ -40,7 +42,7 @@ namespace Escc.SupportWithConfidence.Controls
                     break;
                 case SearchCall.Provider:
                     _mapper.Map(
-                        DataAccess.GetPagedResultsForSearchTerm(QueryStringParameters.CurrentResultPage, QueryStringParameters.PageSize,
+                        _dataSource.GetPagedResultsForSearchTerm(QueryStringParameters.CurrentResultPage, QueryStringParameters.PageSize,
                                                                 QueryStringParameters.Easting, QueryStringParameters.Northing,
                                                                 QueryStringParameters.ProviderSearchValue), QueryStringParameters);
                     TotalResults = _mapper.TotalResults;

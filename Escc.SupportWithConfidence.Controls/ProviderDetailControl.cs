@@ -32,7 +32,7 @@ namespace Escc.SupportWithConfidence.Controls
 
 
 
-            var proMapper = new ProviderMapper();
+            var proMapper = new ProviderMapper(new WebApiProviderDataSource());
             proMapper.Map(reference);
 
             if (proMapper.Providers.Count > 0)
@@ -44,7 +44,7 @@ namespace Escc.SupportWithConfidence.Controls
                 var html = new StringBuilder();
                 html.Append("<h1>" + p.ProviderName + "</h1>");
 
-                Uri imageUrl = MultiFileAttachmentBaseControl.GetImageUrl(p.PhotographId, DataAccess.DotNetProjectName);
+                Uri imageUrl = MultiFileAttachmentBaseControl.GetImageUrl(p.PhotographId, ImageUploader.DotNetProjectName);
                 if (imageUrl != null)
                 {
 
@@ -315,11 +315,6 @@ namespace Escc.SupportWithConfidence.Controls
 
         #endregion
 
-
-        #region Supporting Methods
-
-
-        #endregion
 
     }
 }

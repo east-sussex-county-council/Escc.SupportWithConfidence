@@ -18,7 +18,8 @@ namespace Escc.SupportWithConfidence.Controls
         public override DatabaseFileData GetFileAttachment(int fileDataId, bool includeBlobData)
         {
             // Retrieve the image file from the database
-            return DataAccess.GetImageFromDb(fileDataId, includeBlobData);
+            IProviderDataSource dataSource = new WebApiProviderDataSource();
+            return dataSource.GetImageFromDb(fileDataId, includeBlobData);
         }   
 
         /// <summary>

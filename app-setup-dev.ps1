@@ -37,6 +37,7 @@ Example: C:\>set GIT_ORIGIN_URL=https://example-git-server.com/{0}"
 $websiteProject = "Escc.SupportWithConfidence.Website"
 $adminProject = "Escc.SupportWithConfidence.Admin"
 $etlProject = "Escc.SupportWithConfidence.ETL"
+$apiProject = "Escc.SupportWithConfidence.WebApi"
 
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.EastSussexGovUK"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.NavigationControls"
@@ -64,6 +65,12 @@ CreateVirtualDirectory $adminProject "Escc.EastSussexGovUK" "$parentFolderOfThis
 CreateVirtualDirectory $adminProject "masterpages" "$parentFolderOfThisScript\Escc.EastSussexGovUK\masterpages" true
 CopyConfig "$adminProject\Web.example.config" "$adminProject\web.config"
 
+# API
+CreateApplicationPool $apiProject
+CreateWebsite $apiProject "$pathOfThisScript\$apiProject"
+CreateHTTPBinding $apiProject
+CopyConfig "$apiProject\Web.example.config" "$apiProject\web.config"
+
 # Configure ETL admin tool
 CopyConfig "$etlProject\app.example.config" "$etlProject\app.config"
 
@@ -71,3 +78,4 @@ Write-Host
 Write-Host "Done." -ForegroundColor "Green"
 Write-Host
 Write-Host "Now replace the sample values in 'app.config' and 'web.config' with ones appropriate to your setup, and build the solution." -ForegroundColor "Green"
+Write-Host "You will also need to enable Windows authentication and remove anonymous authentication for the Web API site in IIS." -ForegroundColor "Green"

@@ -21,7 +21,8 @@ namespace Escc.SupportWithConfidence.Controls
             var categoryId = Convert.ToInt32(HttpContext.Current.Request.QueryString["cat"]);
 
             // Gets the Category as a strongly typed opbject
-            var categories = new CategoryMapper(DataAccess.GetCategoryById(categoryId)).Categories;
+            IProviderDataRepository dataSource = new SqlServerProviderDataRepository();
+            var categories = new CategoryMapper(dataSource.GetCategoryById(categoryId)).Categories;
 
             var count = 0;
             foreach (var parentCategory in categories)

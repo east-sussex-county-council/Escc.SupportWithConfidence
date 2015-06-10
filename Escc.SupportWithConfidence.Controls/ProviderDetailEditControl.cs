@@ -11,6 +11,8 @@ namespace Escc.SupportWithConfidence.Controls
 {
     public class ProviderDetailEditControl : WebControl, INamingContainer
     {
+        private IProviderDataRepository _repository;
+
         #region Override Methods
 
         /// <summary>
@@ -24,8 +26,8 @@ namespace Escc.SupportWithConfidence.Controls
             int reference;
             int.TryParse(HttpContext.Current.Request.QueryString["ref"], out reference);
 
-
-            var proMapper = new ProviderMapper();
+            _repository = new SqlServerProviderDataRepository();
+            var proMapper = new ProviderMapper(_repository);
 
 
             proMapper.GetProvider(reference);
@@ -507,7 +509,7 @@ namespace Escc.SupportWithConfidence.Controls
             if (HttpContext.Current.Request.QueryString["ref"] != null)
             {
                 int id = Convert.ToInt32(HttpContext.Current.Request.QueryString["ref"]);
-                DataSet ds = DataAccess.GetProvider(id);
+                DataSet ds = _repository.GetProvider(id);
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
@@ -599,7 +601,8 @@ namespace Escc.SupportWithConfidence.Controls
                     var imageuploadercontrol = (ImageUploader) FindControl("imageuploadercontrol");
                     imageuploadercontrol.Save();
 
-                    bool success = DataAccess.SaveProviderInformation(id, experience, expertise, background, accreditation,
+                    var repo = new SqlServerProviderDataRepository();
+                    bool success = repo.SaveProviderInformation(id, experience, expertise, background, accreditation,
                                                                       services, costs, crb, pubish);
 
                     if (success)

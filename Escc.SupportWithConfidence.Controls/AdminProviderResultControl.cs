@@ -26,7 +26,7 @@ namespace Escc.SupportWithConfidence.Controls
             EnsureChildControls();
             var pageIndex = 1;
             const int pageSize = 10;
-            var mapper = new ProviderMapper();
+            var mapper = new ProviderMapper(new SqlServerProviderDataRepository());
 
             if (System.Web.HttpContext.Current.Request.QueryString["page"] != null)
             {

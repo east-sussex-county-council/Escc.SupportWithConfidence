@@ -231,13 +231,11 @@ namespace Escc.SupportWithConfidence.Controls
                 if (regLocation.IsMatch(addressTerm))
                 {
                     // Full postcode
-                    DataAccess.PostcodeCount();
                     return finder.AggregateEastingsAndNorthings(addressTerm);
 
 
                 }
                 // other wise use the place name finder
-                DataAccess.PostcodeCount();
                 var ds = finder.GetPlaceNameData(addressTerm);
                 var dt = ds.Tables[0];
                 if (dt.Rows.Count > 0)
