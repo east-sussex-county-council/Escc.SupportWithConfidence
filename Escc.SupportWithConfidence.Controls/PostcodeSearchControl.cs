@@ -7,8 +7,10 @@ using System.Web;
 using System.Web.Services.Protocols;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Escc.Data.Ado;
 using Escc.FormControls.WebForms.AddressFinder;
 using EsccWebTeam.Data.Web;
+using EsccWebTeam.Data.Xml;
 using Exceptionless;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -222,47 +224,50 @@ namespace Escc.SupportWithConfidence.Controls
 
             var regLocation = new Regex("^[A-Z]{1,2}[0-9R][0-9A-Z]? ?[0-9][A-Z]{2}$", RegexOptions.IgnoreCase);
 
-
-
-            var finder = new AddressFinder();
-
-            try
+            using (var finder = new AddressFinder())
             {
-                if (regLocation.IsMatch(addressTerm))
+                try
                 {
-                    // Full postcode
-                    return finder.AggregateEastingsAndNorthings(addressTerm);
+                    finder.Credentials = new WebServiceConfigurationCredentialsProvider().CreateCredentials();
+
+                    if (regLocation.IsMatch(addressTerm))
+                    {
+                        // Full postcode
+                        return finder.AggregateEastingsAndNorthings(addressTerm);
 
 
+                    }
+                    // other wise use the place name finder
+                    var ds = finder.GetPlaceNameData(addressTerm);
+                    var dt = ds.Tables[0];
+                    if (dt.Rows.Count > 0)
+                    {
+                        _location.Easting = Convert.ToInt32(dt.Rows[0]["Easting"]);
+                        _location.Northing = Convert.ToInt32(dt.Rows[0]["Northing"]);
+
+                        return _location;
+                    }
+
+                    _location = finder.AggregateEastingsAndNorthingsPartialPostcode(addressTerm);
+                    if (_location != null)
+                    {
+                        return _location;
+                    }
                 }
-                // other wise use the place name finder
-                var ds = finder.GetPlaceNameData(addressTerm);
-                var dt = ds.Tables[0];
-                if (dt.Rows.Count > 0)
+                catch (SoapException ex)
                 {
-                    _location.Easting = Convert.ToInt32(dt.Rows[0]["Easting"]);
-                    _location.Northing = Convert.ToInt32(dt.Rows[0]["Northing"]);
+                    if (!ex.Message.Contains("The postcode entered could not be found."))
+                    {
+                        ex.ToExceptionless().Submit();
+                    }
 
                     return _location;
                 }
-                _location = finder.AggregateEastingsAndNorthingsPartialPostcode(addressTerm);
-                if (_location != null)
+                catch (Exception ex)
                 {
+                    ex.ToExceptionless().Submit();
                     return _location;
                 }
-            }
-            catch (SoapException)
-            {
-                //ExceptionManager.Publish(soapEx);
-                //Can't find an validate address information
-                return _location;
-
-
-            }
-            catch (Exception ex)
-            {
-                ex.ToExceptionless().Submit();
-                return _location;
             }
 
             return _location;
