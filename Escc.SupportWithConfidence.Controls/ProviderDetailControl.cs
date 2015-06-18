@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -250,7 +251,7 @@ namespace Escc.SupportWithConfidence.Controls
                 var linkBottomSearch = new LiteralControl("<p><a href=\"search.aspx\" class=\"newsearch\">New search</a></p>");
                 Controls.Add(linkBottomSearch);
 
-                var linkDisclaimer = new LiteralControl("<p><a href=\"/socialcare/athome/approvedproviders/disclaimer.htm\">Disclaimer</a></p>");
+                var linkDisclaimer = new LiteralControl("<p><a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a></p>");
                 Controls.Add(linkDisclaimer);
 
                 /*
@@ -307,7 +308,7 @@ namespace Escc.SupportWithConfidence.Controls
                 var linkBottomSearch = new LiteralControl("<a href=\"search.aspx\" class=\"newsearch\">New search</a>");
                 Controls.Add(linkBottomSearch);
 
-                var linkDisclaimer = new LiteralControl("<a href=\"/socialcare/athome/approvedproviders/disclaimer.htm\">Disclaimer</a>");
+                var linkDisclaimer = new LiteralControl("<a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a>");
                 Controls.Add(linkDisclaimer);
             }
 

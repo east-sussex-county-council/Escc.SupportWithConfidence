@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Text;
 using System.Web;
@@ -561,7 +562,7 @@ namespace Escc.SupportWithConfidence.Controls
 
                 var linkDisclaimer =
                     new LiteralControl(
-                        "<a href=\"/socialcare/adults/careservices/approvedproviders/disclaimer.htm\">Disclaimer</a>");
+                        "<a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a>");
                 Controls.Add(linkDisclaimer);
             }
         }

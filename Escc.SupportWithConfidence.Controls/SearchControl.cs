@@ -1,4 +1,6 @@
-﻿using System.Web.UI;
+﻿using System.Configuration;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using Escc.FormControls.WebForms.Validators;
 using EsccWebTeam.SupportWithConfidence.Controls;
@@ -65,7 +67,7 @@ namespace Escc.SupportWithConfidence.Controls
 
             var linkDisclaimer =
                 new LiteralControl(
-                    "<p class=\"text\"><a href=\"/socialcare/providers/training/pas/disclaimer.htm\">Disclaimer</a></p>");
+                    "<p class=\"text\"><a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a></p>");
             Controls.Add(linkDisclaimer);
         }
     }
