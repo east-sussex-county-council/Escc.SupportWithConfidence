@@ -112,7 +112,6 @@ namespace Escc.SupportWithConfidence.Controls
 
             var txbPostcode = (TextBox)FindControl("txbPostcode");
 
- Uri url = HttpContext.Current.Request.Url;
             if (txbPostcode.Text.Length > 0)
             {
                 // Build get request with easting and northing plus existing parameters
@@ -121,71 +120,57 @@ namespace Escc.SupportWithConfidence.Controls
                 if (_location.Easting > 0)
                 {
                    
-                    // LEGACY REMOVE BEFORE COMMIT
-                    string queryString = HttpContext.Current.Request.Url.Query;
-                   
-                    
                     // Store parameter values to add back in when we construct the new Uri
-                    var parameters = Iri.SplitQueryString(queryString);
-                   
-
-
-                    foreach (var qsparameter in parameters)
-                    {
-                        url = Iri.RemoveQueryStringParameter(url, qsparameter.Key);
-                    }
+                    var parameters = Iri.SplitQueryString(HttpContext.Current.Request.Url.Query);
 
                     if (!parameters.ContainsKey("pc"))
-                        parameters.Add("pc", txbPostcode.Text);
+                    {
+                        parameters.Add("pc", String.Empty);
+                    }
 
                     if (!parameters.ContainsKey("e"))
-                        parameters.Add("e", _location.Easting.ToString(CultureInfo.InvariantCulture));
+                    {
+                        parameters.Add("e", String.Empty);
+                    }
 
                     if (!parameters.ContainsKey("n"))
-                        parameters.Add("n",_location.Northing.ToString(CultureInfo.InvariantCulture));
+                    {
+                        parameters.Add("n", String.Empty);
+                    }
 
 
-                    url = new Uri(url + "?");
+                    var queryString = new StringBuilder();
 
                     foreach (var qsparameter in parameters)
                     {
                         switch (qsparameter.Key)
                         {
                             case "cat":
-                               url = new Uri(url + "cat=" + qsparameter.Value);
+                                queryString.Append("&cat=").Append(qsparameter.Value);
                           
                                 break;
                             case "page":
-                               url = new Uri(url + "page=" + qsparameter.Value);
+                                queryString.Append("&page=").Append(qsparameter.Value);
                                 break;
                             case "e":
-                                url = new Uri(url + "e=" + _location.Easting.ToString(CultureInfo.InvariantCulture));
+                                queryString.Append("&e=").Append(_location.Easting.ToString(CultureInfo.InvariantCulture));
                                 break;
                             case "n":
-                                  url = new Uri(url + "n=" + _location.Northing.ToString(CultureInfo.InvariantCulture));
+                                queryString.Append("&n=").Append(_location.Northing.ToString(CultureInfo.InvariantCulture));
                                 break;
                             case "pc":
-                                url = new Uri(url + "pc=" + txbPostcode.Text);
+                                queryString.Append("&pc=").Append(txbPostcode.Text);
                                 break;
                             case "w":
-                                url = new Uri(url + "w=" + qsparameter.Value);
+                                queryString.Append("&w=").Append(qsparameter.Value);
                                 break;
                             case "s":
-                                url = new Uri(url + "s=" + qsparameter.Value);
+                                queryString.Append("&s=").Append(qsparameter.Value);
                                 break;
                         }
-
-                        url = new Uri(url + "&");
                     }
 
-
-                    var pathUrl = url.AbsoluteUri;
-                    var position = pathUrl.LastIndexOf("&", StringComparison.Ordinal);
-                    var newPath =   pathUrl.Remove(position);
-
-
-                    HttpContext.Current.Response.Redirect(newPath.Replace("search", "results"));
-                   
+                    HttpContext.Current.Response.Redirect("results.aspx?" + queryString.ToString(1, queryString.Length - 1));                   
                 }
                 else
                 {
