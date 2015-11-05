@@ -7,10 +7,9 @@ using System.Web;
 using System.Web.Services.Protocols;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Escc.Data.Ado;
 using Escc.FormControls.WebForms.AddressFinder;
+using Escc.Net;
 using EsccWebTeam.Data.Web;
-using EsccWebTeam.Data.Xml;
 using Exceptionless;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -213,7 +212,7 @@ namespace Escc.SupportWithConfidence.Controls
             {
                 try
                 {
-                    finder.Credentials = new WebServiceConfigurationCredentialsProvider().CreateCredentials();
+                    finder.Credentials = new ConfigurationWebApiCredentialsProvider().CreateCredentials();
 
                     if (regLocation.IsMatch(addressTerm))
                     {

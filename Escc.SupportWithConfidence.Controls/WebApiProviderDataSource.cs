@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Data;
 using Escc.Data.Ado;
-using EsccWebTeam.Data.Xml;
+using Escc.Net;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -18,7 +18,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <returns></returns>
         public DataSet GetAllCategoriesWithProvider(bool hasProvider)
         {
-            var api = new WebApiRequest();
+            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
             return api.Get<DataSet>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Categories?hasProvider=" + hasProvider));
         }
 
@@ -30,7 +30,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <returns></returns>
         public DataSet GetProviderById(int id, bool thatIsApproved)
         {
-            var api = new WebApiRequest();
+            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
             return api.Get<DataSet>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Providers/" + id + "?approved=" + thatIsApproved));
         }
 
@@ -45,7 +45,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <returns></returns>
         public DataSet GetPagedResultsByCategoryId(int easting, int northing, int pageindex, int pagesize, int categoryId)
         {
-            var api = new WebApiRequest();
+            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
             return api.Get<DataSet>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Providers/?easting=" + easting + "&northing=" + northing + "&page=" + pageindex + "&pagesize=" + pagesize + "&category=" + categoryId)); 
         }
 
@@ -60,7 +60,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <returns></returns>
         public DataSet GetPagedResultsForSearchTerm(int pageindex, int pagesize, int easting, int northing, string searchTerm)
         {
-            var api = new WebApiRequest();
+            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
             return api.Get<DataSet>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Providers/?easting=" + easting + "&northing=" + northing + "&page=" + pageindex + "&pagesize=" + pagesize + "&search=" + searchTerm));
         }
 
@@ -75,7 +75,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// </returns>
         public DatabaseFileData GetImageFromDb(int imageDataId, bool includeBlobData)
         {
-            var api = new WebApiRequest();
+            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
             return api.Get<DatabaseFileData>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Images/" + imageDataId + "?includeBlobData=" + includeBlobData));
         }
     }
