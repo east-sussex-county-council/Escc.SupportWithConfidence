@@ -63,10 +63,9 @@ $transformsFolder = NormaliseFolderPath $transformsFolder
 CheckApplicationExists $destinationFolder "Escc.EastSussexGovUK"
 BackupApplication "$destinationFolder/$projectName" $backupFolder $comment
 
-# Copy files. *.css and *.js also required, but expected to be deployed remotely.
-robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF *.aspx *.ashx *.ascx *.dll *.jpg /XD aspnet_client obj Properties css js
+robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF *.aspx *.ashx *.ascx *.dll *.jpg *.css *.js /XD aspnet_client obj Properties 
 
-TransformConfig "$sourceFolder\web.example.config" "$destinationFolder\$projectName\web.config" "$transformsFolder\web.release.config"
+TransformConfig "$sourceFolder\web.example.config" "$destinationFolder\$projectName\web.config" "$transformsFolder\$projectName\web.release.config"
 
 EnableDotNet40InIIS
 CreateApplicationPool $projectName
