@@ -119,7 +119,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Web.example.config" />
+    <None Include="Web.example.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="YUICompressor.msbuild" />
   </ItemGroup>
   <ItemGroup>
