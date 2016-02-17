@@ -42,11 +42,8 @@ $apiProject = "Escc.SupportWithConfidence.WebApi"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.EastSussexGovUK"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.NavigationControls"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Data.Web"
-DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Data.Xml"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.HouseStyle"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Data.ActiveDirectory"
-DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Cms"
-DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Elibrary"
 
 # Front-end website
 EnableDotNet40InIIS
