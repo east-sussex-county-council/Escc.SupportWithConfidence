@@ -57,7 +57,9 @@ Example: C:\>set GIT_ORIGIN_URL=https://example-git-server.com/{0}"
 $projectName = "Escc.SupportWithConfidence.Website" 
 $sourceFolder = NormaliseFolderPath $sourceFolder "$PSScriptRoot\$projectName"
 $destinationFolder = NormaliseFolderPath $destinationFolder
+$destinationFolder = "$destinationFolder\$websiteName"
 $backupFolder = NormaliseFolderPath $backupFolder
+$backupFolder = "$backupFolder\$websiteName"
 $transformsFolder = NormaliseFolderPath $transformsFolder
 
 CheckApplicationExists $destinationFolder "Escc.EastSussexGovUK"
@@ -68,11 +70,11 @@ robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF *.aspx *.ashx 
 TransformConfig "$sourceFolder\web.example.config" "$destinationFolder\$projectName\web.config" "$transformsFolder\$projectName\web.release.config"
 
 EnableDotNet40InIIS
-CreateApplicationPool $projectName
+CreateApplicationPool "$projectName-$websiteName"
 CheckSiteExistsBeforeAddingApplication $websiteName
 CreateVirtualDirectory $websiteName "socialcare" "$destinationFolder\_virtual"
 CreateVirtualDirectory $websiteName "socialcare/athome" "$destinationFolder\_virtual"
-CreateVirtualDirectory $websiteName "socialcare/athome/approvedproviders" "$destinationFolder\$projectName" true $projectName
+CreateVirtualDirectory $websiteName "socialcare/athome/approvedproviders" "$destinationFolder\$projectName" true "$projectName-$websiteName"
 CreateVirtualDirectory $websiteName "socialcare/athome/approvedproviders/masterpages" "$destinationFolder\Escc.EastSussexGovUK\masterpages" true
 
 Write-Host
