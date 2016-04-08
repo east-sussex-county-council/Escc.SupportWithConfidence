@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.SupportWithConfidence.Website", "Escc.SupportWithConfidence.Website\Escc.SupportWithConfidence.Website.csproj", "{0B2F91E0-E198-4133-8C4C-74DE6F403D05}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.SupportWithConfidence.Admin", "Escc.SupportWithConfidence.Admin\Escc.SupportWithConfidence.Admin.csproj", "{23095E1C-1931-423A-A067-C0FC0ED303F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.SupportWithConfidence.ETL", "Escc.SupportWithConfidence.ETL\Escc.SupportWithConfidence.ETL.csproj", "{EEA0AF8D-7483-4D8F-BD0F-83185D7F3322}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsccWebTeam.HouseStyle", "..\Escc.HouseStyle\EsccWebTeam.HouseStyle.csproj", "{1C429378-DBF2-4AF7-88AC-C059AA163682}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsccWebTeam.Data.Web", "..\Escc.Data.Web\EsccWebTeam.Data.Web.csproj", "{9C56D3DD-4952-4A1B-9AD6-907A1142872F}"
 EndProject
@@ -27,8 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsccWebTeam.EastSussexGovUK", "..\Escc.EastSussexGovUK\Escc.EastSussexGovUK\EsccWebTeam.EastSussexGovUK.csproj", "{1426FEF0-23DC-4C23-AE15-67F2527BD741}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsccWebTeam.Data.ActiveDirectory", "..\Escc.Data.ActiveDirectory\EsccWebTeam.Data.ActiveDirectory.csproj", "{5F1BBB42-C1C6-4110-A3E4-720420A3C27D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.SupportWithConfidence.WebApi", "Escc.SupportWithConfidence.WebApi\Escc.SupportWithConfidence.WebApi.csproj", "{7F6C0F75-BA47-4967-847D-B73B4C234FCB}"
 EndProject
@@ -63,12 +59,6 @@ Global
 		{EEA0AF8D-7483-4D8F-BD0F-83185D7F3322}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EEA0AF8D-7483-4D8F-BD0F-83185D7F3322}.UAT|Any CPU.ActiveCfg = Release|Any CPU
 		{EEA0AF8D-7483-4D8F-BD0F-83185D7F3322}.UAT|Any CPU.Build.0 = Release|Any CPU
-		{1C429378-DBF2-4AF7-88AC-C059AA163682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C429378-DBF2-4AF7-88AC-C059AA163682}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C429378-DBF2-4AF7-88AC-C059AA163682}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C429378-DBF2-4AF7-88AC-C059AA163682}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C429378-DBF2-4AF7-88AC-C059AA163682}.UAT|Any CPU.ActiveCfg = Release|Any CPU
-		{1C429378-DBF2-4AF7-88AC-C059AA163682}.UAT|Any CPU.Build.0 = Release|Any CPU
 		{9C56D3DD-4952-4A1B-9AD6-907A1142872F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C56D3DD-4952-4A1B-9AD6-907A1142872F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C56D3DD-4952-4A1B-9AD6-907A1142872F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -87,12 +77,6 @@ Global
 		{1426FEF0-23DC-4C23-AE15-67F2527BD741}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1426FEF0-23DC-4C23-AE15-67F2527BD741}.UAT|Any CPU.ActiveCfg = Release|Any CPU
 		{1426FEF0-23DC-4C23-AE15-67F2527BD741}.UAT|Any CPU.Build.0 = Release|Any CPU
-		{5F1BBB42-C1C6-4110-A3E4-720420A3C27D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F1BBB42-C1C6-4110-A3E4-720420A3C27D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F1BBB42-C1C6-4110-A3E4-720420A3C27D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F1BBB42-C1C6-4110-A3E4-720420A3C27D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F1BBB42-C1C6-4110-A3E4-720420A3C27D}.UAT|Any CPU.ActiveCfg = Release|Any CPU
-		{5F1BBB42-C1C6-4110-A3E4-720420A3C27D}.UAT|Any CPU.Build.0 = Release|Any CPU
 		{7F6C0F75-BA47-4967-847D-B73B4C234FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F6C0F75-BA47-4967-847D-B73B4C234FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F6C0F75-BA47-4967-847D-B73B4C234FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
