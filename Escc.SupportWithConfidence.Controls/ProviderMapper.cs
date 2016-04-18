@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using eastsussexgovuk.webservices.TextXhtml.HouseStyle;
+using System.Globalization;
 using Escc.AddressAndPersonalDetails;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -118,10 +118,10 @@ namespace Escc.SupportWithConfidence.Controls
                     provider.ContactName = dbProvider["ContactName"] == DBNull.Value ? string.Empty : dbProvider["ContactName"].ToString().Replace("\r\n", "<br />");
                     provider.Coverage = dbProvider["Coverage"] == DBNull.Value ? string.Empty : dbProvider["Coverage"].ToString().Replace("\r\n", "<br />");
                     provider.Coverage2 = dbProvider["Coverage2"] == DBNull.Value ? string.Empty : dbProvider["Coverage2"].ToString().Replace("\r\n", "<br />");
-                    provider.CrbCheckDate = dbProvider["CrbCheckDate"].ToString() == "" ? string.Empty : DateTimeFormatter.MonthAndYear(DateTime.Parse(dbProvider["CrbCheckDate"].ToString()));
+                    provider.CrbCheckDate = dbProvider["CrbCheckDate"].ToString() == "" ? string.Empty : DateTime.Parse(dbProvider["CrbCheckDate"].ToString()).ToString("MMMM yyyy", CultureInfo.CurrentCulture);
                     provider.BwcMember = dbProvider["BWCFlag"] != DBNull.Value && Convert.ToBoolean(dbProvider["BWCFlag"]);
 
-                    provider.CqcCheckDate = dbProvider["CqcCheckDate"].ToString() == "" ? string.Empty : DateTimeFormatter.MonthAndYear(DateTime.Parse(dbProvider["CqcCheckDate"].ToString()));
+                    provider.CqcCheckDate = dbProvider["CqcCheckDate"].ToString() == "" ? string.Empty : DateTime.Parse(dbProvider["CqcCheckDate"].ToString()).ToString("MMMM yyyy", CultureInfo.CurrentCulture);
 
                     //provider.IsDeleted = dbProvider["IsDeleted"] == DBNull.Value ? false : Convert.ToBoolean(dbProvider["IsDeleted"]);
                     //provider.LastModified = dbProvider["LastModified"] == DBNull.Value ? string.Empty : dbProvider["LastModified"].ToString();
