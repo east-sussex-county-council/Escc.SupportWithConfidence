@@ -78,8 +78,8 @@ if (Test-Path "$transformsFolder\$projectName\web.$websiteName.config") {
 EnableDotNet40InIIS
 CreateApplicationPool "$projectName-$websiteName"
 CheckSiteExistsBeforeAddingApplication $websiteName
-CreateVirtualDirectory $websiteName "socialcare" "$destinationFolder\_virtual"
-CreateVirtualDirectory $websiteName "socialcare/athome" "$destinationFolder\_virtual"
+CreateVirtualDirectory $websiteName "socialcare" "$destinationFolder\_virtual" true
+CreateVirtualDirectory $websiteName "socialcare/athome" "$destinationFolder\_virtual" true
 CreateVirtualDirectory $websiteName "socialcare/athome/approvedproviders" "$destinationFolder\$projectName" true "$projectName-$websiteName"
 CreateVirtualDirectory $websiteName "socialcare/athome/approvedproviders/masterpages" "$destinationFolder\Escc.EastSussexGovUK\masterpages" true
 
