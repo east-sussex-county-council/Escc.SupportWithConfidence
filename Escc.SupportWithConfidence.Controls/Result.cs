@@ -26,7 +26,7 @@ namespace Escc.SupportWithConfidence.Controls
         {
             var html = new StringBuilder();
             html.Append("<div class=\"eventSummary\" ><dl class=\"itemDetail vevent\"><dt>Name</dt>");
-            html.Append(String.Format("<dd class=\"summary\"><p><strong><a href=\"detail.aspx?{0}&amp;ref={1}\">{2}</a></strong></p></dd>", System.Web.HttpUtility.HtmlEncode(QueryString), Id, Name));
+            html.Append(String.Format("<dd class=\"summary\"><strong><a href=\"detail.aspx?{0}&amp;ref={1}\">{2}</a></strong></dd>", System.Web.HttpUtility.HtmlEncode(QueryString), Id, Name));
             if (PublishAddress)
             {
                 html.Append(String.Format("<dt>Address</dt><dd>{0}</dd>", Address));
@@ -50,7 +50,7 @@ namespace Escc.SupportWithConfidence.Controls
             {
                 var dis = Distance > 1 ? "miles (approximately)" : "mile (approximately)";
 
-                html.Append(String.Format("<dt>Distance from me</dt><dd>{0} {1}</dd>", Distance, dis));
+                html.Append(String.Format("<dt>How far away?</dt><dd>{0} {1}</dd>", Distance, dis));
             }
 
             if (Coverage.Trim().Length > 0)
@@ -59,7 +59,7 @@ namespace Escc.SupportWithConfidence.Controls
             }
 
 
-            html.Append(String.Format("<dt>Category listings</dt><dd class=\"category\"><ul>{0}</ul></dd></dl></div>", CategoryList));
+            html.Append(String.Format("<dt>Categories</dt><dd class=\"category\"><ul>{0}</ul></dd></dl></div>", CategoryList));
 
 
             return html.ToString();

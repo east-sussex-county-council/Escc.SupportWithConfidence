@@ -19,7 +19,7 @@ namespace Escc.SupportWithConfidence.Controls
             validationSummary.EnableClientScript = false;
             validationSummary.ShowSummary = true;
 
-            Controls.Add(new LiteralControl("<div class=\"text\">"));
+            Controls.Add(new LiteralControl("<div class=\"content text-content\">"));
 
             var heading =
                 new LiteralControl(
@@ -30,9 +30,8 @@ namespace Escc.SupportWithConfidence.Controls
             var subheading =
                 new LiteralControl("<h2>Find providers of care and support services where you live</h2>");
             Controls.Add(subheading);
-            Controls.Add(new LiteralControl("</div>")); // close .text
 
-            var formBoxOpenCategory = new LiteralControl("<div class=\"formBox form simple-form\">");
+            var formBoxOpenCategory = new LiteralControl("<div class=\"form simple-form\">");
             Controls.Add(formBoxOpenCategory);
             var categoryheading = new LiteralControl("<h2>List by category</h2>");
             Controls.Add(categoryheading);
@@ -40,11 +39,9 @@ namespace Escc.SupportWithConfidence.Controls
             var formBoxCloseCategory = new LiteralControl("</div>");
             Controls.Add(formBoxCloseCategory);
 
-            Controls.Add(new LiteralControl("<div class=\"text\">"));
             Controls.Add(validationSummary);
-            Controls.Add(new LiteralControl("</div>")); // close .text
 
-            var formBoxOpenPostcode = new LiteralControl("<div class=\"formBox form simple-form\">");
+            var formBoxOpenPostcode = new LiteralControl("<div class=\"form simple-form\">");
             Controls.Add(formBoxOpenPostcode);
             var postcodeheading = new LiteralControl("<h2>Or find all providers near you</h2>");
             Controls.Add(postcodeheading);
@@ -57,7 +54,7 @@ namespace Escc.SupportWithConfidence.Controls
             var formBoxClosePostcode = new LiteralControl("</div>");
             Controls.Add(formBoxClosePostcode);
 
-            var formBoxOpenProvider = new LiteralControl("<div class=\"formBox form simple-form\">");
+            var formBoxOpenProvider = new LiteralControl("<div class=\"form simple-form\">");
             Controls.Add(formBoxOpenProvider);
             var providerheading = new LiteralControl("<h2>Or find providers by name</h2>");
             Controls.Add(providerheading);
@@ -67,8 +64,9 @@ namespace Escc.SupportWithConfidence.Controls
 
             var linkDisclaimer =
                 new LiteralControl(
-                    "<p class=\"text\"><a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a></p>");
+                    "<p><a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a></p>");
             Controls.Add(linkDisclaimer);
+            Controls.Add(new LiteralControl("</div>")); // close .text-content
         }
     }
 }

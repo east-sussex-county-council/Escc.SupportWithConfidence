@@ -33,8 +33,6 @@ namespace Escc.SupportWithConfidence.Controls
         {
         }
 
-        #region Override Methods
-
         /// <summary>
         /// Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
         /// </summary>
@@ -92,14 +90,10 @@ namespace Escc.SupportWithConfidence.Controls
 
 
 
-            Controls.Add(new LiteralControl("<div class=\"text\">"));
+            Controls.Add(new LiteralControl("<div class=\"content text-content\">"));
 
             var searchHeading = new LiteralControl("<h1>Search results for '" + searchHeadingTerm + "'</h1>");
-            var sortHeading = new LiteralControl("<h2>Results are sorted " + sortOrder + "</h2>");
             Controls.Add(searchHeading);
-            Controls.Add(sortHeading);
-
-            Controls.Add(new LiteralControl("</div>"));
 
             ValidationSummary validationSummary = new EsccValidationSummary();
             validationSummary.DisplayMode = ValidationSummaryDisplayMode.BulletList;
@@ -107,23 +101,20 @@ namespace Escc.SupportWithConfidence.Controls
             validationSummary.ShowSummary = true;
 
             Controls.Add(validationSummary);
-            var formBoxOpenPostcode = new LiteralControl("<div class=\"formBox form simple-form\">");
+            var formBoxOpenPostcode = new LiteralControl("<div class=\"form simple-form\">");
             Controls.Add(formBoxOpenPostcode);
+            var sortHeading = new LiteralControl("<h2>Results are sorted " + sortOrder + "</h2>");
+            Controls.Add(sortHeading);
             var postcodeSearchControl = new PostcodeSearchControl { ShowOnResults = true };
             Controls.Add(postcodeSearchControl);
             var formBoxClosePostcode = new LiteralControl("</div>");
             Controls.Add(formBoxClosePostcode);
 
-            Controls.Add(new LiteralControl("<div class=\"text\">"));
             var linkToFeedback = new LiteralControl("<p><a href=\"http://www.eastsussex.gov.uk/forms/eforms.aspx?f=349&amp;p=1\" class=\"feedback\">Couldn’t find what you were looking for?</a></p>");
             Controls.Add(linkToFeedback);
 
             var linkTopSearch = new LiteralControl("<p><a href=\"search.aspx\" class=\"newsearch\">New search</a></p>");
             Controls.Add(linkTopSearch);
-            Controls.Add(new LiteralControl("</div>"));
-
-
-
 
             if (results.Count > 0)
             {
@@ -141,7 +132,7 @@ namespace Escc.SupportWithConfidence.Controls
 
                 PagingTop.PagingController = PagingController;
                 PagingTop.EnableViewState = false;
-                PagingTop.CssClass = "roundedBox infoBar";
+                PagingTop.CssClass = "infoBar";
                 Controls.Add(PagingTop);
 
 
@@ -153,32 +144,14 @@ namespace Escc.SupportWithConfidence.Controls
 
                 //Close paging control
                 PagingBottom.PagingController = PagingController;
-                PagingBottom.CssClass = "roundedBox infoBar";
+                PagingBottom.CssClass = "infoBar";
                 Controls.Add(PagingBottom);
-
-                Controls.Add(new LiteralControl("<div class=\"text\">"));
 
                 var linkBottomSearch = new LiteralControl("<p><a href=\"search.aspx\" class=\"newsearch\">New search</a></p>");
                 Controls.Add(linkBottomSearch);
 
                 var linkDisclaimer = new LiteralControl("<p><a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a></p>");
                 Controls.Add(linkDisclaimer);
-
-                Controls.Add(new LiteralControl("</div>"));
-
-
-                #region Import script - switch back on for live
-                /*
-            CssImport importCss = new CssImport();
-            importCss.Css = "Search";
-            CssInject cssInject = new CssInject();
-            cssInject.Css = importCss.Css;
-            cssInject.DestinationPlaceholder = "metadata";
-            this.Controls.Add(cssInject);
-
-     */
-                #endregion
-
             }
             else
             {
@@ -200,21 +173,11 @@ namespace Escc.SupportWithConfidence.Controls
 
 
             }
+            Controls.Add(new LiteralControl("</div>"));
 
 
 
 
         }
-
-
-
-
-
-        #endregion
-
-
-
-
-
     }
 }

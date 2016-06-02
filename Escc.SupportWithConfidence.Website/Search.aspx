@@ -10,10 +10,10 @@
 			keywords="vetted; approved; home care; care services; Support with confidence"
 			description="Find providers which are approved members of the Support with Confidence scheme in East Sussex"
 			runat="server" />
-    <ClientDependency:Css runat="server" Files="FormsSmall;SupportWithConfidence" />
+    <ClientDependency:Css runat="server" Files="ContentSmall;FormsSmall;SupportWithConfidence" Moveable="False" />
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <ClientDependency:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
-        <ClientDependency:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
+        <ClientDependency:Css runat="server" Files="ContentMedium;FormsMedium" MediaConfiguration="Medium" />
+        <ClientDependency:Css runat="server" Files="ContentLarge;FormsLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer>
 </asp:Content>
 
@@ -21,11 +21,15 @@
 <div class="article">
 <section>
   <swc:SearchControl id="SearchControls" runat="server" />
-    <SWC:Related runat="server" />
 </section>
 </div>
+<SWC:Related runat="server" />
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="javascript">
     <ClientDependency:Script Files="SupportWithConfidenceCategories;SupportWithConfidenceEnterFix" runat="server" />
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="afterForm">
+    <EastSussexGovUK:EastSussex1Space runat="server" />
 </asp:Content>
