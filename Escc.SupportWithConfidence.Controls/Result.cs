@@ -25,7 +25,7 @@ namespace Escc.SupportWithConfidence.Controls
         public string View()
         {
             var html = new StringBuilder();
-            html.Append("<div class=\"eventSummary\" ><dl class=\"itemDetail vevent\"><dt>Name</dt>");
+            html.Append("<dl class=\"itemDetail\"><dt>Name</dt>");
             html.Append(String.Format("<dd class=\"summary\"><strong><a href=\"detail.aspx?{0}&amp;ref={1}\">{2}</a></strong></dd>", System.Web.HttpUtility.HtmlEncode(QueryString), Id, Name));
             if (PublishAddress)
             {
@@ -59,7 +59,7 @@ namespace Escc.SupportWithConfidence.Controls
             }
 
 
-            html.Append(String.Format("<dt>Categories</dt><dd class=\"category\"><ul>{0}</ul></dd></dl></div>", CategoryList));
+            html.Append(String.Format("<dt>Categories</dt><dd class=\"category\"><ul>{0}</ul></dd></dl>", CategoryList));
 
 
             return html.ToString();
