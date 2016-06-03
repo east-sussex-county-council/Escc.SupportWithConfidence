@@ -12,9 +12,9 @@ namespace Escc.SupportWithConfidence.Controls
 
         protected ResultRepeater RptSupportResults = new ResultRepeater();
 
-        protected EsccWebTeam.NavigationControls.PagingController PagingController = new EsccWebTeam.NavigationControls.PagingController();
-        protected EsccWebTeam.NavigationControls.PagingBarControl PagingTop = new EsccWebTeam.NavigationControls.PagingBarControl();
-        protected EsccWebTeam.NavigationControls.PagingBarControl PagingBottom = new EsccWebTeam.NavigationControls.PagingBarControl();
+        protected Escc.NavigationControls.WebForms.PagingController PagingController = new Escc.NavigationControls.WebForms.PagingController();
+        protected Escc.NavigationControls.WebForms.PagingBarControl PagingTop = new Escc.NavigationControls.WebForms.PagingBarControl();
+        protected Escc.NavigationControls.WebForms.PagingBarControl PagingBottom = new Escc.NavigationControls.WebForms.PagingBarControl();
 
 
 

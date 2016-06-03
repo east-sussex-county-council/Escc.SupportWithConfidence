@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Escc.FormControls.WebForms.Validators;
-using EsccWebTeam.NavigationControls;
+using Escc.NavigationControls.WebForms;
 using EsccWebTeam.SupportWithConfidence.Controls;
 
 namespace Escc.SupportWithConfidence.Controls

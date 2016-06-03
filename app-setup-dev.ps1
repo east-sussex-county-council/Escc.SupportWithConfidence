@@ -40,7 +40,6 @@ $etlProject = "Escc.SupportWithConfidence.ETL"
 $apiProject = "Escc.SupportWithConfidence.WebApi"
 
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.EastSussexGovUK"
-DownloadProjectIfMissing $parentFolderOfThisScript "Escc.NavigationControls"
 DownloadProjectIfMissing $parentFolderOfThisScript "Escc.Data.Web"
 
 # Front-end website
