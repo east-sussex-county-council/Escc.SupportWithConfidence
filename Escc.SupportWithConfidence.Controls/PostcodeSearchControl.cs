@@ -232,10 +232,14 @@ namespace Escc.SupportWithConfidence.Controls
                         return _location;
                     }
 
-                    _location = finder.AggregateEastingsAndNorthingsPartialPostcode(addressTerm);
-                    if (_location != null)
+                    // or try partial postcode if that looks plausible
+                    if (addressTerm.StartsWith("BN", StringComparison.OrdinalIgnoreCase) || addressTerm.StartsWith("TN", StringComparison.OrdinalIgnoreCase) || addressTerm.StartsWith("RH", StringComparison.OrdinalIgnoreCase))
                     {
-                        return _location;
+                        _location = finder.AggregateEastingsAndNorthingsPartialPostcode(addressTerm);
+                        if (_location != null)
+                        {
+                            return _location;
+                        }
                     }
                 }
                 catch (SoapException ex)
