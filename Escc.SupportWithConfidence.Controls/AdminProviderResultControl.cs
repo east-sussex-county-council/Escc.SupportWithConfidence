@@ -43,8 +43,8 @@ namespace Escc.SupportWithConfidence.Controls
 
 
 
-            Controls.Add(new LiteralControl("<h1 class=\"text\">Update a provider's information</h1>"));
-            Controls.Add(new LiteralControl("<p class=\"text\">Select a provider below by clicking on the provider's name.</p>"));
+            Controls.Add(new LiteralControl("<h1>Update a provider's information</h1>"));
+            Controls.Add(new LiteralControl("<p>Select a provider below by clicking on the provider's name.</p>"));
 
             RptSupportResults.DataSource = mapper.Providers;
             RptSupportResults.DataBind();
@@ -60,7 +60,6 @@ namespace Escc.SupportWithConfidence.Controls
 
             PagingTop.PagingController = PagingController;
             PagingTop.EnableViewState = false;
-            PagingTop.CssClass = "roundedBox infoBar";
             Controls.Add(PagingTop);
 
 
@@ -72,7 +71,6 @@ namespace Escc.SupportWithConfidence.Controls
 
             //Close paging control
             PagingBottom.PagingController = PagingController;
-            PagingBottom.CssClass = "roundedBox infoBar";
             Controls.Add(PagingBottom);
 
 

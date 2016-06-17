@@ -27,19 +27,19 @@
         <Egms:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
         <Egms:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer> --%>
+        <ClientDependency:Css runat="server" Files="ContentSmall;FormsSmall" Moveable="False"/>
+    <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
+        <ClientDependency:Css runat="server" Files="ContentMedium;FormsMedium" MediaConfiguration="Medium" />
+        <ClientDependency:Css runat="server" Files="ContentLarge;FormsLarge" MediaConfiguration="Large" />
+    </EastSussexGovUK:ContextContainer>
 </asp:Content>
 
-
-
-
-    
 <asp:Content runat="server" ContentPlaceHolderID="content">
 <div class="full-page">
     <section>
-      <swc:providerdetaileditcontrol id="editprovider" runat="server" />
+        <div class="content text-content">
+            <swc:providerdetaileditcontrol id="editprovider" runat="server" />
+        </div>
     </section>
 </div>
 </asp:Content>
-   
- 
-<asp:Content runat="server" ContentPlaceHolderID="supporting" />

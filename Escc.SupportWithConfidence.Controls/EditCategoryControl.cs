@@ -33,7 +33,7 @@ namespace Escc.SupportWithConfidence.Controls
                     while (count < 1)
                     {
                         var heading = new LiteralControl("<h1>" + childCategory.Description + "</h1>");
-                        var formBoxOpen = new LiteralControl("<div class=\"formBox\">");
+                        var formBoxOpen = new LiteralControl("<div class=\"form service-form\"><div class=\"formBox\">");
                         var formPartOpenId = new LiteralControl("<div class=\"formPart\">");
                         var lblId = new Label { ID = "lblId", Text = @"Id:", CssClass = "formLabel" };
                         var lblCategoryId = new Label { ID = "lblCategoryId", CssClass = "formControl", Text = childCategory.Id.ToString(CultureInfo.InvariantCulture) };
@@ -62,7 +62,7 @@ namespace Escc.SupportWithConfidence.Controls
                                 CssClass = "formControl",
                                 Checked = childCategory.IsActive
                             };
-                        var formPartCloseActive = new LiteralControl("</div>");
+                        var formPartCloseActive = new LiteralControl("</div></div>");
                         var formPartOpenButton = new LiteralControl("<div class=\"formButtons\">");
 
                         var categorylist = new StringBuilder();
@@ -130,7 +130,6 @@ namespace Escc.SupportWithConfidence.Controls
 
         void btnSave_Click(object sender, EventArgs e)
         {
-            Controls.Add(new LiteralControl("<script>alert(\"Button clicked\");</script>"));
         }
     }
 }

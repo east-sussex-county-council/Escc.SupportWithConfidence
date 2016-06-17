@@ -35,8 +35,6 @@ namespace Escc.SupportWithConfidence.Controls
 
             if (proMapper.Providers.Count > 0)
             {
-                Controls.Add(new LiteralControl("<div class=\"text\">"));
-
                 Provider p = proMapper.Providers[0];
 
                 var html = new StringBuilder();
@@ -230,12 +228,11 @@ namespace Escc.SupportWithConfidence.Controls
                 if (p.BwcMember)
                 {
                     html.Append(
-                        "<img src=\"/managewebsite/supportwithconfidence/images/bwc_logo.jpg\" alt=\"Buy with Confidence Member\" class=\"bwclogo\">");
+                        "<img src=\"" + Page.ResolveUrl("~/images/bwc_logo.jpg") + "\" alt=\"Buy with Confidence Member\" class=\"bwclogo\">");
                 }
 
 
                 Controls.Add(new LiteralControl(html.ToString()));
-                Controls.Add(new LiteralControl("</div>"));
 
                 // DataTable dt = GetData();
                 var editHeading = new LiteralControl("<h2>Editable bits</h2>");
@@ -380,7 +377,7 @@ namespace Escc.SupportWithConfidence.Controls
                 btnSave.Click += btnSave_Click;
 
 
-                Controls.Add(new LiteralControl("<div class=\"form short-form\">"));
+                Controls.Add(new LiteralControl("<div class=\"form service-form\">"));
                 Controls.Add(editHeading);
 
                 Controls.Add(formBoxOpen);

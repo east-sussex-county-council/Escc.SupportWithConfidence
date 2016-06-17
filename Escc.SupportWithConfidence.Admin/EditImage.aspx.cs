@@ -4,6 +4,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Drawing.Drawing2D;
 using Escc.SupportWithConfidence.Controls;
+using EsccWebTeam.EastSussexGovUK.MasterPages;
 
 
 namespace Escc.SupportWithConfidence.Admin
@@ -21,8 +22,12 @@ namespace Escc.SupportWithConfidence.Admin
             // Maybe resize before saving to database
             // Redirect user to details to view
 
-         
-           
+            var skinnable = Master as BaseMasterPage;
+            if (skinnable != null)
+            {
+                skinnable.Skin = new CustomerFocusSkin(ViewSelector.CurrentViewIs(MasterPageFile));
+            }
+
 
         }
 

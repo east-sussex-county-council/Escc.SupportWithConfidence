@@ -11,16 +11,17 @@
 			description="Find providers which are approved members of the Support with Confidence scheme in East Sussex"
 			runat="server" />
 
-			<link rel="stylesheet" type="text/css" href="/wres/css/forms-3.css" />
+        <ClientDependency:Css runat="server" Files="FormsSmall;ContentSmall" Moveable="False"/>
+    <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
+        <ClientDependency:Css runat="server" Files="FormsMedium;ContentMedium" MediaConfiguration="Medium" />
+        <ClientDependency:Css runat="server" Files="FormsLarge;ContentLarge" MediaConfiguration="Large" />
+    </EastSussexGovUK:ContextContainer>
 </asp:Content>
 
-
-
-
-<asp:Content runat="server" ContentPlaceHolderID="related">
-		
-</asp:Content>
-    
 <asp:Content runat="server" ContentPlaceHolderID="content">
+    <div class="full-page">
+        <div class="content text-content">
  <swc:editcategorycontrol id="EditCategoryControl" runat="server" />
+            </div>
+    </div>
 </asp:Content>

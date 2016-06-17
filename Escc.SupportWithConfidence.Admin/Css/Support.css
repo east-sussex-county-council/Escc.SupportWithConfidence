@@ -1,6 +1,6 @@
 ﻿ ul#navigation li{position:relative;}
-.expand {position:absolute; top:0; left:250px;}
-.collapse{position:absolute; top:0; left:250px;}
+.expand {position:absolute; top:0; left:350px;}
+.collapse{position:absolute; top:0; left:350px;}
 dl.itemDetail dt  {width:32%;}
 /*#showall {position:relative; top:-18px; left:160px;}*/
 .button {cursor:pointer;}

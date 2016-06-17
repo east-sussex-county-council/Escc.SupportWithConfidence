@@ -57,6 +57,8 @@ CreateWebsite $adminProject "$pathOfThisScript\$adminProject"
 CreateHTTPSBinding $adminProject "localhost"
 CreateVirtualDirectory $adminProject "Escc.EastSussexGovUK" "$parentFolderOfThisScript\Escc.EastSussexGovUK" true
 CreateVirtualDirectory $adminProject "masterpages" "$parentFolderOfThisScript\Escc.EastSussexGovUK\masterpages" true
+DisableAnonymousAuthentication $adminProject
+EnableWindowsAuthentication $adminProject
 CopyConfig "$adminProject\Web.example.config" "$adminProject\web.config"
 
 # API

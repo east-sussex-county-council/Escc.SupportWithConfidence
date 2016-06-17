@@ -9,18 +9,20 @@
 			keywords="vetted; approved; home care; care services; Support with confidence"
 			description="Find providers which are approved members of the Support with Confidence scheme in East Sussex"
 			runat="server" />
+    <ClientDependency:Css runat="server" Files="ContentSmall" Moveable="False"/>
+    <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
+        <ClientDependency:Css runat="server" Files="ContentMedium" MediaConfiguration="Medium" />
+        <ClientDependency:Css runat="server" Files="ContentLarge" MediaConfiguration="Large" />
+    </EastSussexGovUK:ContextContainer>
 </asp:Content>
-
-
-
-
 
 <asp:Content runat="server" ContentPlaceHolderID="content">
 <div class="full-page">
 <section>
+    <div class="content text-content">
       <swc:adminproviderresultcontrol id="Adminproviderresultcontrol1" runat="server" />
+    </div>
 </section>
 </div>
 </asp:Content>
-  
-<asp:Content runat="server" ContentPlaceHolderID="supporting" />
+ 
