@@ -88,12 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Categories.aspx" />
-    <Content Include="Css\Jcrop.gif" />
-    <Content Include="Css\jquery.Jcrop.css" />
     <Content Include="Css\Support.css" />
     <Content Include="Default.aspx" />
     <Content Include="EditCategory.aspx" />
-    <Content Include="EditImage.aspx" />
     <Content Include="images\bwc_logo.jpg" />
     <Content Include="images\silhouette.jpg" />
     <Content Include="Provider.aspx" />
@@ -101,10 +98,6 @@
     <Content Include="Scripts\button.js" />
     <Content Include="Scripts\CategoryShowHide.js" />
     <Content Include="packages.config" />
-    <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.4.1.js" />
-    <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Scripts\jquery.Jcrop.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -128,13 +121,6 @@
     </Compile>
     <Compile Include="EditCategory.aspx.designer.cs">
       <DependentUpon>EditCategory.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="EditImage.aspx.cs">
-      <DependentUpon>EditImage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="EditImage.aspx.designer.cs">
-      <DependentUpon>EditImage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.aspx.cs">
