@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Escc.FormControls.WebForms.Validators;
-using EsccWebTeam.Data.Web;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -605,64 +604,20 @@ namespace Escc.SupportWithConfidence.Controls
 
                     if (success)
                     {
-                        string queryString = HttpContext.Current.Request.Url.Query;
-                        if (HttpContext.Current.Request.Url.Query.Contains("success="))
-                        {
-                            var qs = Iri.RemoveQueryStringParameter(HttpContext.Current.Request.Url, "success");
-                            queryString = qs.Query;
-                        }
-                        HttpContext.Current.Response.Redirect("provider.aspx" + queryString + "&success=1");
+                        var queryString = HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query);
+                        queryString.Remove("success");
+                        queryString.Add("success", "1");
+                        HttpContext.Current.Response.Redirect("provider.aspx?" + queryString);
                     }
                 }
                 else
                 {
-                    string queryString = HttpContext.Current.Request.Url.Query;
-                    if (HttpContext.Current.Request.Url.Query.Contains("success="))
-                    {
-                        var qs = Iri.RemoveQueryStringParameter(HttpContext.Current.Request.Url, "success");
-                        queryString = qs.Query;
-                    }
-                    HttpContext.Current.Response.Redirect("provider.aspx" + queryString + "&success=0");
+                    var queryString = HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query);
+                    queryString.Remove("success");
+                    queryString.Add("success", "0");
+                    HttpContext.Current.Response.Redirect("provider.aspx?" + queryString);
                 }
             }
-        }
-
-        #endregion
-
-        #region Supporting Methods
-
-        [Obsolete("Need to update code to call EsccWebTeam.Data.Web.Iri.RemoveParameterFromQueryString")]
-        private string RemoveParameter(string qs, string param)
-        {
-            // if supplied querystring starts with ?, remove it
-            if (qs.StartsWith("?")) qs = qs.Substring(1);
-
-            // split supplied querystring into sections
-            qs = qs.Replace("&amp;", "&");
-            string[] qsBits = qs.Split('&');
-
-            //rebuild query string without its parameter= value
-            var newQs = new StringBuilder();
-
-            for (int i = 0; i < qsBits.Length; i++)
-            {
-                string[] paramBits = qsBits[i].Split('=');
-
-                if ((paramBits[0] != param) && (paramBits.Length > 1))
-                {
-                    if (newQs.Length > 0) newQs.Append("&");
-                    newQs.Append(paramBits[0]).Append("=").Append(paramBits[1]);
-                }
-            }
-
-            // get querystring ready for new parameter
-            //if (newQS.Length > 0) newQS.Append("&");
-            //else newQS.Append("?");
-
-            string completeQs = newQs.ToString();
-            if (!completeQs.StartsWith("?")) completeQs = "?" + completeQs;
-
-            return completeQs;
         }
 
         #endregion

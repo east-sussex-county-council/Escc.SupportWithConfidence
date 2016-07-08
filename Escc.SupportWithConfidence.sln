@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.SupportWithConfidence.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.SupportWithConfidence.ETL", "Escc.SupportWithConfidence.ETL\Escc.SupportWithConfidence.ETL.csproj", "{EEA0AF8D-7483-4D8F-BD0F-83185D7F3322}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsccWebTeam.Data.Web", "..\Escc.Data.Web\EsccWebTeam.Data.Web.csproj", "{9C56D3DD-4952-4A1B-9AD6-907A1142872F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{135B4C2B-0F52-4AF2-95D9-1A21861FF607}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -57,12 +55,6 @@ Global
 		{EEA0AF8D-7483-4D8F-BD0F-83185D7F3322}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EEA0AF8D-7483-4D8F-BD0F-83185D7F3322}.UAT|Any CPU.ActiveCfg = Release|Any CPU
 		{EEA0AF8D-7483-4D8F-BD0F-83185D7F3322}.UAT|Any CPU.Build.0 = Release|Any CPU
-		{9C56D3DD-4952-4A1B-9AD6-907A1142872F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C56D3DD-4952-4A1B-9AD6-907A1142872F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C56D3DD-4952-4A1B-9AD6-907A1142872F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C56D3DD-4952-4A1B-9AD6-907A1142872F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C56D3DD-4952-4A1B-9AD6-907A1142872F}.UAT|Any CPU.ActiveCfg = Release|Any CPU
-		{9C56D3DD-4952-4A1B-9AD6-907A1142872F}.UAT|Any CPU.Build.0 = Release|Any CPU
 		{1426FEF0-23DC-4C23-AE15-67F2527BD741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1426FEF0-23DC-4C23-AE15-67F2527BD741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1426FEF0-23DC-4C23-AE15-67F2527BD741}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -9,7 +9,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Escc.FormControls.WebForms.AddressFinder;
 using Escc.Net;
-using EsccWebTeam.Data.Web;
 using Exceptionless;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -120,19 +119,19 @@ namespace Escc.SupportWithConfidence.Controls
                 {
                    
                     // Store parameter values to add back in when we construct the new Uri
-                    var parameters = Iri.SplitQueryString(HttpContext.Current.Request.Url.Query);
+                    var parameters = HttpUtility.ParseQueryString(HttpContext.Current.Request.Url.Query);
 
-                    if (!parameters.ContainsKey("pc"))
+                    if (String.IsNullOrEmpty(parameters["pc"]))
                     {
                         parameters.Add("pc", String.Empty);
                     }
 
-                    if (!parameters.ContainsKey("e"))
+                    if (String.IsNullOrEmpty(parameters["e"]))
                     {
                         parameters.Add("e", String.Empty);
                     }
 
-                    if (!parameters.ContainsKey("n"))
+                    if (String.IsNullOrEmpty(parameters["n"]))
                     {
                         parameters.Add("n", String.Empty);
                     }
@@ -140,16 +139,16 @@ namespace Escc.SupportWithConfidence.Controls
 
                     var queryString = new StringBuilder();
 
-                    foreach (var qsparameter in parameters)
+                    foreach (var qsparameter in parameters.AllKeys)
                     {
-                        switch (qsparameter.Key)
+                        switch (qsparameter)
                         {
                             case "cat":
-                                queryString.Append("&cat=").Append(qsparameter.Value);
+                                queryString.Append("&cat=").Append(parameters[qsparameter]);
                           
                                 break;
                             case "page":
-                                queryString.Append("&page=").Append(qsparameter.Value);
+                                queryString.Append("&page=").Append(parameters[qsparameter]);
                                 break;
                             case "e":
                                 queryString.Append("&e=").Append(_location.Easting.ToString(CultureInfo.InvariantCulture));
@@ -161,10 +160,10 @@ namespace Escc.SupportWithConfidence.Controls
                                 queryString.Append("&pc=").Append(txbPostcode.Text);
                                 break;
                             case "w":
-                                queryString.Append("&w=").Append(qsparameter.Value);
+                                queryString.Append("&w=").Append(parameters[qsparameter]);
                                 break;
                             case "s":
-                                queryString.Append("&s=").Append(qsparameter.Value);
+                                queryString.Append("&s=").Append(parameters[qsparameter]);
                                 break;
                         }
                     }
