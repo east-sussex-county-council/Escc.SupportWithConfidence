@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Detail.aspx.cs" Inherits="Escc.SupportWithConfidence.Website.Detail" %>
 <%@ Register TagPrefix="SWC" TagName="Related" Src="~/Related.ascx" %>
+<%@ Register TagPrefix="EastSussexGovUK" tagName="EastSussex1Space" src="~/1space.ascx" %>
 <%@ Register TagPrefix="swc" Namespace="Escc.SupportWithConfidence.Controls" Assembly="Escc.SupportWithConfidence.Controls" %>
 
 <asp:Content id="Content1" runat="server" ContentPlaceHolderID="metadata">
@@ -11,11 +12,6 @@
 		keywords="vetted; approved; home care; care services; Support with confidence"
 		description="Find providers which are approved members of the Support with Confidence scheme in East Sussex"
 		runat="server" />
-    <ClientDependency:Css runat="server" Files="ContentSmall" Moveable="False"/>
-    <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <ClientDependency:Css runat="server" Files="ContentMedium" MediaConfiguration="Medium" />
-        <ClientDependency:Css runat="server" Files="ContentLarge" MediaConfiguration="Large" />
-    </EastSussexGovUK:ContextContainer>
 </asp:Content>
 
    

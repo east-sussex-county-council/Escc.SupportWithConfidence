@@ -81,7 +81,6 @@ CheckSiteExistsBeforeAddingApplication $websiteName
 CreateVirtualDirectory $websiteName "socialcare" "$destinationFolder\_virtual" true
 CreateVirtualDirectory $websiteName "socialcare/athome" "$destinationFolder\_virtual" true
 CreateVirtualDirectory $websiteName "socialcare/athome/approvedproviders" "$destinationFolder\$projectName" true "$projectName-$websiteName"
-CreateVirtualDirectory $websiteName "socialcare/athome/approvedproviders/masterpages" "$destinationFolder\Escc.EastSussexGovUK\masterpages" true
 
 Write-Host
 Write-Host "Done." -ForegroundColor "Green"

@@ -46,16 +46,12 @@ EnableDotNet40InIIS
 CreateApplicationPool $websiteProject
 CreateWebsite $websiteProject "$pathOfThisScript\$websiteProject"
 CreateHTTPSBinding $websiteProject "localhost"
-CreateVirtualDirectory $websiteProject "Escc.EastSussexGovUK" "$parentFolderOfThisScript\Escc.EastSussexGovUK" true
-CreateVirtualDirectory $websiteProject "masterpages" "$parentFolderOfThisScript\Escc.EastSussexGovUK\masterpages" true
 CopyConfig "$websiteProject\Web.example.config" "$websiteProject\web.config"
 
 # Admin website
 CreateApplicationPool $adminProject
 CreateWebsite $adminProject "$pathOfThisScript\$adminProject"
 CreateHTTPSBinding $adminProject "localhost"
-CreateVirtualDirectory $adminProject "Escc.EastSussexGovUK" "$parentFolderOfThisScript\Escc.EastSussexGovUK" true
-CreateVirtualDirectory $adminProject "masterpages" "$parentFolderOfThisScript\Escc.EastSussexGovUK\masterpages" true
 DisableAnonymousAuthentication $adminProject
 EnableWindowsAuthentication $adminProject
 CopyConfig "$adminProject\Web.example.config" "$adminProject\web.config"

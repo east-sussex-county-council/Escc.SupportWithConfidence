@@ -224,5 +224,4 @@ packages
 App.config
 Web.config
 *.py
-.vs
 App_Data
