@@ -9,28 +9,10 @@
 			keywords="vetted; approved; home care; care services; Support with confidence"
 			description="Find providers which are approved members of the Support with Confidence scheme in East Sussex"
 			runat="server" />
-        <%--<EastSussexGovUK:ContextContainer runat="server" Legacy="true">
-             <style type="text/css">
-  #ctl00_content_editprovider_imageuploadercontrol
-{clear:both; float:right; margin-left:30px; }
- .bwclogo {display:block;}
-    </style>
-    <link href="/wres/css/forms-3.css" rel="stylesheet" type="text/css" />
-    </EastSussexGovUK:ContextContainer>
-    <EastSussexGovUK:ContextContainer runat="server" Legacy="false">
-        <Egms:Css runat="server" Files="FormsSmall" />
-        <style>
-        .imageupload { float: right; margin: 0 0 1.384615em 1.384615em; }
-        </style>
-    </EastSussexGovUK:ContextContainer>
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <Egms:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
-        <Egms:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
-    </EastSussexGovUK:ContextContainer> --%>
-        <ClientDependency:Css runat="server" Files="ContentSmall;FormsSmall" Moveable="False"/>
-    <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <ClientDependency:Css runat="server" Files="ContentMedium;FormsMedium" MediaConfiguration="Medium" />
-        <ClientDependency:Css runat="server" Files="ContentLarge;FormsLarge" MediaConfiguration="Large" />
+        <ClientDependency:Css runat="server" Files="FormsSmall" Moveable="False"/>
+        <ClientDependency:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
+        <ClientDependency:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer>
 </asp:Content>
 

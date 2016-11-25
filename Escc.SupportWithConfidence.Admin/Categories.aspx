@@ -12,11 +12,6 @@
 			description="Find providers which are approved members of the Support with Confidence scheme in East Sussex"
 			runat="server" />
 <link rel="stylesheet" type="text/css" href="Css/Support.css" />
-        <ClientDependency:Css runat="server" Files="ContentSmall" Moveable="False"/>
-    <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <ClientDependency:Css runat="server" Files="ContentMedium" MediaConfiguration="Medium" />
-        <ClientDependency:Css runat="server" Files="ContentLarge" MediaConfiguration="Large" />
-    </EastSussexGovUK:ContextContainer>
 </asp:Content>
 
     

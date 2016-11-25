@@ -11,10 +11,10 @@
 			description="Find providers which are approved members of the Support with Confidence scheme in East Sussex"
 			runat="server" />
 
-        <ClientDependency:Css runat="server" Files="FormsSmall;ContentSmall" Moveable="False"/>
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
-        <ClientDependency:Css runat="server" Files="FormsMedium;ContentMedium" MediaConfiguration="Medium" />
-        <ClientDependency:Css runat="server" Files="FormsLarge;ContentLarge" MediaConfiguration="Large" />
+        <ClientDependency:Css runat="server" Files="FormsSmall" Moveable="False"/>
+        <ClientDependency:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
+        <ClientDependency:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
     </EastSussexGovUK:ContextContainer>
 </asp:Content>
 
