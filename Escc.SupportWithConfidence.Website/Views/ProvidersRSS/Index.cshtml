@@ -1,12 +1,13 @@
 ﻿@model List<Escc.SupportWithConfidence.Controls.IResult>
 @{ Layout = null;
+    var url = Request.Url.AbsolutePath;
+    var newurl = Html.DisplayFor(modelItem => url).ToString().Substring(0, url.LastIndexOf("/"));
     Response.ContentType = "text/xml";
     Response.Headers.Remove("Content-Security-Policy");
     Response.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 }
-<?xml-stylesheet type="text/xsl" href="@Request.Url.Scheme://@Request.Url.Authority//eastsussexgovuk/rss/rss-to-html.ashx"?>
-<?xml-stylesheet type="text/css" href="@Request.Url.Scheme://@Request.Url.Authority/eastsussexgovuk/rss/rss.css"?>
-
+<?xml-stylesheet type="text/xsl" href="@Request.Url.Scheme://@Request.Url.Authority/@newurl/eastsussexgovuk/rss/rss-to-html.ashx"?>
+<?xml-stylesheet type="text/css" href="@Request.Url.Scheme://@Request.Url.Authority/@newurl/eastsussexgovuk/rss/rss.css"?>
 <!---An RSS Feed for SWC Providers-->
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
@@ -28,7 +29,6 @@
         <!---For each provider in the model-->
         @foreach (Escc.SupportWithConfidence.Controls.Result provider in Model)
         {
-            <!---Create an rss item-->
             var html = "https://apps.eastsussex.gov.uk/socialcare/athome/approvedproviders/detail.aspx?ref=" + provider.Id;
             <item>
                 <title> @provider.Name</title>

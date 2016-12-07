@@ -62,7 +62,7 @@ namespace Escc.SupportWithConfidence.Controls
             var formBoxCloseProvider = new LiteralControl("</div>");
             Controls.Add(formBoxCloseProvider);
 
-            Controls.Add(new LiteralControl("<a href=\"../ProvidersRSS\" id=\"ctl00_content_rss\" type=\"application/rss+xml\" rel=\"alternate\" class=\"rss\">Subscribe by RSS to all Providers</a>"));
+            Controls.Add(new LiteralControl("<a href=\"ProvidersRSS\" id=\"ctl00_content_rss\" type=\"application/rss+xml\" rel=\"alternate\" class=\"rss\">Subscribe by RSS to all Providers</a>"));
 
             var linkDisclaimer =
                 new LiteralControl(
