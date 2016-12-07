@@ -14,6 +14,8 @@ namespace Escc.SupportWithConfidence.Website
             {
                 skinnable.Skin = new CustomerFocusSkin(ViewSelector.CurrentViewIs(MasterPageFile));
             }
+
+            headContent.RssFeedUrl = new Uri(Request.Url, ResolveUrl("~/ProvidersRSS")).ToString();
         }
     }
 }

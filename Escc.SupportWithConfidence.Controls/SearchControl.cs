@@ -62,6 +62,8 @@ namespace Escc.SupportWithConfidence.Controls
             var formBoxCloseProvider = new LiteralControl("</div>");
             Controls.Add(formBoxCloseProvider);
 
+            Controls.Add(new LiteralControl("<a href=\"../ProvidersRSS\" id=\"ctl00_content_rss\" type=\"application/rss+xml\" rel=\"alternate\" class=\"rss\">Subscribe by RSS to all Providers</a>"));
+
             var linkDisclaimer =
                 new LiteralControl(
                     "<p><a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a></p>");

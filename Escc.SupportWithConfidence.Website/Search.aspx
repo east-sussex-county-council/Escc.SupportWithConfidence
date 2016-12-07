@@ -10,6 +10,7 @@
 			dateissued="2004-11-20" 
 			keywords="vetted; approved; home care; care services; Support with confidence"
 			description="Find providers which are approved members of the Support with Confidence scheme in East Sussex"
+            rssfeedtitle="Help at home you can trust"
 			runat="server" />
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
         <ClientDependency:Css runat="server" Files="FormsSmall;SupportWithConfidence" Moveable="False" />

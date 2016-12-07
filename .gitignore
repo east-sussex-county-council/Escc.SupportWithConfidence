@@ -225,3 +225,6 @@ App.config
 Web.config
 *.py
 App_Data
+
+# not require nuget package
+EastSussexGovUK

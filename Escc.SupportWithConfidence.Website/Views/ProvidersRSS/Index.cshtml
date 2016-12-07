@@ -1,0 +1,43 @@
+﻿@model List<Escc.SupportWithConfidence.Controls.IResult>
+@{ Layout = null;
+    Response.ContentType = "text/xml";
+    Response.Headers.Remove("Content-Security-Policy");
+    Response.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+}
+<?xml-stylesheet type="text/xsl" href="@Request.Url.Scheme://@Request.Url.Authority//eastsussexgovuk/rss/rss-to-html.ashx"?>
+<?xml-stylesheet type="text/css" href="@Request.Url.Scheme://@Request.Url.Authority/eastsussexgovuk/rss/rss.css"?>
+
+<!---An RSS Feed for SWC Providers-->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Help at home you can trust - East Sussex County Council</title>
+        <description></description>
+        <link>https://www.eastsussex.gov.uk/</link>
+        <language>en-GB</language>
+        <copyright>2016 East Sussex County Council</copyright>
+        <pubdate></pubdate>
+        <lastbuilddate></lastbuilddate>
+        <image>
+            <title>East Sussex County Council logo</title>
+            <url>https://www.eastsussex.gov.uk/eastsussexgovuk/rss/escc-logo-for-feed.gif</url>
+            <link>https://www.eastsussex.gov.uk/</link>
+            <width>90</width>
+            <height>65</height>
+        </image>
+
+        <!---For each provider in the model-->
+        @foreach (Escc.SupportWithConfidence.Controls.Result provider in Model)
+        {
+            <!---Create an rss item-->
+            var html = "https://apps.eastsussex.gov.uk/socialcare/athome/approvedproviders/detail.aspx?ref=" + provider.Id;
+            <item>
+                <title> @provider.Name</title>
+                <description>@provider.CategoryList </description>
+                @Html.Raw(string.Format("<link>{0}</link>", html))
+                <pubdate></pubdate>
+                <guid ispermalink="false"></guid>
+                <source url="" />
+            </item>
+        }
+    </channel>
+</rss>
