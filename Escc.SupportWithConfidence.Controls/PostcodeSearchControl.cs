@@ -192,10 +192,6 @@ namespace Escc.SupportWithConfidence.Controls
                
 
             }
-            else
-            {
-                HttpContext.Current.Response.Redirect( HttpContext.Current.Request.Url.ToString());
-            }
         }
 
 

@@ -553,7 +553,7 @@ namespace Escc.SupportWithConfidence.Controls
                 Controls.Add(validationSummary);
                 validationSummary.Controls.Add(noResultsValidator);
 
-                var linkBottomSearch = new LiteralControl("<a href=\"search.aspx\" class=\"newsearch\">New search</a>");
+                var linkBottomSearch = new LiteralControl("<a href=\"" + Page.ResolveUrl("~/") + "\" class=\"newsearch\">New search</a>");
                 Controls.Add(linkBottomSearch);
 
                 var linkDisclaimer =

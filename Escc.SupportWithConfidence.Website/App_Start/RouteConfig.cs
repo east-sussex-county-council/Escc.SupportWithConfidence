@@ -17,7 +17,7 @@ namespace Escc.SupportWithConfidence.Website
             routes.MapPageRoute(
                 "Default",
                 "Home/Index",
-                "~/Search.aspx"
+                "~/"
                 );
 
             routes.MapRoute(
