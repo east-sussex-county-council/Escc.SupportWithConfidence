@@ -2,8 +2,5 @@
 ul#navigation li { position:relative; margin: 0.5em 0; }
 .expand, .collapse { position: absolute; top: 0; left: 19em; }
 
-/* Stop sub-categories disappearing in IE7 */
-.ie7 #navigation li ul { display: inline-block; }
-
-/* Stop peekaboo effect on categories background in IE6 */
-.ie6 ul#navigation { display: inline-block; }
+/* Line up the two search boxes on the search screen */
+.swc-search .simple-form label { display: inline-block; min-width: 8em;}

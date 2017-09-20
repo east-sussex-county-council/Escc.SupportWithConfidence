@@ -19,7 +19,7 @@ namespace Escc.SupportWithConfidence.Controls
             validationSummary.EnableClientScript = false;
             validationSummary.ShowSummary = true;
 
-            Controls.Add(new LiteralControl("<div class=\"content text-content\">"));
+            Controls.Add(new LiteralControl("<div class=\"content text-content swc-search\">"));
 
             var heading =
                 new LiteralControl(

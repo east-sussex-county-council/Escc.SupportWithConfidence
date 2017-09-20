@@ -14,8 +14,8 @@
 			runat="server" />
     <EastSussexGovUK:ContextContainer runat="server" Desktop="true">
         <ClientDependency:Css runat="server" Files="FormsSmall;SupportWithConfidence" Moveable="False" />
-        <ClientDependency:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" />
-        <ClientDependency:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" />
+        <ClientDependency:Css runat="server" Files="FormsMedium" MediaConfiguration="Medium" Moveable="False"/>
+        <ClientDependency:Css runat="server" Files="FormsLarge" MediaConfiguration="Large" Moveable="False"/>
     </EastSussexGovUK:ContextContainer>
 </asp:Content>
 
@@ -29,6 +29,7 @@
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="javascript">
+    <ClientDependency:Script runat="server" Files="Tips;DescribedByTips" />
     <ClientDependency:Script Files="SupportWithConfidenceCategories;SupportWithConfidenceEnterFix" runat="server" />
 </asp:Content>
 

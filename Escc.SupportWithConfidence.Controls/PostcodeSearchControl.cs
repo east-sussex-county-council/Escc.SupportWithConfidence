@@ -61,7 +61,9 @@ namespace Escc.SupportWithConfidence.Controls
             }
 
             var lblPostcode = new Label { Text = _postcodeText, ID = "lblPostcode", AssociatedControlID = "txbPostcode", CssClass = "formLabel" };
-            var txbPostcode = new TextBox { ID = "txbPostcode", CssClass = "formControl", TextMode = TextBoxMode.SingleLine };
+            var txbPostcode = new TextBox { ID = "txbPostcode", CssClass = "formControl describedby-tip", TextMode = TextBoxMode.SingleLine };
+            txbPostcode.Attributes["aria-describedby"] = "data-protection";
+            txbPostcode.Attributes["data-tip-positions"] = "bottom top";
             var btnSearch = new Button { ID = "btnSearch", Text = _buttonText, CssClass = "button" };
 
             btnSearch.Click += btnSearch_Click;
@@ -69,6 +71,7 @@ namespace Escc.SupportWithConfidence.Controls
             Controls.Add(lblPostcode);
             Controls.Add(txbPostcode);
             Controls.Add(btnSearch);
+            Controls.Add(new LiteralControl("<p id=\"data-protection\">We won't keep or share your postcode or town</p>"));
         }
 
         [Obsolete("Need to update code to call EsccWebTeam.Data.Web.Iri.RemoveParameterFromQueryString")]
