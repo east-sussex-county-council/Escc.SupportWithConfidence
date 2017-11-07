@@ -1,33 +1,21 @@
 ﻿using System;
-using Escc.EastSussexGovUK.Skins;
-using Escc.EastSussexGovUK.Views;
-using Escc.EastSussexGovUK.WebForms;
-using System.IO;
-using Escc.Web;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
-namespace Escc.SupportWithConfidence.Website
+namespace Escc.SupportWithConfidence.Website.Views
 {
-    public partial class Search : System.Web.UI.Page
+    public partial class SearchControl : ViewUserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Ensure there's one version of this URL so that the data is consistent in Google Analytics
-            if (Path.GetFileName(Request.RawUrl).ToUpperInvariant().StartsWith("SEARCH.ASPX"))
-            {
-                new HttpStatus().MovedPermanently(ResolveUrl("~/"));
-            }
 
-            var skinnable = Master as BaseMasterPage;
-            if (skinnable != null)
-            {
-                skinnable.Skin = new CustomerFocusSkin(ViewSelector.CurrentViewIs(MasterPageFile));
-            }
-
-            headContent.RssFeedUrl = new Uri(Request.Url, ResolveUrl("~/ProvidersRSS")).ToString();
         }
-
 
         /// <summary>
         /// Initializes the <see cref="T:System.Web.UI.HtmlTextWriter" /> object and calls on the child controls of the <see cref="T:System.Web.UI.Page" /> to render.

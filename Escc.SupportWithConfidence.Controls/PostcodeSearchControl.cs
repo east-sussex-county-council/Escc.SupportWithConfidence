@@ -66,52 +66,22 @@ namespace Escc.SupportWithConfidence.Controls
             txbPostcode.Attributes["data-tip-positions"] = "bottom top";
             var btnSearch = new Button { ID = "btnSearch", Text = _buttonText, CssClass = "button" };
 
-            btnSearch.Click += btnSearch_Click;
-
             Controls.Add(lblPostcode);
             Controls.Add(txbPostcode);
             Controls.Add(btnSearch);
             Controls.Add(new LiteralControl("<p id=\"data-protection\">We won't keep or share your postcode or town</p>"));
-        }
 
-        [Obsolete("Need to update code to call EsccWebTeam.Data.Web.Iri.RemoveParameterFromQueryString")]
-        public string RemoveParameter(string qs, string param)
-        {
-            // if supplied querystring starts with ?, remove it
-            if (qs.StartsWith("?")) qs = qs.Substring(1);
-
-            // split supplied querystring into sections
-            qs = qs.Replace("&amp;", "&");
-            string[] qsBits = qs.Split('&');
-
-            //rebuild query string without its parameter= value
-            var newQs = new StringBuilder();
-
-            for (int i = 0; i < qsBits.Length; i++)
+            if (HttpContext.Current.Request.Form[btnSearch.UniqueID] != null)
             {
-                string[] paramBits = qsBits[i].Split('=');
-
-                if ((paramBits[0] != param) && (paramBits.Length > 1))
-                {
-                    if (newQs.Length > 0) newQs.Append("&");
-                    newQs.Append(paramBits[0]).Append("=").Append(paramBits[1]);
-                }
+                btnSearch_Click(btnSearch,null);
             }
-
-            // get querystring ready for new parameter
-            //if (newQS.Length > 0) newQS.Append("&");
-            //else newQS.Append("?");
-
-            string completeQs = newQs.ToString();
-            if (!completeQs.StartsWith("?")) completeQs = "?" + completeQs;
-
-            return completeQs;
         }
 
         void btnSearch_Click(object sender, EventArgs e)
         {
 
             var txbPostcode = (TextBox)FindControl("txbPostcode");
+            txbPostcode.Text = HttpContext.Current.Request.Form[txbPostcode.UniqueID];
 
             if (txbPostcode.Text.Length > 0)
             {

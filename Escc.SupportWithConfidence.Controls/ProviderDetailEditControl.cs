@@ -227,7 +227,7 @@ namespace Escc.SupportWithConfidence.Controls
                 if (p.BwcMember)
                 {
                     html.Append(
-                        "<img src=\"" + Page.ResolveUrl("~/images/bwc_logo.jpg") + "\" alt=\"Buy with Confidence Member\" class=\"bwclogo\">");
+                        "<img src=\"" + VirtualPathUtility.ToAbsolute("~/images/bwc_logo.jpg") + "\" alt=\"Buy with Confidence Member\" class=\"bwclogo\">");
                 }
 
 
@@ -553,7 +553,7 @@ namespace Escc.SupportWithConfidence.Controls
                 Controls.Add(validationSummary);
                 validationSummary.Controls.Add(noResultsValidator);
 
-                var linkBottomSearch = new LiteralControl("<a href=\"" + Page.ResolveUrl("~/") + "\" class=\"newsearch\">New search</a>");
+                var linkBottomSearch = new LiteralControl("<a href=\"" + VirtualPathUtility.ToAbsolute("~/") + "\" class=\"newsearch\">New search</a>");
                 Controls.Add(linkBottomSearch);
 
                 var linkDisclaimer =

@@ -23,7 +23,7 @@ namespace Escc.SupportWithConfidence.Controls
 
             var heading =
                 new LiteralControl(
-                    "<h1><img src=\"" + ResolveUrl("images/swc_logo_header.jpg") + "\" alt=\"'Support with confidence' approved care providers in East Sussex\" /></h1>");
+                    "<h1><img src=\"" + VirtualPathUtility.ToAbsolute("~/images/swc_logo_header.jpg") + "\" alt=\"'Support with confidence' approved care providers in East Sussex\" /></h1>");
             // LiteralControl heading = new LiteralControl("<hgroup><h1>East Sussex 'Support with confidence' directory</h1>");
             Controls.Add(heading);
 

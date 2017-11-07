@@ -13,13 +13,21 @@ namespace Escc.SupportWithConfidence.Website
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Using map page route here as a way to use an .aspx file as a view with mvc
-            routes.MapPageRoute(
-                "Default",
-                "Home/Index",
-                "~/"
-                );
+            // Preserve old URLs from when this was a WebForms app
+            routes.MapRoute(
+                name: "WebForms",
+                url: "{controller}.aspx",
+                defaults: new { controller = "Home", action = "Index" }
+            );
 
+            // Home page
+            routes.MapRoute(
+                name: "Default",
+                url: String.Empty,
+                defaults: new { controller = "Home", action = "Index" }
+            );
+        
+            // RSS feed
             routes.MapRoute(
                 name: "ProvidersRSS",
                 url: "ProvidersRSS/{action}/{id}",

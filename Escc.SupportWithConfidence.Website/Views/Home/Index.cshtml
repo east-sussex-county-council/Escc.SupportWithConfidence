@@ -1,0 +1,36 @@
+﻿@model Escc.SupportWithConfidence.Website.Models.SupportWithConfidenceViewModel
+@using ClientDependency.Core.Mvc
+@using Escc.ClientDependencyFramework
+@{ 
+    Model.Metadata.Title = "Support with Confidence";
+    Model.Metadata.IpsvPreferredTerms = "Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans";
+    Model.Metadata.LgilType = "Applications for service";
+    Model.Metadata.LgtlType = "Forms";
+    Model.Metadata.DateIssued = "2004-11-20";
+    Model.Metadata.Keywords = "vetted; approved; home care; care services; Support with confidence";
+    Model.Metadata.Description = "Find providers which are approved members of the Support with Confidence scheme in East Sussex";
+    Model.Metadata.RssFeedTitle = "Help at home you can trust";
+    Model.Metadata.RssFeedUrl = new Uri(Request.Url, Url.Content("~/ProvidersRSS")).ToString();
+
+    Model.ShowEastSussex1SpaceWidget = true;
+
+    Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
+    Html.RequiresCss(CssFileAlias.Resolve("SupportWithConfidence"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
+    Html.RequiresJs(JsFileAlias.Resolve("Tips"));
+    Html.RequiresJs(JsFileAlias.Resolve("DescribedByTips"));
+    Html.RequiresJs(JsFileAlias.Resolve("SupportWithConfidenceCategories"));
+    Html.RequiresJs(JsFileAlias.Resolve("SupportWithConfidenceEnterFix"));
+}
+
+
+    <div class="article">
+    <section>
+        @Html.Partial("~/Views/SearchControl.ascx")
+    </section>
+    </div>
+
+    @Html.Partial("~/Views/Related.cshtml")
+    @Html.Partial("~/Views/EastSussexGovUK/Features/_EastSussex1Space.cshtml")
+

@@ -7,19 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Escc.SupportWithConfidence.Website {
+namespace Escc.SupportWithConfidence.Website.Views {
     
     
-    public partial class Detail {
-        
-        /// <summary>
-        /// headContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Escc.Web.Metadata.MetadataControl headContent;
+    public partial class DetailControl {
         
         /// <summary>
         /// detail control.

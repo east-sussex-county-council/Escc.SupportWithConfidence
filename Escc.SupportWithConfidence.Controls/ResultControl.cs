@@ -113,7 +113,7 @@ namespace Escc.SupportWithConfidence.Controls
             var linkToFeedback = new LiteralControl("<p><a href=\"https://www.eastsussex.gov.uk/forms/eforms.aspx?f=349&amp;p=1\" class=\"feedback\">Couldn’t find what you were looking for?</a></p>");
             Controls.Add(linkToFeedback);
 
-            var linkTopSearch = new LiteralControl("<p><a href=\"" + Page.ResolveUrl("~/") + "\" class=\"newsearch\">New search</a></p>");
+            var linkTopSearch = new LiteralControl("<p><a href=\"" + VirtualPathUtility.ToAbsolute("~/") + "\" class=\"newsearch\">New search</a></p>");
             Controls.Add(linkTopSearch);
 
             if (results.Count > 0)
@@ -147,7 +147,7 @@ namespace Escc.SupportWithConfidence.Controls
                 PagingBottom.CssClass = "infoBar";
                 Controls.Add(PagingBottom);
 
-                var linkBottomSearch = new LiteralControl("<p><a href=\"" + Page.ResolveUrl("~/") + "\" class=\"newsearch\">New search</a></p>");
+                var linkBottomSearch = new LiteralControl("<p><a href=\"" + VirtualPathUtility.ToAbsolute("~/") + "\" class=\"newsearch\">New search</a></p>");
                 Controls.Add(linkBottomSearch);
 
                 var linkDisclaimer = new LiteralControl("<p><a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a></p>");

@@ -7,27 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Escc.SupportWithConfidence.Website {
+namespace Escc.SupportWithConfidence.Website.Views {
     
     
-    public partial class Results {
+    public partial class SearchControl {
         
         /// <summary>
-        /// headContent control.
+        /// SearchControls control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Escc.Web.Metadata.MetadataControl headContent;
-        
-        /// <summary>
-        /// results control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Escc.SupportWithConfidence.Controls.ResultControl results;
+        protected global::Escc.SupportWithConfidence.Controls.SearchControl SearchControls;
     }
 }

@@ -27,17 +27,21 @@ namespace Escc.SupportWithConfidence.Controls
                 };
 
             var btnSearch = new Button {ID = "btnSearch", Text = @"Search", CssClass = "button"};
-            btnSearch.Click += btnSearch_Click;
 
             Controls.Add(lblProvider);
             Controls.Add(txbProvider);
             Controls.Add(btnSearch);
+
+            if (!String.IsNullOrEmpty(HttpContext.Current.Request.Form[btnSearch.UniqueID]))
+            {
+                btnSearch_Click(btnSearch, null);
+            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             var txbProvider = (TextBox) FindControl("txbProvider");
-
+            txbProvider.Text = HttpContext.Current.Request.Form[txbProvider.UniqueID];
 
             HttpContext.Current.Response.Redirect(txbProvider.Text.Length > 0
                                                       ? String.Format("results.aspx?s={0}", txbProvider.Text)
