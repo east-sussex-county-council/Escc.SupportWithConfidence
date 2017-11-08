@@ -42,7 +42,7 @@
         else
         {
 
-            html.Append("<a href=\"").Append(ConfigurationManager.AppSettings["CategoryResultPage"]).Append("?cat=").Append(cat.Id).Append("\">");
+            html.Append("<a href=\"").Append(VirtualPathUtility.ToAbsolute("~/results.aspx")).Append("?cat=").Append(cat.Id).Append("\">");
             html.Append(cat.Description);
             html.Append("</a>");
         }

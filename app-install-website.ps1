@@ -65,7 +65,7 @@ $transformsFolder = NormaliseFolderPath $transformsFolder
 
 BackupApplication "$destinationFolder/$projectName" $backupFolder $comment
 
-robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF *.gif *.png *.aspx *.ashx *.ascx *.asax *.dll *.jpg *.css *.js csc.* csi.* *.cshtml /XD aspnet_client obj Properties Controllers 
+robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF *.gif *.png *.ashx *.ascx *.asax *.dll *.jpg *.css *.js csc.* csi.* *.cshtml /XD aspnet_client obj Properties Controllers Models App_Start "Connected Services"
 copy "$sourceFolder\Views\web.example.config" "$destinationFolder\$projectName\Views\web.config"
 
 
@@ -83,6 +83,13 @@ CheckSiteExistsBeforeAddingApplication $websiteName
 CreateVirtualDirectory $websiteName "socialcare" "$destinationFolder\_virtual" true
 CreateVirtualDirectory $websiteName "socialcare/athome" "$destinationFolder\_virtual" true
 CreateVirtualDirectory $websiteName "socialcare/athome/approvedproviders" "$destinationFolder\$projectName" true "$projectName-$websiteName"
+
+# Give application pool account write access so that it can write clientdependency files
+Write-Host "Granting Modify access to the application pool account"
+$acl = Get-Acl "$destinationFolder/$projectName"
+$rule = New-Object System.Security.AccessControl.FileSystemAccessRule("IIS AppPool\$projectName-$websiteName", "Modify", "ContainerInherit,ObjectInherit", "None", "Allow")
+$acl.SetAccessRule($rule)
+Set-Acl "$destinationFolder/$projectName" $acl
 
 Write-Host
 Write-Host "Done." -ForegroundColor "Green"
