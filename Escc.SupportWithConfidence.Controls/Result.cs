@@ -64,7 +64,7 @@ namespace Escc.SupportWithConfidence.Controls
                 html.Append(String.Format("<dt>Availability</dt><dd class=\"availability\">{0}</dd>", Availability));
             }
 
-            html.Append(String.Format("<dt>Categories</dt><dd class=\"category\"><ul>{0}</ul></dd></dl>", CategoryList));
+            html.Append(String.Format("<dt class=\"screen\">Categories</dt><dd class=\"category screen\"><ul>{0}</ul></dd></dl>", CategoryList));
 
 
             return html.ToString();

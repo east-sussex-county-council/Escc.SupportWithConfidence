@@ -72,9 +72,6 @@
                 sortOrder = "alphabetically";
             }
 
-
-
-
             <div class="content text-content">
 
             @if (results.Count > 0)
@@ -91,7 +88,7 @@
 
             @if (results.Count > 0)
             {
-                <div class="form simple-form">
+                <div class="form simple-form screen">
                 <h2>Results are sorted @sortOrder</h2>
                 
                 <p class="intro">To sort by those nearest to you, please enter your postcode or town.</p>
@@ -104,8 +101,8 @@
                 </div>
             }
 
-            <p><a href="https://apps.eastsussex.gov.uk/forms/eforms.aspx?f=349&amp;p=1" class="feedback">Couldn’t find what you were looking for?</a></p>
-            <p><a href="@VirtualPathUtility.ToAbsolute("~/")" class="newsearch">New search</a></p>
+            <p class="screen"><a href="https://apps.eastsussex.gov.uk/forms/eforms.aspx?f=349&amp;p=1" class="feedback">Couldn’t find what you were looking for?</a></p>
+            <p class="screen"><a href="@VirtualPathUtility.ToAbsolute("~/")" class="newsearch">New search</a></p>
 
             @if (results.Count > 0)
             {
@@ -113,19 +110,27 @@
                 paging.TotalResults = controller.TotalResults;
                 paging.ResultsTextSingular = "provider";
                 paging.ResultsTextPlural = "providers";
-                paging.PageSize = 10;
 
                 Html.RenderPartial("~/Views/PagingBarControl.ascx", paging);
 
                 foreach (var result in results)
                 {
                     @Html.Raw(result.View())
+                        }
+
+                        Html.RenderPartial("~/Views/PagingBarControl.ascx", paging);
+
+                        if (paging.TotalPages > 1)
+                        {
+                            var url = Request.Url;
+                            var query = HttpUtility.ParseQueryString(url.Query);
+                            query.Remove("pagesize");
+                            query.Add("pagesize", "10000");
+                            url = new Uri(url.Scheme + "://" + url.Authority + url.AbsolutePath + "?" + query);
+                    <p class="screen"><a href="@url">View all results</a></p>
                 }
-
-                Html.RenderPartial("~/Views/PagingBarControl.ascx", paging);
-
-                <p><a href="@VirtualPathUtility.ToAbsolute("~/")" class="newsearch">New search</a></p>
-                <p><a href="@HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"])">Disclaimer</a></p>
+                <p class="screen"><a href="@VirtualPathUtility.ToAbsolute("~/")" class="newsearch">New search</a></p>
+                <p class="screen"><a href="@HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"])">Disclaimer</a></p>
             }
             </div>
         }

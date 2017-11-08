@@ -109,7 +109,7 @@ namespace Escc.SupportWithConfidence.Controls
 
                         #endregion
 
-                        #region PageNumber
+                        #region Paging
 
                         case "page":
                             try
@@ -123,6 +123,22 @@ namespace Escc.SupportWithConfidence.Controls
                             catch (FormatException)
                             {
                                 CurrentResultPage = 1;
+                            }
+
+                            break;
+
+                        case "pagesize":
+                            try
+                            {
+                                PageSize = Convert.ToInt16(request.QueryString[querystring.ToString()]);
+                            }
+                            catch (OverflowException)
+                            {
+                                PageSize = 10;
+                            }
+                            catch (FormatException)
+                            {
+                                PageSize = 10;
                             }
 
                             break;
