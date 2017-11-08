@@ -37,6 +37,7 @@
     <Compile Include="CategorySearchControl.cs" />
     <Compile Include="ConnectionType.cs" />
     <Compile Include="IProviderDataRepository.cs" />
+    <Compile Include="LocationSearcher.cs" />
     <Compile Include="SqlServerProviderDataRepository.cs" />
     <Compile Include="IProviderDataSource.cs" />
     <Compile Include="SqlServerProviderDataSource.cs" />
@@ -47,26 +48,21 @@
     <Compile Include="ImageUploader.cs" />
     <Compile Include="IMapper.cs" />
     <Compile Include="IResult.cs" />
-    <Compile Include="PostcodeSearchControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="ProviderCategory.cs" />
     <Compile Include="ProviderCategoryMapper.cs" />
-    <Compile Include="ProviderDetailControl.cs" />
     <Compile Include="ProviderDetailEditControl.cs" />
     <Compile Include="ProviderMapper.cs" />
-    <Compile Include="ProviderSearchControl.cs" />
     <Compile Include="ProviderType.cs" />
     <Compile Include="QueryParameter.cs" />
     <Compile Include="Result.cs" />
-    <Compile Include="ResultControl.cs" />
     <Compile Include="ResultMapper.cs" />
     <Compile Include="ResultRepeater.cs" />
     <Compile Include="ResultRepeaterFooterTemplate.cs" />
     <Compile Include="ResultRepeaterHeaderTemplate.cs" />
     <Compile Include="ResultRepeaterItemTemplate.cs" />
     <Compile Include="SearchCall.cs" />
-    <Compile Include="SearchControl.cs" />
     <Compile Include="SearchController.cs" />
   </ItemGroup>
   <ItemGroup>

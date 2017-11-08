@@ -1,6 +1,9 @@
 ﻿@model Escc.SupportWithConfidence.Website.Models.SupportWithConfidenceViewModel
 @using ClientDependency.Core.Mvc
 @using Escc.ClientDependencyFramework
+@using System.Configuration
+@using System.Text
+@using Escc.SupportWithConfidence.Controls
 @{ 
     Model.Metadata.Title = "Support with Confidence";
     Model.Metadata.IpsvPreferredTerms = "Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans";
@@ -21,16 +24,101 @@
     Html.RequiresJs(JsFileAlias.Resolve("Tips"));
     Html.RequiresJs(JsFileAlias.Resolve("DescribedByTips"));
     Html.RequiresJs(JsFileAlias.Resolve("SupportWithConfidenceCategories"));
-    Html.RequiresJs(JsFileAlias.Resolve("SupportWithConfidenceEnterFix"));
+}
+@functions {
+    /// <summary>
+    /// Build the list item using the category object properties
+    /// </summary>
+    /// <param name="html"></param>
+    /// <param name="cat"></param>
+    private static void RenderCategory(StringBuilder html, Category cat)
+    {
+        html.Append("<li>");
+
+        if (cat.Depth == 1)
+        {
+            html.Append(cat.Description);
+        }
+        else
+        {
+
+            html.Append("<a href=\"").Append(ConfigurationManager.AppSettings["CategoryResultPage"]).Append("?cat=").Append(cat.Id).Append("\">");
+            html.Append(cat.Description);
+            html.Append("</a>");
+        }
+
+        // If the category (list item) has children, create a new nested unordered list and call itself to populate the list
+        // items with the child categories (list items).
+        if (cat.Categories.Count > 0)
+        {
+            html.Append("<ul>");
+            foreach (var child in cat.Categories)
+            {
+                RenderCategory(html, child);
+            }
+            html.Append("</ul>");
+        }
+        html.Append("</li>");
+    }
 }
 
-
-    <div class="article">
+<div class="article">
     <section>
-        @Html.Partial("~/Views/SearchControl.ascx")
-    </section>
-    </div>
+        <div class="content text-content swc-search">
+            <h1><img src="@Url.Content("~/images/swc_logo_header.jpg")" alt="'Support with confidence' approved care providers in East Sussex" /></h1>
+            <h2>Find providers of care and support services where you live</h2>
+            <div class="form simple-form">
+                <h2>List by category</h2>
+                @{
+                    // Get categories from the database table Category
+                    var categories = new WebApiProviderDataSource().GetAllCategoriesWithProvider(true);
 
-    @Html.Partial("~/Views/Related.cshtml")
-    @Html.Partial("~/Views/EastSussexGovUK/Features/_EastSussex1Space.cshtml")
+                    // Get category collection that is structured as a family tree
+                    var categorymapper = new CategoryMapper(categories);
+
+
+                    // Build the html to represent the control
+                    var html = new StringBuilder();
+                    html.Append("<ul id=\"navigation\">");
+
+                    // Create each list item <li> Category information </li>
+                    foreach (var child in categorymapper.Categories)
+                    {
+                        RenderCategory(html, child);
+                    }
+
+                    html.Append("</ul>");
+
+                    @Html.Raw(html.ToString());
+                }
+            </div>
+
+            <div class="form simple-form">
+                <h2>Or find all providers near you</h2>
+                @Html.ValidationSummary()
+                <form action="@Url.Content("~/")?reload" method="POST">
+                    <label for="postcode" class="formLabel">Postcode or town</label>
+                    <input name="postcode" type="text" id="postcode" class="formControl describedby-tip" aria-describedby="data-protection" data-tip-positions="bottom top" />
+                    <input type="submit" value="Search" class="button" />
+                    <p id="data-protection">We won't keep or share your postcode or town</p>
+                </form>
+            </div>
+
+            <div class="form simple-form">
+                <h2>Or find providers by name</h2>
+                <form method="GET" action="@Url.Content("~/results.aspx")">
+                    <label for="s" class="formLabel">Provider name</label>
+                    <input name="s" type="text" id="txbProvider" class="formControl" />
+                    <input type="submit" value="Search" class="button" />
+                </form>                
+            </div>
+            <p><a href="@Url.Content("~/ProvidersRSS")" type="application/rss+xml" rel="alternate" class="rss">Subscribe by RSS to all providers</a></p>
+            <p><a href="@ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]">Disclaimer</a></p>
+        </div>
+
+    </section>
+</div>
+
+@Html.Partial("~/Views/Related.cshtml")
+@Html.Partial("~/Views/EastSussexGovUK/Features/_EastSussex1Space.cshtml")
 

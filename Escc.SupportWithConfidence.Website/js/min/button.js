@@ -1,1 +1,0 @@
-$(function(){$("#content_SearchControls_ctl03_txbProvider").keydown(function(a){if(a.which==13){a.preventDefault();$("#content_SearchControls_ctl03_btnSearch").click()}})});

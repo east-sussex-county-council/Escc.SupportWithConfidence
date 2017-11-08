@@ -7,7 +7,6 @@
   <Target Name="Minimize" Condition="'$(ConfigurationName)' == 'Release'">
     <CssCompressorTask SourceFiles="css/swc.css" OutputFile="css/min/swc.css" />
 
-    <JavaScriptCompressorTask SourceFiles="js/button.js" OutputFile="js/min/button.js" />
     <JavaScriptCompressorTask SourceFiles="js/categoryshowhide.js" OutputFile="js/min/categoryshowhide.js" />
   </Target>
 </Project>

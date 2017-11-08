@@ -1,6 +1,8 @@
 ﻿@model Escc.SupportWithConfidence.Website.Models.SupportWithConfidenceViewModel
-@using ClientDependency.Core.Mvc
-@using Escc.ClientDependencyFramework
+@using Escc.SupportWithConfidence.Controls
+@using Escc.DatabaseFileControls.WebForms;
+@using System.Configuration;
+@using System.Text
 @{ 
     Model.Metadata.Title = "Support with Confidence";
     Model.Metadata.IpsvPreferredTerms = "Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans";
@@ -16,7 +18,212 @@
 <div class="article">
     <article>
         <div class="content text-content">
-            @Html.Partial("~/Views/DetailControl.ascx")
+            @{
+                int reference;
+
+                int.TryParse(HttpContext.Current.Request.QueryString["ref"], result: out reference);
+
+                var proMapper = new ProviderMapper(new WebApiProviderDataSource());
+                proMapper.Map(reference);
+
+                if (proMapper.Providers.Count > 0)
+                {
+                    Provider p = proMapper.Providers[0];
+
+                    var html = new StringBuilder();
+                    html.Append("<h1>" + p.ProviderName + "</h1>");
+
+                    Uri imageUrl = MultiFileAttachmentBaseControl.GetImageUrl(p.PhotographId, ImageUploader.DotNetProjectName);
+                    if (imageUrl != null)
+                    {
+                        <img src="@imageUrl.AbsoluteUri" alt="@p.ProviderName" class="photo"/>
+                    }
+
+                    html.Append("<h2>Contact details</h2>");
+
+
+                    html.Append("<div class=\"vcard\">");
+                    if (p.PublishAddress)
+                    {
+
+                        html.Append("<p>");
+
+                        if (p.ContactName.Length > 0)
+                        {
+                            html.Append("<span class=\"n\">" + p.ContactName + "</span><br />");
+                        }
+                        else
+                        {
+                            html.Append("<span class=\"org\">" + p.ProviderName + "</span><br />");
+                        }
+                        html.Append("<span class=\"location adr\">");
+                        if (p.Address.Paon.Length > 4)
+                        {
+                            html.Append("<span class=\"street-address\">" + p.Address.Paon + " " + p.Address.Saon + "<br />" + p.Address.StreetName + "</span><br />");
+                        }
+                        else
+                        {
+                            html.Append("<span class=\"street-address\">" + p.Address.Paon + " " + p.Address.Saon + " " + p.Address.StreetName + "</span><br />");
+                        }
+
+                        html.Append("<span class=\"locality\">" + p.Address.Town + "</span><br />");
+                        if (p.Address.Locality.Length > 0)
+                        {
+                            html.Append("<span class=\"region\">" + p.Address.Locality + " " + "</span><br />");
+                        }
+                        html.Append("<span class=\"postal-code\">" + p.Address.Postcode + "</span>");
+                        html.Append("</span>");
+                        html.Append("</p>");
+                    }
+                    else
+                    {
+
+                        html.Append("<p>");
+
+                        if (p.ContactName.Length > 0)
+                        {
+                            html.Append("<span class=\"n\">" + p.ContactName + "</span><br />");
+                        }
+                        else
+                        {
+                            html.Append("<span class=\"org\">" + p.ProviderName + "</span><br />");
+                        }
+                        html.Append("</p>");
+                    }
+                    html.Append("<p>");
+                    if (p.Telephone.Trim().Length > 0)
+                    {
+                        html.Append("<span class=\"tel\">");
+                        html.Append("<span class=\"aural\">");
+                        html.Append("<span class=\"type\"></span> ");
+                        html.Append("</span>");
+
+                        html.Append("Phone: <span class=\"value\">" + p.Telephone + "</span>");
+
+                        html.Append("</span>");
+                    }
+                    if (p.Mobile.Trim().Length > 0)
+                    {
+                        html.Append("<br />");
+                        html.Append("<span class=\"tel\">");
+                        html.Append("<span class=\"aural\">");
+                        html.Append("<span class=\"type\"></span> ");
+                        html.Append("</span>");
+                        html.Append("Mobile: <span class=\"value\">" + p.Mobile + "</span>");
+                        html.Append("</span>");
+                    }
+
+                    if (p.Email.Trim().Length > 0)
+                    {
+                        html.Append("<br />");
+                        html.Append("Email: <a class=\"email\" href=\"mailto:" + p.Email + "\">" + p.Email + "</a><br />");
+                    }
+
+                    if (p.Website.Trim().Length > 0)
+                    {
+                        html.Append("Website: <a class=\"url\" href=\"" + p.Website + "\">" + p.Website + "</a>");
+                    }
+                    html.Append("</p>");
+                    html.Append("</div>");
+
+                    if (p.Services.Trim().Length > 0)
+                    {
+                        html.Append("<h2>List of services</h2>");
+                        html.Append("<p>" + p.Services + "</p>");
+                    }
+
+
+                    if (p.Coverage.Trim().Length > 0 & p.Coverage2.Trim().Length > 0)
+                    {
+                        html.Append("<h2>Coverage</h2>");
+                        html.Append("<p>" + p.Coverage + " " + p.Coverage2 + "</p>");
+                    }
+                    else
+                    {
+                        if (p.Coverage.Trim().Length > 0)
+                        {
+                            html.Append("<h2>Coverage</h2>");
+                            html.Append("<p>" + p.Coverage + "</p>");
+                        }
+                    }
+
+                    if (p.Availability.Trim().Length > 0)
+                    {
+                        html.Append("<h2>Availability</h2>");
+                        html.Append("<p>" + p.Availability + "</p>");
+                    }
+
+                    if (p.Costs.Length > 0)
+                    {
+                        html.Append("<h2>Charging and related information</h2>");
+                        html.Append("<p>" + p.Costs + "</p>");
+                    }
+
+
+                    if (p.Expertise.Trim().Length > 0)
+                    {
+                        html.Append("<h2>Expertise</h2>");
+                        html.Append("<p>" + p.Expertise + "</p>");
+                    }
+
+                    if (p.Experience.Trim().Length > 0)
+                    {
+                        html.Append("<h2>Experience</h2>");
+                        html.Append("<p>" + p.Experience + "</p>");
+                    }
+
+                    if (p.Background.Trim().Length > 0)
+                    {
+                        html.Append("<h2>Background</h2>");
+                        html.Append("<p>" + p.Background + "</p>");
+                    }
+
+
+                    if (p.Accreditation.Trim().Length > 0)
+                    {
+                        html.Append("<h2>Accreditation</h2>");
+                        html.Append("<p>" + p.Accreditation + "</p>");
+                    }
+
+
+                    html.Append(String.Format("<h2>Category listings</h2><ul>{0}</ul>", p.CategoryList));
+
+
+                    if (p.Crb.Length > 0)
+                    {
+                        html.Append("<h2>Criminal records information:</h2>");
+                        html.Append("<p>" + p.Crb + "</p>");
+                    }
+                    else
+                    {
+
+                        if (p.CrbCheckDate.Trim().Length > 0)
+                        {
+                            html.Append("<h2>Date of last Criminal Records check</h2>");
+                            html.Append("<p>" + p.CrbCheckDate + "</p>");
+                        }
+                        else if (p.CqcCheckDate.Trim().Length > 0)
+                        {
+                            html.Append("<h2>Date of Care Quality Commission (CQC) Registration</h2>");
+                            html.Append("<p>" + p.CqcCheckDate + "</p>");
+                        }
+                    }
+
+                    if (p.BwcMember)
+                    {
+                        html.Append("<img src=\"/socialcare/athome/approvedproviders/images/bwc_logo.jpg\" alt=\"Buy with Confidence Member\" class=\"bwclogo\">");
+                    }
+
+
+                    @Html.Raw(html.ToString())
+                }
+                else
+                {
+                    <p class="warning">Unfortunately no details for the provider could be found. Please try searching again with different criteria.</p>
+                }
+            }
+            <p><a href="@Url.Content("~/")" class="newsearch">New search</a></p>
+            <p><a href="@ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]">Disclaimer</a></p>
         </div>
     </article>
 </div>

@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Escc.SupportWithConfidence.Website.Views {
+namespace Escc.EastSussexGovUK.Umbraco.Views {
     
     
-    public partial class SearchControl {
+    public partial class PagingBarControl {
         
         /// <summary>
-        /// SearchControls control.
+        /// pagingBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Escc.SupportWithConfidence.Controls.SearchControl SearchControls;
+        protected global::Escc.NavigationControls.WebForms.PagingBarControl pagingBar;
     }
 }

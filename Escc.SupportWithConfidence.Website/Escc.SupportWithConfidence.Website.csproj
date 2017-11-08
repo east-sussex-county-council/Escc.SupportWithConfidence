@@ -92,6 +92,9 @@
       <HintPath>..\packages\Escc.Html.2.0.0\lib\Escc.Html.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Escc.NavigationControls.WebForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=06fad7304560ae6f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Escc.NavigationControls.WebForms.1.0.0\lib\Escc.NavigationControls.WebForms.dll</HintPath>
+    </Reference>
     <Reference Include="Escc.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=06fad7304560ae6f, processorArchitecture=MSIL">
       <HintPath>..\packages\Escc.Net.1.0.1\lib\Escc.Net.dll</HintPath>
       <Private>True</Private>
@@ -217,17 +220,13 @@
     <Content Include="images\bwc_logo.jpg" />
     <Content Include="images\swc_logo_banner.jpg" />
     <Content Include="images\swc_logo_header.jpg" />
-    <Content Include="js\min\button.js" />
     <Content Include="js\min\categoryshowhide.js" />
     <Content Include="EastSussexGovUK\Rss\rss-to-html.ashx" />
-    <None Include="js\button.js" />
     <None Include="js\CategoryShowHide.js" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\DetailControl.ascx" />
-    <Content Include="Views\ResultControl.ascx" />
-    <Content Include="Views\SearchControl.ascx" />
+    <Content Include="Views\PagingBarControl.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -255,32 +254,20 @@
     </Compile>
     <Compile Include="Models\SupportWithConfidenceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\DetailControl.ascx.cs">
-      <DependentUpon>DetailControl.ascx</DependentUpon>
+    <Compile Include="Views\PagingBarControl.ascx.cs">
+      <DependentUpon>PagingBarControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\DetailControl.ascx.designer.cs">
-      <DependentUpon>DetailControl.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ResultControl.ascx.cs">
-      <DependentUpon>ResultControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\ResultControl.ascx.designer.cs">
-      <DependentUpon>ResultControl.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SearchControl.ascx.cs">
-      <DependentUpon>SearchControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\SearchControl.ascx.designer.cs">
-      <DependentUpon>SearchControl.ascx</DependentUpon>
+    <Compile Include="Views\PagingBarControl.ascx.designer.cs">
+      <DependentUpon>PagingBarControl.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ImageHandler.ashx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Escc.SupportWithConfidence.Controls\Escc.SupportWithConfidence.Controls.csproj">
       <Project>{60b61d3a-890f-4040-82f2-38d3aada5fbb}</Project>
