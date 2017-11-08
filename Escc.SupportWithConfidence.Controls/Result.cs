@@ -21,6 +21,7 @@ namespace Escc.SupportWithConfidence.Controls
         public string QueryString { get; set; }
         public bool ShowDistance { get; set; }
         public string CategoryList { get; set; }
+        public string Availability { get; set; }
 
         public string View()
         {
@@ -58,6 +59,10 @@ namespace Escc.SupportWithConfidence.Controls
                 html.Append(String.Format("<dt>Coverage</dt><dd class=\"coverage\">{0}</dd>", Coverage));
             }
 
+            if (Availability.Length > 0)
+            {
+                html.Append(String.Format("<dt>Availability</dt><dd class=\"availability\">{0}</dd>", Availability));
+            }
 
             html.Append(String.Format("<dt>Categories</dt><dd class=\"category\"><ul>{0}</ul></dd></dl>", CategoryList));
 

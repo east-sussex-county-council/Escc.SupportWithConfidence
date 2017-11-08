@@ -27,7 +27,8 @@ namespace Escc.SupportWithConfidence.Controls
                             Telephone = resultRow["Telephone"] == null ? string.Empty : resultRow["Telephone"].ToString(),
                             Mobile = resultRow["Mobile"] == null ? string.Empty : resultRow["Mobile"].ToString(),
                             Email = resultRow["Email"] == null ? string.Empty : resultRow["Email"].ToString(),
-                            Distance = Convert.ToInt16(resultRow["Distance from me"])
+                            Distance = Convert.ToInt16(resultRow["Distance from me"]),
+                            Availability = Availability(resultRow)
                         };
                     string coverage1 = resultRow["Coverage"] == null ? string.Empty : resultRow["Coverage"].ToString();
                     string coverage2 = resultRow["Coverage2"] == null ? string.Empty : resultRow["Coverage2"].ToString();
@@ -86,6 +87,14 @@ namespace Escc.SupportWithConfidence.Controls
 
                 }
             }
+        }
+
+        private string Availability(DataRow dbProvider)
+        {
+            string a1 = dbProvider["Availability1"] == DBNull.Value ? string.Empty : dbProvider["Availability1"].ToString();
+            string a2 = dbProvider["Availability2"] == DBNull.Value ? string.Empty : dbProvider["Availability2"].ToString();
+            string a3 = dbProvider["Availability3"] == DBNull.Value ? string.Empty : dbProvider["Availability3"].ToString();
+            return (a1 + " " + a2 + " " + a3).Trim();
         }
 
         private string GetAddress(DataRow dbAddress)
