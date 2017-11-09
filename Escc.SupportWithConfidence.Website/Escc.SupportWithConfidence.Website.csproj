@@ -93,7 +93,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Escc.NavigationControls.WebForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=06fad7304560ae6f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Escc.NavigationControls.WebForms.1.0.0\lib\Escc.NavigationControls.WebForms.dll</HintPath>
+      <HintPath>..\packages\Escc.NavigationControls.WebForms.1.0.1\lib\Escc.NavigationControls.WebForms.dll</HintPath>
     </Reference>
     <Reference Include="Escc.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=06fad7304560ae6f, processorArchitecture=MSIL">
       <HintPath>..\packages\Escc.Net.1.0.1\lib\Escc.Net.dll</HintPath>
