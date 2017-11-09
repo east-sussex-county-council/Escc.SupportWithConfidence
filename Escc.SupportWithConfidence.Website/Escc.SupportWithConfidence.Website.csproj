@@ -266,9 +266,6 @@
     <Content Include="ImageHandler.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Escc.SupportWithConfidence.Controls\Escc.SupportWithConfidence.Controls.csproj">
       <Project>{60b61d3a-890f-4040-82f2-38d3aada5fbb}</Project>
       <Name>Escc.SupportWithConfidence.Controls</Name>
