@@ -23,74 +23,51 @@
     Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
     Html.RequiresJs(JsFileAlias.Resolve("Tips"));
     Html.RequiresJs(JsFileAlias.Resolve("DescribedByTips"));
-    Html.RequiresJs(JsFileAlias.Resolve("SupportWithConfidenceCategories"));
-}
-@functions {
-    /// <summary>
-    /// Build the list item using the category object properties
-    /// </summary>
-    /// <param name="html"></param>
-    /// <param name="cat"></param>
-    private static void RenderCategory(StringBuilder html, Category cat)
-    {
-        html.Append("<li>");
-
-        if (cat.Depth == 1)
-        {
-            html.Append(cat.Description);
-        }
-        else
-        {
-
-            html.Append("<a href=\"").Append(VirtualPathUtility.ToAbsolute("~/results.aspx")).Append("?cat=").Append(cat.Id).Append("\">");
-            html.Append(cat.Description);
-            html.Append("</a>");
-        }
-
-        // If the category (list item) has children, create a new nested unordered list and call itself to populate the list
-        // items with the child categories (list items).
-        if (cat.Categories.Count > 0)
-        {
-            html.Append("<ul>");
-            foreach (var child in cat.Categories)
-            {
-                RenderCategory(html, child);
-            }
-            html.Append("</ul>");
-        }
-        html.Append("</li>");
-    }
+    Html.RequiresJs(JsFileAlias.Resolve("AccordionAndTabs"));
+    Html.RequiresCss(CssFileAlias.Resolve("NavigationSmall"));
+    Html.RequiresCss(CssFileAlias.Resolve("NavigationLarge"), MediaQueryAlias.Resolve("Large"));
 }
 
 <div class="article">
     <section>
         <div class="content text-content swc-search">
-            <h1><img src="@Url.Content("~/images/swc_logo_header.jpg")" alt="'Support with confidence' approved care providers in East Sussex" /></h1>
-            <h2>Find providers of care and support services where you live</h2>
-            <div class="form simple-form">
-                <h2>List by category</h2>
-                @{
-                    // Get categories from the database table Category
-                    var categories = new WebApiProviderDataSource().GetAllCategoriesWithProvider(true);
+            <h1>Help at home you can trust <img src="@Url.Content("~/images/swc_logo_header.jpg")" alt="'Support with confidence' approved care providers in East Sussex" /></h1>
+            <p>Support with Confidence is a directory of vetted and approved care and service providers who can help you at home.</p>
+            <div class="accordion" role="application">
+@{
+    // Get categories from the database table Category
+    var categories = new WebApiProviderDataSource().GetAllCategoriesWithProvider(true);
 
-                    // Get category collection that is structured as a family tree
-                    var categorymapper = new CategoryMapper(categories);
+    // Get category collection that is structured as a family tree
+    var categorymapper = new CategoryMapper(categories);
 
+    // Create each list item <li> Category information </li>
+    var counter = 1;
+    var html = new StringBuilder();
+    foreach (var category in categorymapper.Categories)
+    {
+        html.Append($"<h2 id=\"accordion{counter}\" aria-controls=\"accordion{counter}content\" role=\"tab\">{category.Description}</h2>");
 
-                    // Build the html to represent the control
-                    var html = new StringBuilder();
-                    html.Append("<ul id=\"navigation\">");
+        // If the category (list item) has children, create a new nested unordered list and call itself to populate the list
+        // items with the child categories (list items).
+        if (category.Categories.Count > 0)
+        {
+            html.Append($"<div id=\"accordion{counter}content\" aria-labelledby=\"accordion{counter}\" role=\"tabpanel\"><ul>");
+            foreach (var child in category.Categories)
+            {
+                html.Append("<li>");
+                html.Append("<a href=\"").Append(VirtualPathUtility.ToAbsolute("~/results.aspx")).Append("?cat=").Append(child.Id).Append("\">");
+                html.Append(child.Description);
+                html.Append("</a>");
+                html.Append("</li>");
+            }
+            html.Append("</ul></div>");
+        }
+        counter++;
+    }
 
-                    // Create each list item <li> Category information </li>
-                    foreach (var child in categorymapper.Categories)
-                    {
-                        RenderCategory(html, child);
-                    }
-
-                    html.Append("</ul>");
-
-                    @Html.Raw(html.ToString());
-                }
+    @Html.Raw(html.ToString());
+}
             </div>
 
             <div class="form simple-form">

@@ -1,6 +1,5 @@
-﻿/* Position the expand and collapse links on the search screen category list */
-ul#navigation li { position:relative; margin: 0.5em 0; }
-.expand, .collapse { position: absolute; top: 0; left: 19em; }
+﻿/* Posiiton the logo below the h1 */
+h1 img { display: block; margin: 18px 0;}
 
 /* Line up the two search boxes on the search screen */
 .swc-search .simple-form label { display: inline-block; min-width: 8em;}
