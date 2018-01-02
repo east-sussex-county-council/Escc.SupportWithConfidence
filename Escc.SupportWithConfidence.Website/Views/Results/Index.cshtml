@@ -95,6 +95,7 @@
                     <form action="@Url.Content("~/results.aspx")" method="POST">
                         <label for="postcode" class="formLabel">Sort by distance</label>
                         <input name="postcode" type="text" id="postcode" class="formControl describedby-tip" aria-describedby="data-protection" data-tip-positions="bottom top" />
+                        <input type="hidden" name="category" value="@controller.QueryStringParameters.CategoryId" />
                         <input type="submit" value="Sort results" class="button" />
                         <p id="data-protection">We won't keep or share your postcode or town</p>
                     </form>

@@ -22,10 +22,10 @@ namespace Escc.SupportWithConfidence.Website.Controllers
         /// <param name="postcode">The postcode.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(string postcode)
+        public ActionResult Index(string postcode, int? category=null)
         {
             var searcher = new LocationSearcher();
-            var redirectTo = searcher.Search(postcode);
+            var redirectTo = searcher.Search(postcode, category);
             if (redirectTo != null)
             {
                 new HttpStatus().SeeOther(redirectTo);

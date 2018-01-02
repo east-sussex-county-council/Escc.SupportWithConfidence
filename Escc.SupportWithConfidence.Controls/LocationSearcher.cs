@@ -14,7 +14,7 @@ namespace Escc.SupportWithConfidence.Controls
 {
     public class LocationSearcher
     {
-        public Uri Search(string postcode)
+        public Uri Search(string postcode, int? categoryId=null)
         {
             if (postcode.Length > 0)
             {
@@ -42,6 +42,10 @@ namespace Escc.SupportWithConfidence.Controls
                         parameters.Add("n", String.Empty);
                     }
 
+                    if (categoryId.HasValue)
+                    {
+                        parameters["cat"] = categoryId.Value.ToString(CultureInfo.InvariantCulture);
+                    }
 
                     var queryString = new StringBuilder();
 
