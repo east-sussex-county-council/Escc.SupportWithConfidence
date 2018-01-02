@@ -34,40 +34,40 @@
             <h1>Help at home you can trust <img src="@Url.Content("~/images/swc_logo_header.jpg")" alt="'Support with confidence' approved care providers in East Sussex" /></h1>
             <p>Support with Confidence is a directory of vetted and approved care and service providers who can help you at home.</p>
             <div class="accordion" role="application">
-@{
-    // Get categories from the database table Category
-    var categories = new WebApiProviderDataSource().GetAllCategoriesWithProvider(true);
+                @{
+                    // Get categories from the database table Category
+                    var categories = new WebApiProviderDataSource().GetAllCategoriesWithProvider(true);
 
-    // Get category collection that is structured as a family tree
-    var categorymapper = new CategoryMapper(categories);
+                    // Get category collection that is structured as a family tree
+                    var categorymapper = new CategoryMapper(categories);
 
-    // Create each list item <li> Category information </li>
-    var counter = 1;
-    var html = new StringBuilder();
-    foreach (var category in categorymapper.Categories)
-    {
-        html.Append($"<h2 id=\"accordion{counter}\" aria-controls=\"accordion{counter}content\" role=\"tab\">{category.Description}</h2>");
+                    // Create each list item <li> Category information </li>
+                    var counter = 1;
+                    var html = new StringBuilder();
+                    foreach (var category in categorymapper.Categories)
+                    {
+                        html.Append($"<h2 id=\"accordion{counter}\" aria-controls=\"accordion{counter}content\" role=\"tab\">{category.Description}</h2>");
 
-        // If the category (list item) has children, create a new nested unordered list and call itself to populate the list
-        // items with the child categories (list items).
-        if (category.Categories.Count > 0)
-        {
-            html.Append($"<div id=\"accordion{counter}content\" aria-labelledby=\"accordion{counter}\" role=\"tabpanel\"><ul>");
-            foreach (var child in category.Categories)
-            {
-                html.Append("<li>");
-                html.Append("<a href=\"").Append(VirtualPathUtility.ToAbsolute("~/results.aspx")).Append("?cat=").Append(child.Id).Append("\">");
-                html.Append(child.Description);
-                html.Append("</a>");
-                html.Append("</li>");
-            }
-            html.Append("</ul></div>");
-        }
-        counter++;
-    }
+                        // If the category (list item) has children, create a new nested unordered list and call itself to populate the list
+                        // items with the child categories (list items).
+                        if (category.Categories.Count > 0)
+                        {
+                            html.Append($"<div id=\"accordion{counter}content\" aria-labelledby=\"accordion{counter}\" role=\"tabpanel\"><ul>");
+                            foreach (var child in category.Categories)
+                            {
+                                html.Append("<li>");
+                                html.Append("<a href=\"").Append(VirtualPathUtility.ToAbsolute("~/results.aspx")).Append("?cat=").Append(child.Id).Append("\">");
+                                html.Append(child.Description);
+                                html.Append("</a>");
+                                html.Append("</li>");
+                            }
+                            html.Append("</ul></div>");
+                        }
+                        counter++;
+                    }
 
-    @Html.Raw(html.ToString());
-}
+                    @Html.Raw(html.ToString());
+                }
             </div>
 
             <div class="form simple-form">
@@ -87,10 +87,10 @@
                     <label for="s" class="formLabel">Provider name</label>
                     <input name="s" type="text" id="txbProvider" class="formControl" />
                     <input type="submit" value="Search" class="button" />
-                </form>                
+                </form>
             </div>
             <p><a href="@Url.Content("~/ProvidersRSS")" type="application/rss+xml" rel="alternate" class="rss">Subscribe by RSS to all providers</a></p>
-            <p><a href="@ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]">Disclaimer</a></p>
+            <p class="disclaimer"><small>Where East Sussex County Council provides details of companies, firms or individuals in business directories or other pages on this site the description of the goods or services they provide is based upon information supplied by them. East Sussex County Council cannot confirm that they are legally entitled or professionally qualified to carry on a particular trade, business or profession and accepts no liability for any mistakes or inaccuracies in their details. You should check any information obtained from the website before you act upon it.</small></p>
         </div>
 
     </section>

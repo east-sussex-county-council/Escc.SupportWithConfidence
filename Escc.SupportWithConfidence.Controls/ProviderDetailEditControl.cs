@@ -555,11 +555,6 @@ namespace Escc.SupportWithConfidence.Controls
 
                 var linkBottomSearch = new LiteralControl("<a href=\"" + VirtualPathUtility.ToAbsolute("~/") + "\" class=\"newsearch\">New search</a>");
                 Controls.Add(linkBottomSearch);
-
-                var linkDisclaimer =
-                    new LiteralControl(
-                        "<a href=\"" + HttpUtility.HtmlAttributeEncode(ConfigurationManager.AppSettings["SupportWithConfidenceDisclaimerUrl"]) + "\">Disclaimer</a>");
-                Controls.Add(linkDisclaimer);
             }
         }
 

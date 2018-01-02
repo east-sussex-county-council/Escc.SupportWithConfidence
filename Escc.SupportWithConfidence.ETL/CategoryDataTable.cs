@@ -70,16 +70,12 @@ namespace Escc.SupportWithConfidence.ETL
             DataRow[] filtered = dtRawParentCategories.Select(expression, sortOrder);
 
             // Duplicate ordered table and add ID and sequence numbers
-            // Again this is to allow future manual re-ordering of categories if business decides alphabetical ordering is no longer suitable
             DataTable cat = dtRawParentCategories.Clone();
             cat.Columns.Add("Id", typeof(Int32));
             cat.Columns["Id"].AutoIncrement = true;
             cat.Columns["Id"].AutoIncrementSeed = 1;
             cat.Columns["Id"].SetOrdinal(0);
             cat.Columns.Add("Sequence", typeof(Int32));
-            cat.Columns["Sequence"].AutoIncrement = true;
-            cat.Columns["Sequence"].AutoIncrementSeed = 1;
-            cat.Columns["Sequence"].SetOrdinal(1);
 
             // Import each row with new fields into duplicate table
             foreach (var item in filtered)
@@ -90,9 +86,20 @@ namespace Escc.SupportWithConfidence.ETL
             int parentId = 0;
             string code = string.Empty;
 
-            // Setup which category is a parent and which is a child
+            // Setup the sequence and which category is a parent and which is a child
             foreach (DataRow item in cat.Rows)
             {
+                // Sequence is to allow future manual re-ordering of categories if business decides alphabetical ordering is no longer suitable.
+                // So far the only request is to promote the personal assistant category to the top
+                if (item["Description"].ToString().ToUpperInvariant() == "PERSONAL ASSISTANT")
+                {
+                    item["Sequence"] = 0;
+                }
+                else
+                {
+                    item["Sequence"] = item["Id"];
+                }
+
                 if (item["Code"].ToString().Length == 1)
                 {
                     // We have a parent

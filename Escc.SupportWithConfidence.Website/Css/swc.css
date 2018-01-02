@@ -7,6 +7,9 @@ h1 img { display: block; margin: 18px 0;}
 /* Validation summary for the search by location */
 .validation-summary-errors ul { color: #b21313; list-style: none; margin-left: 0; }
 
+/* Separate the disclaimer from the content above - spacing based on 16px base font for small screens */
+p.disclaimer { clear: both; border-top: 1px solid #ccc; margin-top: 2.25em; padding-top: 1.125em; }
+
 @media print {
     dl.itemDetail dt {clear: left; float:left; width: 12%; }
     dl.itemDetail dd { margin-left: 15%; }
