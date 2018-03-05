@@ -9,10 +9,10 @@ namespace Escc.SupportWithConfidence.Controls
     /// Category Mapper takes a datatable of Categories via the constructor and returns a collection of Category objects 
     /// structured as a family tree via the Categories property.
     /// </summary>
-    public class CategoryMapper
+    public partial class CategoryMapper
     {
         // Used to hold the top level categoeries who parentid = null
-        private IList<Category> _topCategories = new List<Category>();
+        private List<Category> _topCategories = new List<Category>();
 
 
         /// <summary>
@@ -58,6 +58,13 @@ namespace Escc.SupportWithConfidence.Controls
                     }
                 }
             }
+
+            var sorter = new CategorySorter();
+            _topCategories.Sort(sorter);
+            foreach (var category in _topCategories)
+            {
+                category.Categories.Sort(sorter);
+            }
         }
 
 
@@ -67,7 +74,6 @@ namespace Escc.SupportWithConfidence.Controls
         public IList<Category> Categories
         {
             get { return _topCategories; }
-            set { _topCategories = value; }
         }
     }
 }

@@ -24,12 +24,12 @@ namespace Escc.SupportWithConfidence.Controls
 
         public int Sequence { get; set; }
 
-        private IList<Category> _categories = new List<Category>();
+        private List<Category> _categories = new List<Category>();
         
         /// <summary>
         /// Returns a collection of child categories
         /// </summary>
-        public IList<Category> Categories
+        public List<Category> Categories
         {
             get { return _categories; }
             set{_categories = value; }
