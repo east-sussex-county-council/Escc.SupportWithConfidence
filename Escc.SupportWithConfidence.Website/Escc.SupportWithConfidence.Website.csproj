@@ -73,11 +73,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Escc.EastSussexGovUK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Escc.EastSussexGovUK.1.3.0\lib\Escc.EastSussexGovUK.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Escc.EastSussexGovUK.2.0.0\lib\net452\Escc.EastSussexGovUK.dll</HintPath>
     </Reference>
     <Reference Include="Escc.EastSussexGovUK.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Escc.EastSussexGovUK.Mvc.2.2.3\lib\Escc.EastSussexGovUK.Mvc.dll</HintPath>
+      <HintPath>..\packages\Escc.EastSussexGovUK.Mvc.3.0.3\lib\net452\Escc.EastSussexGovUK.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Escc.EastSussexGovUK.Rss, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Escc.EastSussexGovUK.Rss.2.0.0\lib\Escc.EastSussexGovUK.Rss.dll</HintPath>
@@ -210,12 +209,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\ProvidersRSS\Index.cshtml" />
-    <Content Include="Views\Web.config" />
     <Content Include="Views\Web.example.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Related.cshtml" />
     <Content Include="Views\Detail\Index.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
+    <Content Include="Views\web.config" />
     <None Include="Web.example.config">
       <SubType>Designer</SubType>
     </None>
