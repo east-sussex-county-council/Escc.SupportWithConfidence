@@ -81,7 +81,7 @@
             else
             {
                 <h1>No results found</h1>
-                <p class="warning">Unfortunately no results could be found that matched your search criteria. Please try searching again with different criteria.</p>
+                <p>Unfortunately no results could be found that matched your search criteria. Please try searching again with different criteria.</p>
             }
 
             @Html.ValidationSummary()
@@ -102,7 +102,7 @@
                 </div>
             }
 
-            <p class="screen"><a href="https://apps.eastsussex.gov.uk/forms/eforms.aspx?f=349&amp;p=1" class="feedback">Couldn’t find what you were looking for?</a></p>
+                <p class="screen">Couldn’t find what you were looking for? <a href="https://apps.eastsussex.gov.uk/contactus/emailus/email.aspx?n=Support+With+Confidence&amp;e=supportwithconfidence&amp;d=eastsussex.gov.uk">Email the team</a> or call 01323 463440.</p>
             <p class="screen"><a href="@VirtualPathUtility.ToAbsolute("~/")" class="newsearch">New search</a></p>
 
             @if (results.Count > 0)

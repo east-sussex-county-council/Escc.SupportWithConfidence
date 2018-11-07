@@ -59,7 +59,7 @@ CopyConfig "$adminProject\Web.example.config" "$adminProject\web.config"
 # API
 CreateApplicationPool $apiProject
 CreateWebsite $apiProject "$pathOfThisScript\$apiProject"
-CreateHTTPBinding $apiProject
+CreateHTTPSBinding $apiProject
 CopyConfig "$apiProject\Web.example.config" "$apiProject\web.config"
 
 # Configure ETL admin tool
