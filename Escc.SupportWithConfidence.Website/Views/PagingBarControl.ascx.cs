@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Escc.EastSussexGovUK.Umbraco.Views
+namespace Escc.SupportWithConfidence.Website.Views
 {
     /// <summary>
     /// Proxy to use the WebForms <see cref="PagingBarControl"/> in a Razor view

@@ -1,0 +1,67 @@
+﻿@model Escc.SupportWithConfidence.Admin.Models.EditCategoryViewModel
+@using ClientDependency.Core.Mvc
+@using Escc.ClientDependencyFramework
+@using System.Configuration
+@using System.Globalization
+@{
+    Model.Metadata.Title = "Support with Confidence";
+    Model.Metadata.IpsvPreferredTerms = "Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans";
+    Model.Metadata.LgilType = "Applications for service";
+    Model.Metadata.LgtlType = "Forms";
+    Model.Metadata.DateIssued = "2004-11-20";
+    Model.Metadata.Keywords = "vetted; approved; home care; care services; Support with confidence";
+    Model.Metadata.Description = "Find providers which are approved members of the Support with Confidence scheme in East Sussex";
+    Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
+}
+<div class="full-page">
+    <div class="content text-content">
+        <h1>@Model.CategoryToEdit.Description</h1>
+        @{ Html.BeginForm(); }
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <div class="form service-form">
+            <div class="formBox">
+                <div class="formPart">
+                    @Html.LabelFor(cat => Model.CategoryToEdit.Id)
+                    <p>@Model.CategoryToEdit.Id</p>
+                </div>
+                <div class="formPart">
+                    @Html.LabelFor(cat => Model.CategoryToEdit.Code)
+                    <p>@Model.CategoryToEdit.Code</p>
+                </div>
+                <div class="formPart">
+                    @Html.LabelFor(cat => Model.CategoryToEdit.Description)
+                    @Html.TextBoxFor(cat => Model.CategoryToEdit.Description)
+                </div>
+                <div class="formPart">
+                    @Html.LabelFor(cat => Model.CategoryToEdit.Depth)
+                    @Html.TextBoxFor(cat => Model.CategoryToEdit.Depth)
+                </div>
+                <div class="formPart">
+                    @Html.LabelFor(cat => Model.CategoryToEdit.Sequence)
+                    <p>@Model.CategoryToEdit.Sequence</p>
+                </div>
+                <div class="formPart">
+                    @Html.LabelFor(cat => Model.CategoryToEdit.IsActive)
+                    @Html.CheckBoxFor(cat => Model.CategoryToEdit.IsActive)
+                </div>
+                
+                @if (Model.ParentCategory.Categories.Count() > 1)
+                {
+                    <h2>Associated categories</h2>
+                    <ul>
+                        @foreach (var child in Model.ParentCategory.Categories)
+                        {
+                            if (child.Id == Model.CategoryToEdit.Id) { continue; }
+                            <li><a href="@ConfigurationManager.AppSettings["CategoryResultPage"]?cat=@child.Id.ToString(CultureInfo.InvariantCulture)">@child.Description</a></li>
+                        }
+                    </ul>
+                }
+            </div>
+            <input type="submit" value="Save (not wired up)" disabled="disabled" />
+            @{ Html.EndForm(); }
+        </div>
+    </div>
+</div>

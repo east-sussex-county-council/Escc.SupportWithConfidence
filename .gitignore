@@ -223,6 +223,7 @@ $RECYCLE.BIN/
 packages
 App.config
 Web.config
+!*/Views/Web.config
 *.py
 App_Data
 

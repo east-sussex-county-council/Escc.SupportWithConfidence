@@ -76,6 +76,7 @@ namespace Escc.SupportWithConfidence.Controls
         public int PhotographId { get; set; }
 
         public bool IsPaTrained { get; set; }
+        public Uri ImageUrl { get; set; }
 
         #region IResult Members
 

@@ -120,7 +120,7 @@ namespace Escc.SupportWithConfidence.Controls
                     provider.Coverage2 = dbProvider["Coverage2"] == DBNull.Value ? string.Empty : dbProvider["Coverage2"].ToString().Replace("\r\n", "<br />");
                     provider.CrbCheckDate = dbProvider["CrbCheckDate"].ToString() == "" ? string.Empty : DateTime.Parse(dbProvider["CrbCheckDate"].ToString()).ToString("MMMM yyyy", CultureInfo.CurrentCulture);
                     provider.BwcMember = dbProvider["BWCFlag"] != DBNull.Value && Convert.ToBoolean(dbProvider["BWCFlag"]);
-
+                    provider.PublishToWeb = dbProvider["PublishToWeb"] != DBNull.Value && Convert.ToBoolean(dbProvider["PublishToWeb"]);
                     provider.CqcCheckDate = dbProvider["CqcCheckDate"].ToString() == "" ? string.Empty : DateTime.Parse(dbProvider["CqcCheckDate"].ToString()).ToString("MMMM yyyy", CultureInfo.CurrentCulture);
 
                     //provider.IsDeleted = dbProvider["IsDeleted"] == DBNull.Value ? false : Convert.ToBoolean(dbProvider["IsDeleted"]);
@@ -176,20 +176,20 @@ namespace Escc.SupportWithConfidence.Controls
 
             if (dbProvider["Easting"].ToString() == "")
             {
-                address.GridEasting = 0;
+                address.GeoCoordinate.Easting = 0;
             }
             else
             {
-                address.GridEasting = dbProvider["Easting"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["Easting"]);
+                address.GeoCoordinate.Easting = dbProvider["Easting"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["Easting"]);
             }
 
             if (dbProvider["Northing"].ToString() == "")
             {
-                address.GridNorthing = 0;
+                address.GeoCoordinate.Northing = 0;
             }
             else
             {
-                address.GridNorthing = dbProvider["Northing"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["Northing"]);
+                address.GeoCoordinate.Northing = dbProvider["Northing"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["Northing"]);
             }
             return address;
 

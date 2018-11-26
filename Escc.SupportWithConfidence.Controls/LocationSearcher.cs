@@ -8,7 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Escc.FormControls.WebForms.AddressFinder;
+using Escc.Net.Configuration;
+using Escc.SupportWithConfidence.Controls.AddressFinder;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -94,7 +95,7 @@ namespace Escc.SupportWithConfidence.Controls
             var regLocation = new Regex("^[A-Z]{1,2}[0-9R][0-9A-Z]? ?[0-9][A-Z]{2}$", RegexOptions.IgnoreCase);
 
             AggregateEN location = new AggregateEN();
-            using (var finder = new AddressFinder())
+            using (var finder = new AddressFinder.AddressFinder())
             {
                 try
                 {

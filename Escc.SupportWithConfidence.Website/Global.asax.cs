@@ -10,6 +10,7 @@ namespace Escc.SupportWithConfidence.Website
         protected void Application_Start()
         {
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            MvcHandler.DisableMvcResponseHeader = true;
         }
 
         protected void Application_BeginRequest()

@@ -1,0 +1,56 @@
+﻿@model Escc.SupportWithConfidence.Admin.Models.CategoriesViewModel
+@using ClientDependency.Core.Mvc
+@using System.Configuration
+@{
+    Model.Metadata.Title = "Support with Confidence";
+    Model.Metadata.IpsvPreferredTerms = "Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans";
+    Model.Metadata.LgilType = "Applications for service";
+    Model.Metadata.LgtlType = "Forms";
+    Model.Metadata.DateIssued = "2004-11-20";
+    Model.Metadata.Keywords = "vetted; approved; home care; care services; Support with confidence";
+    Model.Metadata.Description = "Find providers which are approved members of the Support with Confidence scheme in East Sussex";
+    Html.RequiresCss("~/css/support.css");
+    Html.RequiresJs("~/Scripts/CategoryShowHide.js");
+}
+
+<div class="full-page">
+    <div class="content text-content">
+        <h1>Manage categories</h1>
+
+
+        <ul id="navigation">
+            @foreach (var child in Model.Categories)
+            {
+                <li>
+                @if (child.Depth == 1)
+                {
+                    @child.Description;
+                }
+                else
+                {
+                    <a href="@ConfigurationManager.AppSettings["CategoryResultPage"]?cat=@child.Id">@child.Description</a>
+                }
+
+                @if (child.Categories.Count > 0)
+                {
+                    <ul>
+                        @foreach (var grandChild in child.Categories)
+                        {
+                            <li>
+                            @if (grandChild.Depth == 1)
+                            {
+                                @grandChild.Description;
+                            }
+                            else
+                            {
+                                <a href="@ConfigurationManager.AppSettings["CategoryResultPage"]?cat=@grandChild.Id">@grandChild.Description</a>
+                            }
+                            </li>
+                        }
+                    </ul>
+                }
+                </li>
+            }
+        </ul>
+    </div>
+</div>

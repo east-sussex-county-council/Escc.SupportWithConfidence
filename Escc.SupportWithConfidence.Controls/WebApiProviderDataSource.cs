@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using Escc.Data.Ado;
 using Escc.Net;
+using Escc.Net.Configuration;
 
 namespace Escc.SupportWithConfidence.Controls
 {

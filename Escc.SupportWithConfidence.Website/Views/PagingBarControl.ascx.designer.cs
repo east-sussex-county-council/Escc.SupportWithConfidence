@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Escc.EastSussexGovUK.Umbraco.Views {
+namespace Escc.SupportWithConfidence.Website.Views {
     
     
     public partial class PagingBarControl {

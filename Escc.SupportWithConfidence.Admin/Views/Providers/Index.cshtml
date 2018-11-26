@@ -1,0 +1,25 @@
+﻿@model Escc.SupportWithConfidence.Admin.Models.ProvidersViewModel
+@{
+    Model.Metadata.Title = "Support with Confidence";
+    Model.Metadata.IpsvPreferredTerms = "Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans";
+    Model.Metadata.LgilType = "Applications for service";
+    Model.Metadata.LgtlType = "Forms";
+    Model.Metadata.DateIssued = "2004-11-20";
+    Model.Metadata.Keywords = "vetted; approved; home care; care services; Support with confidence";
+    Model.Metadata.Description = "Find providers which are approved members of the Support with Confidence scheme in East Sussex";
+}
+<div class="full-page">
+    <div class="content text-content">
+        <h1>Update a provider's information</h1>
+        <p>Select a provider below by clicking on the provider's name.</p>
+
+        @{ Html.RenderPartial("~/Views/PagingBarControl.ascx", Model.PagingController); }
+
+        @foreach (var provider in Model.Providers)
+        {
+            @Html.Raw(provider.View())
+        }
+
+        @{ Html.RenderPartial("~/Views/PagingBarControl.ascx", Model.PagingController); }
+    </div>
+</div>

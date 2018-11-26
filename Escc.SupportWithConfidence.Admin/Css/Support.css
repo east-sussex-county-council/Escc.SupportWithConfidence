@@ -7,4 +7,5 @@ dl.itemDetail dt  {width:32%;}
 
 
 
-.photo {position:absolute; top: 140px; left:440px;}
+.photo {float:right; margin-top: 1em; }
+.checkbox input[type=checkbox] { top: 0; }

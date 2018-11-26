@@ -33,7 +33,7 @@
                     var html = new StringBuilder();
                     html.Append("<h1>" + p.ProviderName + "</h1>");
 
-                    Uri imageUrl = MultiFileAttachmentBaseControl.GetImageUrl(p.PhotographId, ImageUploader.DotNetProjectName);
+                    Uri imageUrl = MultiFileAttachmentBaseControl.GetImageUrl(p.PhotographId, ConfigurationManager.AppSettings["ProjectName"]);
                     if (imageUrl != null)
                     {
                         <img src="@imageUrl.AbsoluteUri" alt="@p.ProviderName" class="photo"/>
