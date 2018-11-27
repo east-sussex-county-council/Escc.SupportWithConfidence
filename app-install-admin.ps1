@@ -65,11 +65,13 @@ $transformsFolder = NormaliseFolderPath $transformsFolder
 
 BackupApplication "$destinationFolder/$projectName" $backupFolder $comment
 
-robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF provider*.aspx *.ashx *.dll *.js *.css *.jpg csc.* csi.* /XD aspnet_client obj Properties App_Start
+robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF *.cshtml *.ascx *.asax *.ashx *.dll *.js *.css *.jpg csc.* csi.* /XD aspnet_client obj Properties App_Start "Connected Services" Data Models
+copy "$sourceFolder\Views\web.config" "$destinationFolder\$projectName\Views\web.config"
+del "$destinationFolder\$projectName\App_Data\ClientDependency\*.*"
 
-TransformConfig "$sourceFolder\web.example.config" "$destinationFolder\$projectName\web.config" "$transformsFolder\$projectName\web.release.config"
-if (Test-Path "$transformsFolder\$projectName\web.$websiteName.config") {
-	TransformConfig "$destinationFolder\$projectName\web.config" "$destinationFolder\$projectName\web.temp1.config" "$transformsFolder\$projectName\web.$websiteName.config"
+TransformConfig "$sourceFolder\web.example.config" "$destinationFolder\$projectName\web.config" "$transformsFolder\$projectName\web.config.xdt"
+if (Test-Path "$transformsFolder\$projectName\web.config.$websiteName.xdt") {
+	TransformConfig "$destinationFolder\$projectName\web.config" "$destinationFolder\$projectName\web.temp1.config" "$transformsFolder\$projectName\web.config.$websiteName.xdt"
 	copy "$destinationFolder\$projectName\web.temp1.config" "$destinationFolder\$projectName\web.config"
 	del "$destinationFolder\$projectName\web.temp1.config"
 }

@@ -1,5 +1,5 @@
 Param(
-  [Parameter(HelpMessage="Where are the source files for the application? (required)")]
+  [Parameter(HelpMessage="Where are the source files for the application?")]
   [string]$sourceFolder,
 	
   [Parameter(Mandatory=$True,HelpMessage="Where is the folder where applications are installed to? (required)")]
@@ -54,8 +54,6 @@ Example: C:\>set GIT_ORIGIN_URL=https://example-git-server.com/{0}"
 ### END BOOTSTRAP. #####################################################
 ########################################################################
 
-$projectName = "Escc.SupportWithConfidence.Website" 
-$sourceFolder = NormaliseFolderPath $sourceFolder "$PSScriptRoot\$projectName"
 $destinationFolder = NormaliseFolderPath $destinationFolder
 $backupFolder = NormaliseFolderPath $backupFolder
 if (!$backupFolder) { $backupFolder = "$destinationFolder\backups" }
@@ -63,33 +61,44 @@ $backupFolder = "$backupFolder\$websiteName"
 $destinationFolder = "$destinationFolder\$websiteName"
 $transformsFolder = NormaliseFolderPath $transformsFolder
 
-BackupApplication "$destinationFolder/$projectName" $backupFolder $comment
+EnableDotNet40InIIS
 
-robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF *.gif *.png *.ashx *.ascx *.asax *.dll *.jpg *.css *.js csc.* csi.* *.cshtml /XD aspnet_client obj Properties Controllers Models App_Start "Connected Services"
-copy "$sourceFolder\Views\web.config" "$destinationFolder\$projectName\Views\web.config"
-del "$destinationFolder\$projectName\App_Data\ClientDependency\*.*"
+# Install the web service
+$apiProjectName = "Escc.SupportWithConfidence.WebApi" 
+$apiSourceFolder = NormaliseFolderPath $sourceFolder "$PSScriptRoot\$apiProjectName"
 
-TransformConfig "$sourceFolder\web.example.config" "$destinationFolder\$projectName\web.config" "$transformsFolder\$projectName\web.config.xdt"
-if (Test-Path "$transformsFolder\$projectName\web.config.$websiteName.xdt") {
+BackupApplication "$destinationFolder/$apiProjectName" $backupFolder $comment
+
+# Copy files
+robocopy $apiSourceFolder "$destinationFolder/$apiProjectName" /MIR /IF *.asax *.dll *.pdb csc.* csi.* /XD App_Data App_Start Controllers obj Properties "Connected Services" aspnet_client
+
+TransformConfig "$apiSourceFolder\web.example.config" "$destinationFolder\$apiProjectName\web.config" "$transformsFolder\$apiProjectName\web.config.xdt"
+if (Test-Path "$transformsFolder\$apiProjectName\web.config.$websiteName.xdt") {
 	# Transform to temp file to avoid file locking problem
-	TransformConfig "$destinationFolder\$projectName\web.config" "$destinationFolder\$projectName\web.temp.config" "$transformsFolder\$projectName\web.config.$websiteName.xdt"
-	copy "$destinationFolder\$projectName\web.temp.config" "$destinationFolder\$projectName\web.config"
-	del "$destinationFolder\$projectName\web.temp.config"
+	TransformConfig "$destinationFolder\$apiProjectName\web.config" "$destinationFolder\$apiProjectName\web.temp.config" "$transformsFolder\$apiProjectName\web.config.$websiteName.xdt"
+	copy "$destinationFolder\$apiProjectName\web.temp.config" "$destinationFolder\$apiProjectName\web.config"
+	del "$destinationFolder\$apiProjectName\web.temp.config"
 }
 
-EnableDotNet40InIIS
-CreateApplicationPool "$projectName-$websiteName"
+CreateApplicationPool "$apiProjectName-$websiteName"
 CheckSiteExistsBeforeAddingApplication $websiteName
-CreateVirtualDirectory $websiteName "socialcare" "$destinationFolder\_virtual" true
-CreateVirtualDirectory $websiteName "socialcare/athome" "$destinationFolder\_virtual" true
-CreateVirtualDirectory $websiteName "socialcare/athome/approvedproviders" "$destinationFolder\$projectName" true "$projectName-$websiteName"
+if ((Get-Item "IIS:\Sites\$websiteName\$apiProjectName").ApplicationPool -eq $null) {
+	Write-Host "Setting $apiProjectName directory to be an IIS application"
+	ConvertTo-WebApplication "IIS:\Sites\$websiteName\$apiProjectName"
+} else {
+	Write-Host "$apiProjectName is already an IIS application"
+}
+Write-Host "Setting application pool to $apiProjectName-$websiteName"
+Set-ItemProperty "IIS:\Sites\$websiteName\$apiProjectName" -Name applicationPool -Value "$apiProjectName-$websiteName"
+DisableAnonymousAuthentication $websiteName "$apiProjectName"
+EnableWindowsAuthentication $websiteName "$apiProjectName"
 
-# Give application pool account write access so that it can write clientdependency files
+# Give application pool account write access to the parent folder (site root) because it won't work without it. 
 Write-Host "Granting Modify access to the application pool account"
-$acl = Get-Acl "$destinationFolder/$projectName"
-$rule = New-Object System.Security.AccessControl.FileSystemAccessRule("IIS AppPool\$projectName-$websiteName", "Modify", "ContainerInherit,ObjectInherit", "None", "Allow")
+$acl = Get-Acl $destinationFolder
+$rule = New-Object System.Security.AccessControl.FileSystemAccessRule("IIS AppPool\$apiProjectName-$websiteName", "Modify", "ContainerInherit,ObjectInherit", "None", "Allow")
 $acl.SetAccessRule($rule)
-Set-Acl "$destinationFolder/$projectName" $acl
+Set-Acl $destinationFolder $acl
 
 Write-Host
 Write-Host "Done." -ForegroundColor "Green"
