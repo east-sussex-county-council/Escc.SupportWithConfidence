@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.SupportWithConfidence.WebApi", "Escc.SupportWithConfidence.WebApi\Escc.SupportWithConfidence.WebApi.csproj", "{7F6C0F75-BA47-4967-847D-B73B4C234FCB}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Escc.SupportWithConfidence.Sql", "Escc.SupportWithConfidence.Sql\Escc.SupportWithConfidence.Sql.sqlproj", "{7D043C56-2D60-4192-8A4F-AF421CEACE81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,15 @@ Global
 		{7F6C0F75-BA47-4967-847D-B73B4C234FCB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F6C0F75-BA47-4967-847D-B73B4C234FCB}.UAT|Any CPU.ActiveCfg = Release|Any CPU
 		{7F6C0F75-BA47-4967-847D-B73B4C234FCB}.UAT|Any CPU.Build.0 = Release|Any CPU
+		{7D043C56-2D60-4192-8A4F-AF421CEACE81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D043C56-2D60-4192-8A4F-AF421CEACE81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D043C56-2D60-4192-8A4F-AF421CEACE81}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7D043C56-2D60-4192-8A4F-AF421CEACE81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D043C56-2D60-4192-8A4F-AF421CEACE81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D043C56-2D60-4192-8A4F-AF421CEACE81}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7D043C56-2D60-4192-8A4F-AF421CEACE81}.UAT|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D043C56-2D60-4192-8A4F-AF421CEACE81}.UAT|Any CPU.Build.0 = Debug|Any CPU
+		{7D043C56-2D60-4192-8A4F-AF421CEACE81}.UAT|Any CPU.Deploy.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

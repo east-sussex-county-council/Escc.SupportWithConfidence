@@ -115,7 +115,7 @@ namespace Escc.SupportWithConfidence.ETL
             if (File.GetLastWriteTime(csvPath) < DateTime.Now.AddDays(-2))
             {
                 throw new Exception(
-                    "Support with Confidence ETL failed. Extract of Flare data is out of date. Flare data will not be imported until this matter is resolved. Overnight csv export has not occurred. Contact Keith Bean.");
+                    "Support with Confidence ETL failed. Extract of Flare data is out of date. Flare data will not be imported until this matter is resolved. Overnight csv export has not occurred.");
               
             }
 
