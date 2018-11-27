@@ -130,33 +130,33 @@
                 if (Model.Provider.Costs.Length > 0)
                 {
                     <h2>Charging and related information</h2>
-                    <p>@Model.Provider.Costs</p>
+                    <p>@Html.Raw(Model.Provider.Costs)</p>
                 }
 
 
                 if (Model.Provider.Expertise.Trim().Length > 0)
                 {
                     <h2>Expertise</h2>
-                    <p>@Model.Provider.Expertise</p>
+                    <p>@Html.Raw(Model.Provider.Expertise)</p>
                 }
 
                 if (Model.Provider.Experience.Trim().Length > 0)
                 {
                     <h2>Experience</h2>
-                    <p>@Model.Provider.Experience</p>
+                    <p>@Html.Raw(Model.Provider.Experience)</p>
                 }
 
                 if (Model.Provider.Background.Trim().Length > 0)
                 {
                     <h2>Background</h2>
-                    <p>@Model.Provider.Background</p>
+                    <p>@Html.Raw(Model.Provider.Background)</p>
                 }
 
 
                 <h2>Accreditation</h2>
                 if (Model.Provider.Accreditation.Trim().Length > 0)
                 {
-                    <p>@Model.Provider.Accreditation</p>
+                    <p>@Html.Raw(Model.Provider.Accreditation)</p>
                 }
                 else
                 {
@@ -186,7 +186,7 @@
                 if (Model.Provider.Crb.Length > 0)
                 {
                     <h2>Criminal records information</h2>
-                    <p>@Model.Provider.Crb</p>
+                    <p>@Html.Raw(Model.Provider.Crb)</p>
                 }
                 else
                 {

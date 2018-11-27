@@ -131,12 +131,6 @@
                 <p>@Model.Provider.Availability</p>
             }
 
-            @if (!String.IsNullOrWhiteSpace(Model.Provider.Accreditation))
-            {
-                <h2>Accreditation</h2>
-                <p>@Model.Provider.Accreditation</p>
-            }
-
             <h2>Category listings</h2>
             <ul>@Html.Raw(Model.Provider.CategoryList)</ul>
 
@@ -161,16 +155,19 @@
             @Html.HiddenFor(p => p.Provider.FlareId)
             <div class="formBox">
                 <div class="formPart">
+                    @{ Model.Provider.Experience = Model.Provider.Experience.Replace("<br />", Environment.NewLine); }
                     @Html.LabelFor(p => p.Provider.Experience)
                     @Html.TextAreaFor(p => p.Provider.Experience)
                 </div>
 
                 <div class="formPart">
+                    @{ Model.Provider.Background = Model.Provider.Background.Replace("<br />", Environment.NewLine); }
                     @Html.LabelFor(p => p.Provider.Background)
                     @Html.TextAreaFor(p => p.Provider.Background)
                 </div>
 
                 <div class="formPart">
+                    @{ Model.Provider.Expertise = Model.Provider.Expertise.Replace("<br />", Environment.NewLine); }
                     @Html.LabelFor(p => p.Provider.Expertise)
                     @Html.TextAreaFor(p => p.Provider.Expertise)
                 </div>
@@ -189,6 +186,7 @@
 
 
                 <div class="formPart">
+                    @{ Model.Provider.Accreditation = Model.Provider.Accreditation.Replace("<br />", Environment.NewLine); }
                     @Html.LabelFor(p => p.Provider.Accreditation)
                     @Html.TextAreaFor(p => p.Provider.Accreditation)
                 </div>
@@ -200,11 +198,13 @@
                 </div>
 
                 <div class="formPart">
+                    @{ Model.Provider.Costs = Model.Provider.Costs.Replace("<br />", Environment.NewLine); }
                     @Html.LabelFor(p => p.Provider.Costs)
                     @Html.TextAreaFor(p => p.Provider.Costs)
                 </div>
 
                 <div class="formPart">
+                    @{ Model.Provider.Crb = Model.Provider.Crb.Replace("<br />", Environment.NewLine); }
                     @Html.LabelFor(p => p.Provider.Crb, "Criminal records information")
                     @Html.TextAreaFor(p => p.Provider.Crb)
                 </div>
@@ -222,6 +222,6 @@
         </div>
         @{ Html.EndForm(); }
 
-        <p><a href="@Url.Content("~/providers.aspx")">Find a provider</a></p>
+        <p><a href="@Url.Content("~/providers.aspx")">Manage providers</a></p>
     </div>
 </div>

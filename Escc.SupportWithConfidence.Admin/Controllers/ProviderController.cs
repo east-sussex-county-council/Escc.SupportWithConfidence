@@ -74,11 +74,14 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 bool success = repo.SaveProviderInformation(model.Provider.FlareId, model.Provider.Experience, model.Provider.Expertise, model.Provider.Background,
                                                             model.Provider.Accreditation, model.Provider.Services, model.Provider.Costs, model.Provider.Crb, model.Provider.PublishToWeb);
 
-                var selectedAccreditations = Request.Form["Provider.Accreditations.AccreditationId"].Split(',');
+                var selectedAccreditations = Request.Form["Provider.Accreditations.AccreditationId"]?.Split(',');
                 repo.ClearAccreditations(model.Provider.FlareId);
-                foreach (var accreditationId in selectedAccreditations)
+                if (selectedAccreditations != null)
                 {
-                    repo.SaveProviderAccreditation(model.Provider.FlareId, accreditationId);
+                    foreach (var accreditationId in selectedAccreditations)
+                    {
+                        repo.SaveProviderAccreditation(model.Provider.FlareId, accreditationId);
+                    }
                 }
                 if (success)
                 {
