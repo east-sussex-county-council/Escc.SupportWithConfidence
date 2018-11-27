@@ -13,13 +13,20 @@ namespace Escc.SupportWithConfidence.Admin
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Pages created using MVC
+            routes.MapRoute(
+                name: "MVC",
+                url: "{controller}/{action}/{id}",
+                defaults: new { id = UrlParameter.Optional }
+            );
+
             // Preserve old URLs from when this was a WebForms app
             routes.MapRoute(
                 name: "WebForms",
                 url: "{controller}.aspx",
                 defaults: new { controller = "Default", action = "Index" }
             );
-
+            
             // Home page
             routes.MapRoute(
                 name: "Default",

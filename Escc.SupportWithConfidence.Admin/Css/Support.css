@@ -9,3 +9,5 @@ dl.itemDetail dt  {width:32%;}
 
 .photo {float:right; margin-top: 1em; }
 .checkbox input[type=checkbox] { top: 0; }
+
+.text-content .service-form input.input-validation-error { border: 1px solid #b21313; }

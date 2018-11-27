@@ -1,0 +1,43 @@
+﻿@model Escc.SupportWithConfidence.Admin.Models.AccreditationViewModel
+@{
+    Model.Metadata.Title = "Manage accreditations";
+}
+<div class="full-page">
+    <div class="content text-content">
+        <h1>@Model.Metadata.Title</h1>
+        <p class="main-action">
+            @Html.ActionLink("Add accreditation", "Create")
+        </p>
+
+        @if (Model.Accreditations.Any())
+        {
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Website</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Accreditations)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @if (!String.IsNullOrEmpty(item.Website))
+                        {
+                        <a href="@item.Website" target="_blank">@item.Website</a>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.AccreditationId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.AccreditationId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        }
+</div>
+</div>

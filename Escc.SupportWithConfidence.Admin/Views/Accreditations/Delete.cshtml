@@ -1,0 +1,45 @@
+﻿@model Escc.SupportWithConfidence.Admin.Models.AccreditationViewModel
+@{
+    Model.Metadata.Title = "Delete " + Model.Accreditation.Name;
+}
+<div class="full-page">
+    <div class="content text-content">
+        <h1>@Model.Metadata.Title</h1>
+        <p>Are you sure you want to delete this?</p>
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Accreditation.Name)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.Accreditation.Name)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Accreditation.Website)
+                </th>
+
+                <td>
+                    @if (!String.IsNullOrEmpty(Model.Accreditation.Website))
+                    {
+                        <a href="@Model.Accreditation.Website" target="_blank">@Model.Accreditation.Website</a>
+                    }
+                </td>
+            </tr>
+        </table>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <p class="formButtons">
+                <input type="submit" value="Delete" class="button" />
+            </p>
+            <p>
+                @Html.ActionLink("Back to list", "Index")
+            </p>
+        }
+    </div>
+</div>

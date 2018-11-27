@@ -1,0 +1,43 @@
+﻿@model Escc.SupportWithConfidence.Admin.Models.AccreditationViewModel
+@using ClientDependency.Core.Mvc
+@using Escc.ClientDependencyFramework
+@{
+    Model.Metadata.Title = "Edit " + Model.Accreditation.Name;
+    Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
+    Html.RequiresCss("~/css/support.css");
+}
+<div class="full-page">
+    <div class="content text-content">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form service-form">
+                <h1>@Model.Metadata.Title</h1>
+                @Html.HiddenFor(model => model.Accreditation.AccreditationId)
+
+                <div class="formPart">
+                    @Html.LabelFor(model => model.Accreditation.Name)
+                    @Html.EditorFor(model => model.Accreditation.Name)
+                    @Html.ValidationMessageFor(model => model.Accreditation.Name, "", new { @class = "warning" })
+                </div>
+
+                <div class="formPart">
+                    @Html.LabelFor(model => model.Accreditation.Website)
+                    @Html.EditorFor(model => model.Accreditation.Website)
+                    @Html.ValidationMessageFor(model => model.Accreditation.Website, "", new { @class = "warning" })
+                </div>
+
+                <div class="formButtons">
+                    <input type="submit" value="Save" />
+                </div>
+            </div>
+        }
+
+        <p>
+            @Html.ActionLink("Back to list", "Index")
+        </p>
+    </div>
+</div>
