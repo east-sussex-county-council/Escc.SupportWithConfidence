@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Principal;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.HtmlControls;
 using Escc.DatabaseFileControls.WebForms;
+using Escc.SupportWithConfidence.Admin.Data;
 using Escc.SupportWithConfidence.Admin.Models;
 using Escc.SupportWithConfidence.Controls;
 
@@ -16,12 +18,15 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
 {
     public class ProviderController : Controller
     {
-        public ActionResult Index()
+        private EsccSupportWithConfidenceAdminContext db = new EsccSupportWithConfidenceAdminContext();
+
+        public async Task<ActionResult> Index()
         {
             int reference;
             int.TryParse(Request.QueryString["ref"], out reference);
 
             var model = new ProviderViewModel();
+            model.Accreditations = await LoadAllAccreditations();
 
             IProviderDataRepository _repository = new SqlServerProviderDataRepository();
             model.Provider = ReadProviderById(_repository, reference);
@@ -30,6 +35,16 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 return View(model);
             }
             else return new HttpStatusCodeResult(404);
+        }
+
+        private async Task<IEnumerable<Controls.Accreditation>> LoadAllAccreditations()
+        {
+            var accreditationData = await db.Accreditations.ToListAsync();
+            return accreditationData.Select(result => new Controls.Accreditation()
+            {
+                AccreditationId = result.AccreditationId,
+                Name = result.Name
+            });
         }
 
         private Provider ReadProviderById(IProviderDataRepository repository, int id)
@@ -47,7 +62,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(ProviderViewModel model)
+        public async Task<ActionResult> Index(ProviderViewModel model)
         {
             var repo = new SqlServerProviderDataRepository();
             if (ModelState.IsValid)
@@ -58,6 +73,13 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 }
                 bool success = repo.SaveProviderInformation(model.Provider.FlareId, model.Provider.Experience, model.Provider.Expertise, model.Provider.Background,
                                                             model.Provider.Accreditation, model.Provider.Services, model.Provider.Costs, model.Provider.Crb, model.Provider.PublishToWeb);
+
+                var selectedAccreditations = Request.Form["Provider.Accreditations.AccreditationId"].Split(',');
+                repo.ClearAccreditations(model.Provider.FlareId);
+                foreach (var accreditationId in selectedAccreditations)
+                {
+                    repo.SaveProviderAccreditation(model.Provider.FlareId, accreditationId);
+                }
                 if (success)
                 {
                     return new RedirectResult(Url.Content("~/providers.aspx"));
@@ -75,6 +97,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             provider.Crb = model.Provider.Crb;
             provider.PublishToWeb = model.Provider.PublishToWeb;
             model.Provider = provider;
+            model.Accreditations = await LoadAllAccreditations();
             ModelState.AddModelError(string.Empty, "Save failed");
             return View(model);
         }

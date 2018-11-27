@@ -19,7 +19,13 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
         // GET: Accreditations
         public async Task<ActionResult> Index()
         {
-            return View(new AccreditationViewModel() { Accreditations = await db.Accreditations.ToListAsync() });
+            var accreditationData = await db.Accreditations.ToListAsync();
+            return View(new AccreditationViewModel() { Accreditations = accreditationData.Select(result => new Controls.Accreditation()
+                            {
+                                AccreditationId = result.AccreditationId,
+                                Name = result.Name,
+                                Website = result.Website
+                            })});
         }
 
         // GET: Accreditations/Create
@@ -42,7 +48,15 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new AccreditationViewModel() { Accreditation = accreditation });
+            return View(new AccreditationViewModel()
+            {
+                Accreditation = new Controls.Accreditation()
+                {
+                    AccreditationId = accreditation.AccreditationId,
+                    Name = accreditation.Name,
+                    Website = accreditation.Website
+                }
+            });
         }
 
         // GET: Accreditations/Edit/5
@@ -57,7 +71,14 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(new AccreditationViewModel() { Accreditation = accreditation });
+            return View(new AccreditationViewModel() {
+                Accreditation = new Controls.Accreditation()
+                {
+                    AccreditationId = accreditation.AccreditationId,
+                    Name = accreditation.Name,
+                    Website = accreditation.Website
+                }
+            });
         }
 
         // POST: Accreditations/Edit/5
@@ -73,7 +94,14 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(new AccreditationViewModel() { Accreditation = accreditation });
+            return View(new AccreditationViewModel() {
+                Accreditation = new Controls.Accreditation()
+                {
+                    AccreditationId = accreditation.AccreditationId,
+                    Name = accreditation.Name,
+                    Website = accreditation.Website
+                }
+            });
         }
 
         // GET: Accreditations/Delete/5
@@ -88,7 +116,14 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(new AccreditationViewModel() { Accreditation = accreditation });
+            return View(new AccreditationViewModel() {
+                Accreditation = new Controls.Accreditation()
+                {
+                    AccreditationId = accreditation.AccreditationId,
+                    Name = accreditation.Name,
+                    Website = accreditation.Website
+                }
+            });
         }
 
         // POST: Accreditations/Delete/5

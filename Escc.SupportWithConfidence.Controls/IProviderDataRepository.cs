@@ -35,6 +35,20 @@ namespace Escc.SupportWithConfidence.Controls
 
 
         bool SaveProviderInformation(int id, string experience, string expertise, string background, string accreditation, string services, string costs, string crb, bool publishToWeb);
+
+        /// <summary>
+        /// Clears the accreditations for a provider, ready to supply an updated set.
+        /// </summary>
+        /// <param name="flareId">The flare identifier.</param>
+        void ClearAccreditations(int flareId);
+
+        /// <summary>
+        /// Adds an accreditation to a provider
+        /// </summary>
+        /// <param name="flareId">The flare identifier.</param>
+        /// <param name="accreditationId">The accreditation identifier.</param>
+        void SaveProviderAccreditation(int flareId, string accreditationId);
+
         bool GetImage(int id);
 
         /// <summary>

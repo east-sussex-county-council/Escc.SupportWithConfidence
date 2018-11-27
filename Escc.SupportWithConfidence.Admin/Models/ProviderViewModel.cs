@@ -12,6 +12,8 @@ namespace Escc.SupportWithConfidence.Admin.Models
     {
         public Provider Provider { get; set; }
 
+        public IEnumerable<Accreditation> Accreditations { get;set;}
+
         public bool RemovePhoto { get; set; }
     }
 }

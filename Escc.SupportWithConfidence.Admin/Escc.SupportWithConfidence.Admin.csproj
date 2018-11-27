@@ -250,7 +250,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Accreditation.cs" />
+    <Compile Include="Data\Accreditation.cs" />
     <Compile Include="Models\AccreditationViewModel.cs" />
     <Compile Include="Models\EditCategoryViewModel.cs" />
     <Compile Include="Models\CategoriesViewModel.cs" />

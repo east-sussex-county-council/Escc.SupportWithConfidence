@@ -19,6 +19,6 @@ namespace Escc.SupportWithConfidence.Admin.Data
         {
         }
 
-        public System.Data.Entity.DbSet<Escc.SupportWithConfidence.Admin.Models.Accreditation> Accreditations { get; set; }
+        public System.Data.Entity.DbSet<Accreditation> Accreditations { get; set; }
     }
 }

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using Escc.EastSussexGovUK.Mvc;
 
-namespace Escc.SupportWithConfidence.Admin.Models
+namespace Escc.SupportWithConfidence.Admin.Data
 {
     public class Accreditation
     {

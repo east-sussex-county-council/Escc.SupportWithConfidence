@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
@@ -98,12 +99,38 @@ namespace Escc.SupportWithConfidence.Controls
             return 0;
         }
 
+        /// <summary>
+        /// Clears the accreditations for a provider, ready to supply an updated set.
+        /// </summary>
+        /// <param name="flareId">The flare identifier.</param>
+        public void ClearAccreditations(int flareId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@FlareId", flareId, DbType.Int32);
+
+            SaveToDatabase("usp_Admin_Provider_ClearAccreditations", parameters);
+        }
+
+        /// <summary>
+        /// Adds an accreditation to a provider
+        /// </summary>
+        /// <param name="flareId">The flare identifier.</param>
+        /// <param name="accreditationId">The accreditation identifier.</param>
+        public void SaveProviderAccreditation(int flareId, string accreditationId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@FlareId", flareId, DbType.Int32);
+            parameters.Add("@AccreditationId", accreditationId, DbType.Int32);
+
+            SaveToDatabase("usp_Admin_Provider_InsertAccreditation", parameters);
+        }
+
 
         /// <summary>
         /// Deletes an image file from the database
         /// </summary>
         /// <param name="imageDataId">The record id for the stored image in the database.</param>
-              
+
         public void DeleteImageToDb(
           
             int imageDataId)            

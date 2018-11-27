@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Escc.AddressAndPersonalDetails;
 
@@ -42,6 +43,8 @@ namespace Escc.SupportWithConfidence.Controls
         public string Background { get; set; }
 
         public string Expertise { get; set; }
+
+        public IList<Accreditation> Accreditations { get; set; } = new List<Accreditation>();
 
         public string Accreditation { get; set; }
 

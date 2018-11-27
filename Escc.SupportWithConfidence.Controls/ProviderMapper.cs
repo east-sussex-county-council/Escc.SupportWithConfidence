@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using Escc.AddressAndPersonalDetails;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -53,102 +54,120 @@ namespace Escc.SupportWithConfidence.Controls
         {
             if (data != null)
             {
+                var providersById = new Dictionary<int, Provider>();
 
                 foreach (DataRow dbProvider in data.Tables[0].Rows)
                 {
+                    var providerId = Convert.ToInt32(dbProvider["Id"]);
+                    if (!providersById.ContainsKey(providerId))
+                    {
 
-                    var provider = new Provider
+                        var provider = new Provider
                         {
-                            Id = Convert.ToInt32(dbProvider["Id"]),
+                            Id = providerId,
                             FlareId = Convert.ToInt32(dbProvider["FlareId"]),
                             ProviderName =
-                                dbProvider["ProviderName"] == DBNull.Value
-                                    ? string.Empty
-                                    : dbProvider["ProviderName"].ToString(),
+                                    dbProvider["ProviderName"] == DBNull.Value
+                                        ? string.Empty
+                                        : dbProvider["ProviderName"].ToString(),
                             Address = MapAddress(dbProvider),
                             Telephone =
-                                dbProvider["TelephoneNumber"] == DBNull.Value
-                                    ? string.Empty
-                                    : dbProvider["TelephoneNumber"].ToString(),
+                                    dbProvider["TelephoneNumber"] == DBNull.Value
+                                        ? string.Empty
+                                        : dbProvider["TelephoneNumber"].ToString(),
                             Mobile =
-                                dbProvider["MobileNumber"] == DBNull.Value
-                                    ? string.Empty
-                                    : dbProvider["MobileNumber"].ToString(),
+                                    dbProvider["MobileNumber"] == DBNull.Value
+                                        ? string.Empty
+                                        : dbProvider["MobileNumber"].ToString(),
                             Email =
-                                dbProvider["EmailAddress"] == DBNull.Value
-                                    ? string.Empty
-                                    : dbProvider["EmailAddress"].ToString(),
+                                    dbProvider["EmailAddress"] == DBNull.Value
+                                        ? string.Empty
+                                        : dbProvider["EmailAddress"].ToString(),
                             Website =
-                                dbProvider["WebsiteAddress"] == DBNull.Value
-                                    ? string.Empty
-                                    : dbProvider["WebsiteAddress"].ToString(),
+                                    dbProvider["WebsiteAddress"] == DBNull.Value
+                                        ? string.Empty
+                                        : dbProvider["WebsiteAddress"].ToString(),
                             Fax =
-                                dbProvider["FaxNumber"] == DBNull.Value ? string.Empty : dbProvider["FaxNumber"].ToString()
+                                    dbProvider["FaxNumber"] == DBNull.Value ? string.Empty : dbProvider["FaxNumber"].ToString()
                         };
 
-                    if (dbProvider["Easting"].ToString() == "")
-                    {
-                        provider.Easting = 0;
-                    }
-                    else
-                    {
-                        provider.Easting = dbProvider["Easting"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["Easting"]);
-                    }
-
-                    if (dbProvider["Northing"].ToString() == "")
-                    {
-                        provider.Northing = 0;
-                    }
-                    else
-                    {
-                        provider.Northing = dbProvider["Northing"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["Northing"]);
-                    }
-                    provider.PublishAddress = dbProvider["PublishAddress"] != DBNull.Value && Convert.ToBoolean(dbProvider["PublishAddress"]);
-                    provider.Experience = dbProvider["Experience"] == DBNull.Value ? string.Empty : dbProvider["Experience"].ToString().Replace("\r\n", "<br />");
-                    provider.Background = dbProvider["Background"] == DBNull.Value ? string.Empty : dbProvider["Background"].ToString().Replace("\r\n", "<br />");
-                    provider.Expertise = dbProvider["Expertise"] == DBNull.Value ? string.Empty : dbProvider["Expertise"].ToString().Replace("\r\n", "<br />");
-                    provider.Accreditation = dbProvider["Accreditation"] == DBNull.Value ? string.Empty : dbProvider["Accreditation"].ToString().Replace("\r\n", "<br />");
-                    provider.Services = dbProvider["Services"] == DBNull.Value ? string.Empty : dbProvider["Services"].ToString().Replace("\r\n", "<br />");
-                    provider.Costs = dbProvider["Costs"] == DBNull.Value ? string.Empty : dbProvider["Costs"].ToString().Replace("\r\n", "<br />");
-                    provider.Crb = dbProvider["Crb"] == DBNull.Value ? string.Empty : dbProvider["Crb"].ToString();
-                    provider.Availability = Availability(dbProvider);
-
-                  
-                    
-                    provider.ContactName = dbProvider["ContactName"] == DBNull.Value ? string.Empty : dbProvider["ContactName"].ToString().Replace("\r\n", "<br />");
-                    provider.Coverage = dbProvider["Coverage"] == DBNull.Value ? string.Empty : dbProvider["Coverage"].ToString().Replace("\r\n", "<br />");
-                    provider.Coverage2 = dbProvider["Coverage2"] == DBNull.Value ? string.Empty : dbProvider["Coverage2"].ToString().Replace("\r\n", "<br />");
-                    provider.CrbCheckDate = dbProvider["CrbCheckDate"].ToString() == "" ? string.Empty : DateTime.Parse(dbProvider["CrbCheckDate"].ToString()).ToString("MMMM yyyy", CultureInfo.CurrentCulture);
-                    provider.BwcMember = dbProvider["BWCFlag"] != DBNull.Value && Convert.ToBoolean(dbProvider["BWCFlag"]);
-                    provider.PublishToWeb = dbProvider["PublishToWeb"] != DBNull.Value && Convert.ToBoolean(dbProvider["PublishToWeb"]);
-                    provider.CqcCheckDate = dbProvider["CqcCheckDate"].ToString() == "" ? string.Empty : DateTime.Parse(dbProvider["CqcCheckDate"].ToString()).ToString("MMMM yyyy", CultureInfo.CurrentCulture);
-
-                    //provider.IsDeleted = dbProvider["IsDeleted"] == DBNull.Value ? false : Convert.ToBoolean(dbProvider["IsDeleted"]);
-                    //provider.LastModified = dbProvider["LastModified"] == DBNull.Value ? string.Empty : dbProvider["LastModified"].ToString();
-
-                    foreach (DataRow catRow in data.Tables[1].Rows)
-                    {
-
-                        if (Convert.ToInt32(catRow["FlareId"]) == provider.FlareId)
+                        if (dbProvider["Easting"].ToString() == "")
                         {
-                            provider.CategoryList += "<li><a href=\"/socialcare/athome/approvedproviders/Results.aspx?cat=" + catRow["CategoryId"] + "\">" + catRow["Description"] + "</a></li>";
+                            provider.Easting = 0;
+                        }
+                        else
+                        {
+                            provider.Easting = dbProvider["Easting"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["Easting"]);
+                        }
+
+                        if (dbProvider["Northing"].ToString() == "")
+                        {
+                            provider.Northing = 0;
+                        }
+                        else
+                        {
+                            provider.Northing = dbProvider["Northing"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["Northing"]);
+                        }
+                        provider.PublishAddress = dbProvider["PublishAddress"] != DBNull.Value && Convert.ToBoolean(dbProvider["PublishAddress"]);
+                        provider.Experience = dbProvider["Experience"] == DBNull.Value ? string.Empty : dbProvider["Experience"].ToString().Replace("\r\n", "<br />");
+                        provider.Background = dbProvider["Background"] == DBNull.Value ? string.Empty : dbProvider["Background"].ToString().Replace("\r\n", "<br />");
+                        provider.Expertise = dbProvider["Expertise"] == DBNull.Value ? string.Empty : dbProvider["Expertise"].ToString().Replace("\r\n", "<br />");
+                        provider.Accreditation = dbProvider["Accreditation"] == DBNull.Value ? string.Empty : dbProvider["Accreditation"].ToString().Replace("\r\n", "<br />");
+                        provider.Services = dbProvider["Services"] == DBNull.Value ? string.Empty : dbProvider["Services"].ToString().Replace("\r\n", "<br />");
+                        provider.Costs = dbProvider["Costs"] == DBNull.Value ? string.Empty : dbProvider["Costs"].ToString().Replace("\r\n", "<br />");
+                        provider.Crb = dbProvider["Crb"] == DBNull.Value ? string.Empty : dbProvider["Crb"].ToString();
+                        provider.Availability = Availability(dbProvider);
+
+
+
+                        provider.ContactName = dbProvider["ContactName"] == DBNull.Value ? string.Empty : dbProvider["ContactName"].ToString().Replace("\r\n", "<br />");
+                        provider.Coverage = dbProvider["Coverage"] == DBNull.Value ? string.Empty : dbProvider["Coverage"].ToString().Replace("\r\n", "<br />");
+                        provider.Coverage2 = dbProvider["Coverage2"] == DBNull.Value ? string.Empty : dbProvider["Coverage2"].ToString().Replace("\r\n", "<br />");
+                        provider.CrbCheckDate = dbProvider["CrbCheckDate"].ToString() == "" ? string.Empty : DateTime.Parse(dbProvider["CrbCheckDate"].ToString()).ToString("MMMM yyyy", CultureInfo.CurrentCulture);
+                        provider.BwcMember = dbProvider["BWCFlag"] != DBNull.Value && Convert.ToBoolean(dbProvider["BWCFlag"]);
+                        provider.PublishToWeb = dbProvider["PublishToWeb"] != DBNull.Value && Convert.ToBoolean(dbProvider["PublishToWeb"]);
+                        provider.CqcCheckDate = dbProvider["CqcCheckDate"].ToString() == "" ? string.Empty : DateTime.Parse(dbProvider["CqcCheckDate"].ToString()).ToString("MMMM yyyy", CultureInfo.CurrentCulture);
+
+                        //provider.IsDeleted = dbProvider["IsDeleted"] == DBNull.Value ? false : Convert.ToBoolean(dbProvider["IsDeleted"]);
+                        //provider.LastModified = dbProvider["LastModified"] == DBNull.Value ? string.Empty : dbProvider["LastModified"].ToString();
+
+                        foreach (DataRow catRow in data.Tables[1].Rows)
+                        {
+
+                            if (Convert.ToInt32(catRow["FlareId"]) == provider.FlareId)
+                            {
+                                provider.CategoryList += "<li><a href=\"/socialcare/athome/approvedproviders/Results.aspx?cat=" + catRow["CategoryId"] + "\">" + catRow["Description"] + "</a></li>";
+                            }
+                        }
+
+
+                        if (data.Tables.Count == 3)
+                        {
+                            provider.TotalResults = Convert.ToInt32(data.Tables[2].Rows[0]["TotalResults"]);
+                            _totalResults = provider.TotalResults;
+                        }
+
+                        provider.PhotographId = dbProvider["PhotographId"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["PhotographId"]);
+
+                        providersById.Add(providerId, provider);
+                    }
+
+                    if (dbProvider.Table.Columns.Contains("AccreditationId") && dbProvider["AccreditationId"] != DBNull.Value)
+                    {
+                        var accreditationId = Int32.Parse(dbProvider["AccreditationId"].ToString());
+                        if (!providersById[providerId].Accreditations.Any(acc => acc.AccreditationId == accreditationId))
+                        {
+                            providersById[providerId].Accreditations.Add(new Accreditation()
+                            {
+                                AccreditationId = accreditationId,
+                                Name = dbProvider["Name"].ToString(),
+                                Website = dbProvider["Website"]?.ToString()
+                            });
                         }
                     }
-
-
-                    if (data.Tables.Count == 3)
-                    {
-                        provider.TotalResults = Convert.ToInt32(data.Tables[2].Rows[0]["TotalResults"]);
-                        _totalResults = provider.TotalResults;
-                    }
-
-                    provider.PhotographId = dbProvider["PhotographId"] == DBNull.Value ? 0 : Convert.ToInt32(dbProvider["PhotographId"]);
-
-                    //provider.IsPATrained = Convert.ToBoolean(dbProvider["IsPATrained"]);
-
-                    Providers.Add(provider);
-
                 }
+
+                Providers = providersById.Values.ToList();
             }
 
         }

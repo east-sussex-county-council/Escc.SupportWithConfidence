@@ -34,6 +34,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Accreditation.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="CategoryMapper.cs" />
     <Compile Include="CategorySorter.cs" />

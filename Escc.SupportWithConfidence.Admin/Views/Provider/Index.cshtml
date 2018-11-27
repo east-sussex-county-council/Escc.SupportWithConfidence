@@ -29,8 +29,8 @@
                     <img src="@Url.Content("~/images/silhouette.jpg")" alt="No photo for provider" />
 
                     <div class="uploadphoto">
-                        <label for="photo">Upload photo:</label>
-                        <input type="file" name="photo" id="photo" />
+                        <label for="Provider.Photo">Upload photo:</label>
+                        <input type="file" name="Provider.Photo" id="Provider.Photo" />
                     </div>
                 }
             </div>
@@ -111,12 +111,6 @@
                 </p>
             </div>
 
-            @if (Model.Provider.Services.Trim().Length > 0)
-            {
-                <h2>List of services</h2>
-                <p>@Html.Raw(Model.Provider.Services)</p>
-            }
-
             @if (Model.Provider.Coverage.Trim().Length > 0 & Model.Provider.Coverage2.Trim().Length > 0)
             {
                 <h2>Coverage</h2>
@@ -137,30 +131,6 @@
                 <p>@Model.Provider.Availability</p>
             }
 
-            @if (!String.IsNullOrWhiteSpace(Model.Provider.Costs))
-            {
-                <h2>Charging and related information</h2>
-                <p>@Model.Provider.Costs</p>
-            }
-
-            @if (!String.IsNullOrWhiteSpace(Model.Provider.Expertise))
-            {
-                <h2>Expertise</h2>
-                <p>@Model.Provider.Expertise</p>
-            }
-
-            @if (!String.IsNullOrWhiteSpace(Model.Provider.Experience))
-            {
-                <h2>Experience</h2>
-                <p>@Model.Provider.Experience</p>
-            }
-
-            @if (!String.IsNullOrWhiteSpace(Model.Provider.Background))
-            {
-                <h2>Background</h2>
-                <p>@Model.Provider.Background</p>
-            }
-
             @if (!String.IsNullOrWhiteSpace(Model.Provider.Accreditation))
             {
                 <h2>Accreditation</h2>
@@ -169,12 +139,6 @@
 
             <h2>Category listings</h2>
             <ul>@Html.Raw(Model.Provider.CategoryList)</ul>
-
-            @if (!String.IsNullOrWhiteSpace(Model.Provider.Crb))
-            {
-                <h2>Criminal records information</h2>
-                <p>@Model.Provider.Crb</p>
-            }
 
             @if (Model.Provider.CrbCheckDate.Trim().Length > 0)
             {
@@ -210,6 +174,19 @@
                     @Html.LabelFor(p => p.Provider.Expertise)
                     @Html.TextAreaFor(p => p.Provider.Expertise)
                 </div>
+
+                <fieldset>
+                    <legend>Accreditations</legend>
+                    <span class="radioButtonList">
+                    @foreach (var accreditation in Model.Accreditations)
+                    {
+                        var accreditationApplies = (Model.Provider.Accreditations.FirstOrDefault(providerAccreditation => providerAccreditation.AccreditationId == accreditation.AccreditationId) != null);
+                        <input type="checkbox" value="@accreditation.AccreditationId" @(accreditationApplies ? " checked=\"checked\"" : string.Empty) name="Provider.Accreditations.AccreditationId" id="accreditation-@accreditation.AccreditationId" />
+                        <label for="accreditation-@accreditation.AccreditationId">@accreditation.Name</label>
+                    }
+                    </span>
+                </fieldset>
+
 
                 <div class="formPart">
                     @Html.LabelFor(p => p.Provider.Accreditation)

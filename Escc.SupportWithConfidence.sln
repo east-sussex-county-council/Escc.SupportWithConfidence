@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.SupportWithConfidence.Website", "Escc.SupportWithConfidence.Website\Escc.SupportWithConfidence.Website.csproj", "{0B2F91E0-E198-4133-8C4C-74DE6F403D05}"
 EndProject
@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		app-install-website.ps1 = app-install-website.ps1
 		app-setup-dev.cmd = app-setup-dev.cmd
 		app-setup-dev.ps1 = app-setup-dev.ps1
+		LICENSE.md = LICENSE.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escc.SupportWithConfidence.WebApi", "Escc.SupportWithConfidence.WebApi\Escc.SupportWithConfidence.WebApi.csproj", "{7F6C0F75-BA47-4967-847D-B73B4C234FCB}"
@@ -64,5 +66,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {01861120-6947-4135-8159-CCF839DAF300}
 	EndGlobalSection
 EndGlobal
