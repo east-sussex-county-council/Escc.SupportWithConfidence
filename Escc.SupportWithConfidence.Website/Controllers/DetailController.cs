@@ -26,7 +26,7 @@ namespace Escc.SupportWithConfidence.Website.Controllers
                 model.Provider = proMapper.Providers[0];
                return View(model);
             }
-            else return new HttpStatusCodeResult(404);
+            else return new HttpStatusCodeResult(410);
         }
     }
 }
