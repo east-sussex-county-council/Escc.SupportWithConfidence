@@ -1,9 +1,7 @@
 ﻿using Escc.SupportWithConfidence.Website.Models;
-using Escc.Web;
 using System;
 using Escc.SupportWithConfidence.Controls;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Escc.SupportWithConfidence.Website.Controllers
@@ -28,7 +26,8 @@ namespace Escc.SupportWithConfidence.Website.Controllers
             var redirectTo = searcher.Search(postcode, category);
             if (redirectTo != null)
             {
-                new HttpStatus().SeeOther(redirectTo);
+                Response.Headers.Add("Location", redirectTo.ToString());
+                return new HttpStatusCodeResult(303);
             }
             else
             {
