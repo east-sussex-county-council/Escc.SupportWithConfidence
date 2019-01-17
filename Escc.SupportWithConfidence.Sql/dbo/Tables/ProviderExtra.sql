@@ -5,7 +5,6 @@
     [Experience]    TEXT   NULL,
     [Background]    TEXT   NULL,
     [Expertise]     TEXT   NULL,
-    [Accreditation] TEXT   NULL,
     [Services]      TEXT   NULL,
     [Costs]         TEXT   NULL,
     [Crb]           TEXT   NULL,

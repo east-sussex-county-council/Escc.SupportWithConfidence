@@ -44,7 +44,6 @@ CREATE TABLE #tempProviders
 	[Experience] [text] NULL,
 	[Background] [text] NULL,
 	[Expertise] [text] NULL,
-	[Accreditation] [text] NULL,
 	[Services] [text] NULL,
 	[Costs] [text] NULL,
 	[Crb] [text] NULL
@@ -82,7 +81,6 @@ INSERT INTO #tempProviders
 	[Experience],
 	[Background],
 	[Expertise],
-	[Accreditation],
 	[Services],
 	[Costs],
 	[Crb]
@@ -118,7 +116,6 @@ SELECT
 	  ,pe.Experience
 	  ,pe.Background
 	  ,pe.Expertise
-	  ,pe.Accreditation
 	  ,pe.Services
 	  ,pe.Costs
 	  ,pe.Crb

@@ -34,7 +34,7 @@ namespace Escc.SupportWithConfidence.Controls
         DataSet GetCategoryById(int id);
 
 
-        bool SaveProviderInformation(int id, string experience, string expertise, string background, string accreditation, string services, string costs, string crb, bool publishToWeb);
+        bool SaveProviderInformation(int id, string experience, string expertise, string background, string services, string costs, string crb, bool publishToWeb);
 
         /// <summary>
         /// Clears the accreditations for a provider, ready to supply an updated set.

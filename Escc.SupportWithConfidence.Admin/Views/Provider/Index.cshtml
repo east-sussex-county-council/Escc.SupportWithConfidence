@@ -184,13 +184,6 @@
                     </span>
                 </fieldset>
 
-
-                <div class="formPart">
-                    @{ Model.Provider.Accreditation = Model.Provider.Accreditation.Replace("<br />", Environment.NewLine); }
-                    @Html.LabelFor(p => p.Provider.Accreditation)
-                    @Html.TextAreaFor(p => p.Provider.Accreditation)
-                </div>
-
                 <div class="formPart">
                     @{ Model.Provider.Services = Model.Provider.Services.Replace("<br />", Environment.NewLine); }
                     @Html.LabelFor(p => p.Provider.Services)

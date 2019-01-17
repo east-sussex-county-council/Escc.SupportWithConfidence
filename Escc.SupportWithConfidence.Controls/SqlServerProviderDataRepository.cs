@@ -34,14 +34,13 @@ namespace Escc.SupportWithConfidence.Controls
             }
         }
 
-        public bool SaveProviderInformation(int id, string experience, string expertise, string background, string accreditation, string services, string costs, string crb, bool publishToWeb)
+        public bool SaveProviderInformation(int id, string experience, string expertise, string background, string services, string costs, string crb, bool publishToWeb)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@FlareId", id, DbType.Int32);
             parameters.Add("@Experience", experience, DbType.AnsiString);
             parameters.Add("@Expertise", expertise, DbType.AnsiString);
             parameters.Add("@Background", background, DbType.AnsiString);
-            parameters.Add("@Accreditation", accreditation, DbType.AnsiString);
             parameters.Add("@Services", services, DbType.AnsiString);
             parameters.Add("@Costs", costs, DbType.AnsiString);
             parameters.Add("@Crb", crb, DbType.AnsiString);

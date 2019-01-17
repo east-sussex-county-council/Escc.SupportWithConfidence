@@ -112,7 +112,6 @@ namespace Escc.SupportWithConfidence.Controls
                         provider.Experience = dbProvider["Experience"] == DBNull.Value ? string.Empty : dbProvider["Experience"].ToString().Replace("\r\n", "<br />");
                         provider.Background = dbProvider["Background"] == DBNull.Value ? string.Empty : dbProvider["Background"].ToString().Replace("\r\n", "<br />");
                         provider.Expertise = dbProvider["Expertise"] == DBNull.Value ? string.Empty : dbProvider["Expertise"].ToString().Replace("\r\n", "<br />");
-                        provider.Accreditation = dbProvider["Accreditation"] == DBNull.Value ? string.Empty : dbProvider["Accreditation"].ToString().Replace("\r\n", "<br />");
                         provider.Services = dbProvider["Services"] == DBNull.Value ? string.Empty : dbProvider["Services"].ToString().Replace("\r\n", "<br />");
                         provider.Costs = dbProvider["Costs"] == DBNull.Value ? string.Empty : dbProvider["Costs"].ToString().Replace("\r\n", "<br />");
                         provider.Crb = dbProvider["Crb"] == DBNull.Value ? string.Empty : dbProvider["Crb"].ToString();

@@ -46,9 +46,6 @@ namespace Escc.SupportWithConfidence.Controls
 
         public IList<Accreditation> Accreditations { get; set; } = new List<Accreditation>();
 
-        public string Accreditation { get; set; }
-
-
         public string Availability { get; set; }
 
 

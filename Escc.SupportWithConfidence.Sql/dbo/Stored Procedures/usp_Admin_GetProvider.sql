@@ -34,7 +34,6 @@ SELECT
       ,pe.Experience
       ,pe.Background
       ,pe.Expertise
-      ,pe.Accreditation
 	  ,pe.Services
 	  ,pe.Costs
 	  ,pe.Crb,

@@ -4,7 +4,6 @@
 @Experience text,
 @Expertise text,
 @Background text,
-@Accreditation text,
 @Services text,
 @Costs text,
 @Crb text,
@@ -19,7 +18,6 @@ SET
 Experience = @Experience,
 Background = @Background,
 Expertise = @Expertise,
-Accreditation = @Accreditation,
 Services = @Services,
 Costs = @Costs,
 Crb = @Crb

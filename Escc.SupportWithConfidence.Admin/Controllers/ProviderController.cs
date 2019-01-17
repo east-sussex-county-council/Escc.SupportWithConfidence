@@ -72,7 +72,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                     SaveImage(Request.Files[0]);
                 }
                 bool success = repo.SaveProviderInformation(model.Provider.FlareId, model.Provider.Experience, model.Provider.Expertise, model.Provider.Background,
-                                                            model.Provider.Accreditation, model.Provider.Services, model.Provider.Costs, model.Provider.Crb, model.Provider.PublishToWeb);
+                                                            model.Provider.Services, model.Provider.Costs, model.Provider.Crb, model.Provider.PublishToWeb);
 
                 var selectedAccreditations = Request.Form["Provider.Accreditations.AccreditationId"]?.Split(',');
                 repo.ClearAccreditations(model.Provider.FlareId);
@@ -94,7 +94,6 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             provider.Experience = model.Provider.Experience;
             provider.Expertise = model.Provider.Expertise;
             provider.Background = model.Provider.Background;
-            provider.Accreditation = model.Provider.Accreditation;
             provider.Services = model.Provider.Services;
             provider.Costs = model.Provider.Costs;
             provider.Crb = model.Provider.Crb;

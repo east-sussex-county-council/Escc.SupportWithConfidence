@@ -154,27 +154,20 @@
 
 
                 <h2>Accreditation</h2>
-                if (Model.Provider.Accreditation.Trim().Length > 0)
-                {
-                    <p>@Html.Raw(Model.Provider.Accreditation)</p>
-                }
-                else
-                {
-                    <ul>
-                        <li>Support With Confidence accredited member</li>
-                        @foreach (var accreditation in Model.Provider.Accreditations)
+                <ul>
+                    <li>Support With Confidence accredited member</li>
+                    @foreach (var accreditation in Model.Provider.Accreditations)
+                    {
+                        if (!String.IsNullOrWhiteSpace(accreditation.Website))
                         {
-                            if (!String.IsNullOrWhiteSpace(accreditation.Website))
-                            {
-                                <li><a href="@accreditation.Website">@accreditation.Name</a></li>
-                            }
-                            else
-                            {
-                                <li>@accreditation.Name</li>
-                            }
+                            <li><a href="@accreditation.Website">@accreditation.Name</a></li>
                         }
-                    </ul>
-                }
+                        else
+                        {
+                            <li>@accreditation.Name</li>
+                        }
+                    }
+                </ul>
                 if (Model.Provider.BwcMember)
                 {
                     <img src="@Url.Content("~/images/bwc_logo.jpg")" alt="Buy with Confidence Member" class="bwclogo" />
