@@ -5,8 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
-using Escc.Data.Ado;
 using Escc.SupportWithConfidence.Controls;
 using Exceptionless;
 
@@ -21,12 +21,12 @@ namespace Escc.SupportWithConfidence.WebApi.Controllers
         /// <param name="approved">if set to <c>true</c> only get an approved provider.</param>
         /// <returns></returns>
         [HttpGet]
-        public DataSet ByProviderId(int id, bool approved=true)
+        public async Task<DataSet> ByProviderId(int id, bool approved=true)
         {
             try
             {
                 var dataSource = new SqlServerProviderDataSource();
-                return dataSource.GetProviderById(id, approved);
+                return await dataSource.GetProviderById(id, approved);
             }
             catch (Exception e)
             {
@@ -45,12 +45,12 @@ namespace Escc.SupportWithConfidence.WebApi.Controllers
         /// <param name="category">The category identifier.</param>
         /// <returns></returns>
         [HttpGet]
-        public DataSet GetAll(int easting, int northing, int page, int pagesize, int category)
+        public async Task<DataSet> GetAll(int easting, int northing, int page, int pagesize, int category)
         {
             try
             {
                 var dataSource = new SqlServerProviderDataSource();
-                return dataSource.GetPagedResultsByCategoryId(easting, northing, page, pagesize, category);
+                return await dataSource.GetPagedResultsByCategoryId(easting, northing, page, pagesize, category);
             }
             catch (Exception e)
             {
@@ -68,12 +68,12 @@ namespace Escc.SupportWithConfidence.WebApi.Controllers
         /// <param name="pagesize">The pagesize.</param>
         /// <param name="search">The search term.</param>
         /// <returns></returns>
-        public DataSet GetAll(int easting, int northing, int page, int pagesize, string search)
+        public async Task<DataSet> GetAll(int easting, int northing, int page, int pagesize, string search)
         {
             try
             {
                 var dataSource = new SqlServerProviderDataSource();
-                return dataSource.GetPagedResultsForSearchTerm(page, pagesize, easting, northing, search);
+                return await dataSource.GetPagedResultsForSearchTerm(page, pagesize, easting, northing, search);
             }
             catch (Exception e)
             {

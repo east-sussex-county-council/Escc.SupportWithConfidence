@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using EsccWebTeam.SupportWithConfidence.Controls;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -25,7 +26,7 @@ namespace Escc.SupportWithConfidence.Controls
         public QueryParameter QueryStringParameters { get; set; }
 
 
-        public IList<IResult> GetResults()
+        public async Task<IList<IResult>> GetResults()
         {
             QueryStringParameters.Process();
 
@@ -34,7 +35,7 @@ namespace Escc.SupportWithConfidence.Controls
                 case SearchCall.Category:
 
                     _mapper.Map(
-                        _dataSource.GetPagedResultsByCategoryId(QueryStringParameters.Easting, QueryStringParameters.Northing,
+                        await _dataSource.GetPagedResultsByCategoryId(QueryStringParameters.Easting, QueryStringParameters.Northing,
                                                                QueryStringParameters.CurrentResultPage, QueryStringParameters.PageSize,
                                                                QueryStringParameters.CategoryId), QueryStringParameters);
                     TotalResults = _mapper.TotalResults;
@@ -42,7 +43,7 @@ namespace Escc.SupportWithConfidence.Controls
                     break;
                 case SearchCall.Provider:
                     _mapper.Map(
-                        _dataSource.GetPagedResultsForSearchTerm(QueryStringParameters.CurrentResultPage, QueryStringParameters.PageSize,
+                        await _dataSource.GetPagedResultsForSearchTerm(QueryStringParameters.CurrentResultPage, QueryStringParameters.PageSize,
                                                                 QueryStringParameters.Easting, QueryStringParameters.Northing,
                                                                 QueryStringParameters.ProviderSearchValue), QueryStringParameters);
                     TotalResults = _mapper.TotalResults;

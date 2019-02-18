@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Configuration;
 using System.Data;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Escc.Data.Ado;
 using Escc.Net;
-using Escc.Net.Configuration;
+using Newtonsoft.Json;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -12,16 +13,45 @@ namespace Escc.SupportWithConfidence.Controls
     /// </summary>
     public class WebApiProviderDataSource : IProviderDataSource
     {
+        private static HttpClient _httpClient;
+        private readonly Uri _apiBaseUrl;
+        private IWebApiCredentialsProvider _credentialsProvider;
+
+        /// <summary>
+        /// Creates a new <see cref="WebApiProviderDataSource"/>
+        /// </summary>
+        /// <param name="apiBaseUrl">The base URL for the web API</param>
+        /// <param name="credentialsProvider">A method of getting credentials to use for making requests to the web API</param>
+        public WebApiProviderDataSource(Uri apiBaseUrl, IWebApiCredentialsProvider credentialsProvider)
+        {
+            _apiBaseUrl = apiBaseUrl;
+            _credentialsProvider = credentialsProvider;
+        }
+
+        private void EnsureHttpClient()
+        {
+            if (_httpClient == null)
+            {
+                _httpClient = new HttpClient(new HttpClientHandler()
+                {
+                    Credentials = _credentialsProvider?.CreateCredentials()
+                });
+            }
+        }
+
         /// <summary>
         /// Gets all categories, optionally limited to those with at least one approved provider.
         /// </summary>
         /// <param name="hasProvider">if set to <c>true</c> only select categories with at least one provider.</param>
         /// <returns></returns>
-        public DataSet GetAllCategoriesWithProvider(bool hasProvider)
+        public async Task<DataSet> GetAllCategoriesWithProvider(bool hasProvider)
         {
-            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
-            return api.Get<DataSet>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Categories?hasProvider=" + hasProvider));
+            EnsureHttpClient();
+
+            var json = await _httpClient.GetStringAsync(new Uri(_apiBaseUrl.ToString().TrimEnd('/') + "/api/Categories?hasProvider=" + hasProvider));
+            return JsonConvert.DeserializeObject<DataSet>(json);
         }
+
 
         /// <summary>
         /// Return provider using provider Id or only return the provider by provider Id if approved
@@ -29,10 +59,12 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="id"></param>
         /// <param name="thatIsApproved"></param>
         /// <returns></returns>
-        public DataSet GetProviderById(int id, bool thatIsApproved)
+        public async Task<DataSet> GetProviderById(int id, bool thatIsApproved)
         {
-            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
-            return api.Get<DataSet>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Providers/" + id + "?approved=" + thatIsApproved));
+            EnsureHttpClient();
+
+            var json = await _httpClient.GetStringAsync(new Uri(_apiBaseUrl.ToString().TrimEnd('/') + "/api/Providers/" + id + "?approved=" + thatIsApproved));
+            return JsonConvert.DeserializeObject<DataSet>(json);
         }
 
         /// <summary>
@@ -44,10 +76,12 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="pagesize">The pagesize.</param>
         /// <param name="categoryId">The category identifier.</param>
         /// <returns></returns>
-        public DataSet GetPagedResultsByCategoryId(int easting, int northing, int pageindex, int pagesize, int categoryId)
+        public async Task<DataSet> GetPagedResultsByCategoryId(int easting, int northing, int pageindex, int pagesize, int categoryId)
         {
-            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
-            return api.Get<DataSet>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Providers/?easting=" + easting + "&northing=" + northing + "&page=" + pageindex + "&pagesize=" + pagesize + "&category=" + categoryId)); 
+            EnsureHttpClient();
+
+            var json = await _httpClient.GetStringAsync(new Uri(_apiBaseUrl.ToString().TrimEnd('/') + "/api/Providers/?easting=" + easting + "&northing=" + northing + "&page=" + pageindex + "&pagesize=" + pagesize + "&category=" + categoryId));
+            return JsonConvert.DeserializeObject<DataSet>(json);
         }
 
         /// <summary>
@@ -59,10 +93,12 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="northing">The northing.</param>
         /// <param name="searchTerm">The search term.</param>
         /// <returns></returns>
-        public DataSet GetPagedResultsForSearchTerm(int pageindex, int pagesize, int easting, int northing, string searchTerm)
+        public async Task<DataSet> GetPagedResultsForSearchTerm(int pageindex, int pagesize, int easting, int northing, string searchTerm)
         {
-            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
-            return api.Get<DataSet>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Providers/?easting=" + easting + "&northing=" + northing + "&page=" + pageindex + "&pagesize=" + pagesize + "&search=" + searchTerm));
+            EnsureHttpClient();
+
+            var json = await _httpClient.GetStringAsync(new Uri(_apiBaseUrl.ToString().TrimEnd('/') + "/api/Providers/?easting=" + easting + "&northing=" + northing + "&page=" + pageindex + "&pagesize=" + pagesize + "&search=" + searchTerm));
+            return JsonConvert.DeserializeObject<DataSet>(json);
         }
 
         /// <summary>
@@ -74,10 +110,12 @@ namespace Escc.SupportWithConfidence.Controls
         /// <returns>
         /// The file data for the stored image
         /// </returns>
-        public DatabaseFileData GetImageFromDb(int imageDataId, bool includeBlobData)
+        public async Task<DatabaseFileData> GetImageFromDb(int imageDataId, bool includeBlobData)
         {
-            var api = new WebApiClient(new ConfigurationWebApiCredentialsProvider());
-            return api.Get<DatabaseFileData>(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"] + "/Images/" + imageDataId + "?includeBlobData=" + includeBlobData));
+            EnsureHttpClient();
+
+            var json = await _httpClient.GetStringAsync(new Uri(_apiBaseUrl.ToString().TrimEnd('/') + "/api/Images/" + imageDataId + "?includeBlobData=" + includeBlobData));
+            return JsonConvert.DeserializeObject<DatabaseFileData>(json);
         }
     }
 }

@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Escc.DatabaseFileControls.WebForms;
+using Escc.EastSussexGovUK.Mvc;
 using Escc.SupportWithConfidence.Admin.Data;
 using Escc.SupportWithConfidence.Admin.Models;
 using Escc.SupportWithConfidence.Controls;
+using Exceptionless;
 
 namespace Escc.SupportWithConfidence.Admin.Controllers
 {
@@ -32,6 +34,25 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             model.Provider = ReadProviderById(_repository, reference);
             if (model.Provider != null)
             {
+                var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+                try
+                {
+                    model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+                }
+                catch (Exception ex)
+                {
+                    // Catch and report exceptions - don't throw them and cause the page to fail
+                    ex.ToExceptionless().Submit();
+                }
+                try
+                {
+                    model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+                }
+                catch (Exception ex)
+                {
+                    // Catch and report exceptions - don't throw them and cause the page to fail
+                    ex.ToExceptionless().Submit();
+                }
                 return View(model);
             }
             else return new HttpStatusCodeResult(404);
@@ -101,6 +122,27 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             model.Provider = provider;
             model.Accreditations = await LoadAllAccreditations();
             ModelState.AddModelError(string.Empty, "Save failed");
+
+            var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+            try
+            {
+                model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+            try
+            {
+                model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+
             return View(model);
         }
 

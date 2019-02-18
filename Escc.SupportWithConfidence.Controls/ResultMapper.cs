@@ -47,7 +47,7 @@ namespace Escc.SupportWithConfidence.Controls
 
                     try
                     {
-                        result.CurrentPage = HttpContext.Current.Request.QueryString["page"] == null ? 1 : Convert.ToInt32(HttpContext.Current.Request.QueryString["page"]);
+                        result.CurrentPage = queryparameters.CurrentResultPage;
 
                     }
                     catch (FormatException)

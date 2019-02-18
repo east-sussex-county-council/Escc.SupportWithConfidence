@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Escc.Data.Ado;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -17,7 +18,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// </summary>
         /// <param name="hasProvider">if set to <c>true</c> only select categories with at least one provider.</param>
         /// <returns></returns>
-        DataSet GetAllCategoriesWithProvider(bool hasProvider);
+        Task<DataSet> GetAllCategoriesWithProvider(bool hasProvider);
 
         /// <summary>
         /// Return provider using provider Id or only return the provider by provider Id if approved
@@ -25,7 +26,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="id"></param>
         /// <param name="thatIsApproved"></param>
         /// <returns></returns>
-        DataSet GetProviderById(int id, bool thatIsApproved);
+        Task<DataSet> GetProviderById(int id, bool thatIsApproved);
 
         /// <summary>
         /// Gets a page of approved providers matching a category identifier.
@@ -36,7 +37,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="pagesize">The pagesize.</param>
         /// <param name="categoryId">The category identifier.</param>
         /// <returns></returns>
-        DataSet GetPagedResultsByCategoryId(int easting, int northing, int pageindex, int pagesize, int categoryId);
+        Task<DataSet> GetPagedResultsByCategoryId(int easting, int northing, int pageindex, int pagesize, int categoryId);
 
         /// <summary>
         /// Gets a page of approved providers matching a search term.
@@ -47,7 +48,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="northing">The northing.</param>
         /// <param name="searchTerm">The search term.</param>
         /// <returns></returns>
-        DataSet GetPagedResultsForSearchTerm(int pageindex, int pagesize, int easting, int northing, string searchTerm);
+        Task<DataSet> GetPagedResultsForSearchTerm(int pageindex, int pagesize, int easting, int northing, string searchTerm);
 
         /// <summary>
         /// Gets an image file from the database
@@ -56,6 +57,6 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="includeBlobData">If false, a special stored procedure is called that gets just the file details without the actual BLOB data.
         /// If true, the normal file retrieval stored procedure is called.</param>
         /// <returns>The file data for the stored image</returns>
-        DatabaseFileData GetImageFromDb(int imageDataId, bool includeBlobData);
+        Task<DatabaseFileData> GetImageFromDb(int imageDataId, bool includeBlobData);
     }
 }

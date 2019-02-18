@@ -35,16 +35,10 @@
             <p>Support with Confidence is a directory of vetted and approved care and service providers who can help you at home.</p>
             <div class="accordion" role="application">
                 @{
-                    // Get categories from the database table Category
-                    var categories = new WebApiProviderDataSource().GetAllCategoriesWithProvider(true);
-
-                    // Get category collection that is structured as a family tree
-                    var categorymapper = new CategoryMapper(categories);
-
                     // Create each list item <li> Category information </li>
                     var counter = 1;
                     var html = new StringBuilder();
-                    foreach (var category in categorymapper.Categories)
+                    foreach (var category in Model.Categories)
                     {
                         html.Append($"<h2 id=\"accordion{counter}\" aria-controls=\"accordion{counter}content\" role=\"tab\">{category.Description}</h2>");
 

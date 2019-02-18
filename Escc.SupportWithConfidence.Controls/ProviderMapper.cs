@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Escc.AddressAndPersonalDetails;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -22,9 +23,9 @@ namespace Escc.SupportWithConfidence.Controls
             _repository = repository;
         }
 
-        public void Map(int providerId)
+        public async Task Map(int providerId)
         {
-            var data = _dataSource.GetProviderById(providerId, true);
+            var data = await _dataSource.GetProviderById(providerId, true);
             MapData(data);
            
         }

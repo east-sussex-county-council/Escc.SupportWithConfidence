@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Escc.Data.Ado;
 using Escc.SupportWithConfidence.Controls;
@@ -25,12 +26,12 @@ namespace Escc.SupportWithConfidence.WebApi.Controllers
         /// The file data for the stored image
         /// </returns>
         [HttpGet]
-        public DatabaseFileData ImageById(int id, bool includeBlobData = false)
+        public async Task<DatabaseFileData> ImageById(int id, bool includeBlobData = false)
         {
             try
             {
                 var dataSource = new SqlServerProviderDataSource();
-                return dataSource.GetImageFromDb(id, includeBlobData);
+                return await dataSource.GetImageFromDb(id, includeBlobData);
             }
             catch (Exception e)
             {

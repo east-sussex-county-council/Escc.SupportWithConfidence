@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using Escc.SupportWithConfidence.Admin.Data;
 using Escc.SupportWithConfidence.Admin.Models;
+using Escc.EastSussexGovUK.Mvc;
+using Exceptionless;
 
 namespace Escc.SupportWithConfidence.Admin.Controllers
 {
@@ -19,19 +21,62 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
         // GET: Accreditations
         public async Task<ActionResult> Index()
         {
+            var model = new AccreditationViewModel();
+            var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+            try
+            {
+                model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+            try
+            {
+                model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+
             var accreditationData = await db.Accreditations.ToListAsync();
-            return View(new AccreditationViewModel() { Accreditations = accreditationData.Select(result => new Controls.Accreditation()
-                            {
-                                AccreditationId = result.AccreditationId,
-                                Name = result.Name,
-                                Website = result.Website
-                            })});
+            model.Accreditations = accreditationData.Select(result => new Controls.Accreditation()
+            {
+                AccreditationId = result.AccreditationId,
+                Name = result.Name,
+                Website = result.Website
+            });
+            return View(model);
         }
 
         // GET: Accreditations/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View(new AccreditationViewModel());
+            var model = new AccreditationViewModel();
+            var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+            try
+            {
+                model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+            try
+            {
+                model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+
+            return View(model);
         }
 
         // POST: Accreditations/Create
@@ -48,7 +93,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(new AccreditationViewModel()
+            var model = new AccreditationViewModel()
             {
                 Accreditation = new Controls.Accreditation()
                 {
@@ -56,7 +101,28 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                     Name = accreditation.Name,
                     Website = accreditation.Website
                 }
-            });
+            };
+            var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+            try
+            {
+                model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+            try
+            {
+                model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+
+            return View(model);
         }
 
         // GET: Accreditations/Edit/5
@@ -66,19 +132,40 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var model = new AccreditationViewModel();
             Accreditation accreditation = await db.Accreditations.FindAsync(id);
             if (accreditation == null)
             {
                 return HttpNotFound();
             }
-            return View(new AccreditationViewModel() {
-                Accreditation = new Controls.Accreditation()
-                {
-                    AccreditationId = accreditation.AccreditationId,
-                    Name = accreditation.Name,
-                    Website = accreditation.Website
-                }
-            });
+
+            model.Accreditation = new Controls.Accreditation()
+            {
+                AccreditationId = accreditation.AccreditationId,
+                Name = accreditation.Name,
+                Website = accreditation.Website
+            };
+            var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+            try
+            {
+                model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+            try
+            {
+                model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+
+            return View(model);
         }
 
         // POST: Accreditations/Edit/5
@@ -94,14 +181,37 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(new AccreditationViewModel() {
+
+            var model = new AccreditationViewModel()
+            {
                 Accreditation = new Controls.Accreditation()
                 {
                     AccreditationId = accreditation.AccreditationId,
                     Name = accreditation.Name,
                     Website = accreditation.Website
                 }
-            });
+            };
+            var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+            try
+            {
+                model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+            try
+            {
+                model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+
+            return View(model);
         }
 
         // GET: Accreditations/Delete/5
@@ -111,19 +221,40 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var model = new AccreditationViewModel();
             Accreditation accreditation = await db.Accreditations.FindAsync(id);
             if (accreditation == null)
             {
                 return HttpNotFound();
             }
-            return View(new AccreditationViewModel() {
-                Accreditation = new Controls.Accreditation()
-                {
-                    AccreditationId = accreditation.AccreditationId,
-                    Name = accreditation.Name,
-                    Website = accreditation.Website
-                }
-            });
+
+            model.Accreditation = new Controls.Accreditation()
+            {
+                AccreditationId = accreditation.AccreditationId,
+                Name = accreditation.Name,
+                Website = accreditation.Website
+            };
+            var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+            try
+            {
+                model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+            try
+            {
+                model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+            }
+            catch (Exception ex)
+            {
+                // Catch and report exceptions - don't throw them and cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+
+            return View(model);
         }
 
         // POST: Accreditations/Delete/5

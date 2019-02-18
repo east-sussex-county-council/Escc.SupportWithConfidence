@@ -1,9 +1,7 @@
 ﻿@model Escc.SupportWithConfidence.Website.Models.SupportWithConfidenceViewModel
 @using ClientDependency.Core.Mvc
 @using Escc.ClientDependencyFramework
-@using Escc.SupportWithConfidence.Controls
 @using Escc.NavigationControls.WebForms
-@using System.Configuration
 @{
     Model.Metadata.Title = "Support with Confidence";
     Model.Metadata.IpsvPreferredTerms = "Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans";
@@ -26,10 +24,6 @@
 <div class="article">
     <section>
         @{ 
-            var controller = new SearchController(new WebApiProviderDataSource());
-
-            IList<IResult> results = controller.GetResults();
-
             // if t then centre of town
             // if pc then postcode
             // if cat or st then alpha
@@ -37,17 +31,17 @@
             string sortOrder;
             string searchHeadingTerm;
 
-            if (controller.QueryStringParameters.CategoryId > 0)
+            if (Model.QueryStringParameters.CategoryId > 0)
             {
-                searchHeadingTerm = controller.CategoryHeading;
+                searchHeadingTerm = Model.CategoryHeading;
             }
-            else if (controller.QueryStringParameters.ProviderSearchValue.Length > 0)
+            else if (Model.QueryStringParameters.ProviderSearchValue.Length > 0)
             {
-                searchHeadingTerm = controller.QueryStringParameters.ProviderSearchValue;
+                searchHeadingTerm = Model.QueryStringParameters.ProviderSearchValue;
             }
-            else if (controller.QueryStringParameters.PostcodeSearchValue.Length > 0)
+            else if (Model.QueryStringParameters.PostcodeSearchValue.Length > 0)
             {
-                searchHeadingTerm = controller.QueryStringParameters.PostcodeSearchValue;
+                searchHeadingTerm = Model.QueryStringParameters.PostcodeSearchValue;
             }
             else
             {
@@ -58,14 +52,14 @@
 
 
 
-            if (controller.QueryStringParameters.PostcodeSearchValueIsTownName)
+            if (Model.QueryStringParameters.PostcodeSearchValueIsTownName)
             {
-                sortOrder = "by distance from 'centre of " + controller.QueryStringParameters.PostcodeSearchValue + "'";
+                sortOrder = "by distance from 'centre of " + Model.QueryStringParameters.PostcodeSearchValue + "'";
 
             }
-            else if (controller.QueryStringParameters.PostcodeSearchValue.Length > 0 & controller.QueryStringParameters.PostcodeSearchValueIsTownName == false)
+            else if (Model.QueryStringParameters.PostcodeSearchValue.Length > 0 & Model.QueryStringParameters.PostcodeSearchValueIsTownName == false)
             {
-                sortOrder = "by distance from '" + controller.QueryStringParameters.PostcodeSearchValue + "'";
+                sortOrder = "by distance from '" + Model.QueryStringParameters.PostcodeSearchValue + "'";
             }
             else
             {
@@ -74,7 +68,7 @@
 
             <div class="content text-content">
 
-            @if (results.Count > 0)
+            @if (Model.Providers.Count > 0)
             {
                 <h1>Search results for '@searchHeadingTerm'</h1>
             }
@@ -86,7 +80,7 @@
 
             @Html.ValidationSummary()
 
-            @if (results.Count > 0)
+            @if (Model.Providers.Count > 0)
             {
                 <div class="form simple-form screen">
                 <h2>Results are sorted @sortOrder</h2>
@@ -95,7 +89,7 @@
                     <form action="@Url.Content("~/results.aspx")" method="POST">
                         <label for="postcode" class="formLabel">Sort by distance</label>
                         <input name="postcode" type="text" id="postcode" class="formControl describedby-tip" aria-describedby="data-protection" data-tip-positions="bottom top" />
-                        <input type="hidden" name="category" value="@controller.QueryStringParameters.CategoryId" />
+                        <input type="hidden" name="category" value="@Model.QueryStringParameters.CategoryId" />
                         <input type="submit" value="Sort results" class="button" />
                         <p id="data-protection">We won't keep or share your postcode or town</p>
                     </form>
@@ -105,16 +99,16 @@
                 <p class="screen">Couldn’t find what you were looking for? <a href="https://apps.eastsussex.gov.uk/contactus/emailus/email.aspx?n=Support+With+Confidence&amp;e=supportwithconfidence&amp;d=eastsussex.gov.uk">Email the team</a> or call 01323 463440.</p>
             <p class="screen"><a href="@VirtualPathUtility.ToAbsolute("~/")" class="newsearch">New search</a></p>
 
-            @if (results.Count > 0)
+            @if (Model.Providers.Count > 0)
             {
                 var paging = new PagingController();
-                paging.TotalResults = controller.TotalResults;
+                paging.TotalResults = Model.TotalResults;
                 paging.ResultsTextSingular = "provider";
                 paging.ResultsTextPlural = "providers";
 
                 Html.RenderPartial("~/Views/PagingBarControl.ascx", paging);
 
-                foreach (var result in results)
+                foreach (var result in Model.Providers)
                 {
                     @Html.Raw(result.View())
                         }

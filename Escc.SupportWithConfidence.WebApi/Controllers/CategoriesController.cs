@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Escc.SupportWithConfidence.Controls;
 using Exceptionless;
@@ -18,12 +19,12 @@ namespace Escc.SupportWithConfidence.WebApi.Controllers
         /// <param name="hasProvider">if set to <c>true</c> only select categories with at least one provider.</param>
         /// <returns></returns>
         [HttpGet]
-        public DataSet GetAll(bool hasProvider = true)
+        public async Task<DataSet> GetAll(bool hasProvider = true)
         {
             try
             {
                 var dataSource = new SqlServerProviderDataSource();
-                return dataSource.GetAllCategoriesWithProvider(hasProvider);
+                return await dataSource.GetAllCategoriesWithProvider(hasProvider);
             }
             catch (Exception e)
             {

@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Escc.Data.Ado;
 using Exceptionless;
 
@@ -58,11 +59,11 @@ namespace Escc.SupportWithConfidence.Controls
         /// </summary>
         /// <param name="hasProvider">if set to <c>true</c> only select categories with at least one provider.</param>
         /// <returns></returns>
-        public DataSet GetAllCategoriesWithProvider(bool hasProvider)
+        public Task<DataSet> GetAllCategoriesWithProvider(bool hasProvider)
         {
             var parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@HasProvider", SqlDbType.Int) { Value = hasProvider };
-            return QueryDatabase("usp_GetAllCategoriesWithProvider", parameters, ConnectionType.User);
+            return Task.FromResult(QueryDatabase("usp_GetAllCategoriesWithProvider", parameters, ConnectionType.User));
         }
 
         /// <summary>
@@ -71,13 +72,13 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="id"></param>
         /// <param name="thatIsApproved"></param>
         /// <returns></returns>
-        public DataSet GetProviderById(int id, bool thatIsApproved)
+        public Task<DataSet> GetProviderById(int id, bool thatIsApproved)
         {
             var parameters = new SqlParameter[2];
             parameters[0] = new SqlParameter("@FlareId", SqlDbType.Int) { Value = id };
             parameters[1] = new SqlParameter("@IsApproved", SqlDbType.Int) { Value = thatIsApproved };
 
-            return QueryDatabase("usp_GetProviderById", parameters, ConnectionType.User);
+            return Task.FromResult(QueryDatabase("usp_GetProviderById", parameters, ConnectionType.User));
         }
 
         /// <summary>
@@ -89,7 +90,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="pagesize">The pagesize.</param>
         /// <param name="categoryId">The category identifier.</param>
         /// <returns></returns>
-        public DataSet GetPagedResultsByCategoryId(int easting, int northing, int pageindex, int pagesize, int categoryId)
+        public Task<DataSet> GetPagedResultsByCategoryId(int easting, int northing, int pageindex, int pagesize, int categoryId)
         {
             var parameters = new SqlParameter[5];
 
@@ -102,7 +103,7 @@ namespace Escc.SupportWithConfidence.Controls
             parameters[4] = new SqlParameter("@CategoryId", SqlDbType.Int) { Value = categoryId };
 
 
-            return QueryDatabase("usp_GetPagedResultsByCategoryId", parameters, ConnectionType.User);
+            return Task.FromResult(QueryDatabase("usp_GetPagedResultsByCategoryId", parameters, ConnectionType.User));
         }
 
         /// <summary>
@@ -114,7 +115,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="northing">The northing.</param>
         /// <param name="searchTerm">The search term.</param>
         /// <returns></returns>
-        public DataSet GetPagedResultsForSearchTerm(int pageindex, int pagesize, int easting, int northing, string searchTerm)
+        public Task<DataSet> GetPagedResultsForSearchTerm(int pageindex, int pagesize, int easting, int northing, string searchTerm)
         {
             var parameters = new SqlParameter[5];
             parameters[0] = new SqlParameter("@PageIndex", SqlDbType.Int) { Value = pageindex };
@@ -125,7 +126,7 @@ namespace Escc.SupportWithConfidence.Controls
             if (northing == 0) { parameters[3].Value = System.DBNull.Value; } else { parameters[3].Value = northing; }
             parameters[4] = new SqlParameter("@Name", SqlDbType.VarChar) { Value = searchTerm ?? string.Empty };
 
-            return QueryDatabase("usp_GetPagedResultsForSearchTerm", parameters, ConnectionType.User);
+            return Task.FromResult(QueryDatabase("usp_GetPagedResultsForSearchTerm", parameters, ConnectionType.User));
         }
 
         /// <summary>
@@ -166,7 +167,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// <param name="includeBlobData">If false, a special stored procedure is called that gets just the file details without the actual BLOB data.
         /// If true, the normal file retrieval stored procedure is called.</param>
         /// <returns>The file data for the stored image</returns>
-        public DatabaseFileData GetImageFromDb(
+        public Task<DatabaseFileData> GetImageFromDb(
             int imageDataId,
             bool includeBlobData)
         {
@@ -193,7 +194,7 @@ namespace Escc.SupportWithConfidence.Controls
                 fileData.FileBLOBData = (byte[])objBlobData;
             }
 
-            return fileData;
+            return Task.FromResult(fileData);
         }
     }
 }
