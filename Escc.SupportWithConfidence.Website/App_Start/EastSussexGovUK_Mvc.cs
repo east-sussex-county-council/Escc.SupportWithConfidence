@@ -22,7 +22,7 @@ namespace Escc.SupportWithConfidence.Website {
 				RouteTable.Routes.MapRoute("HttpStatus", "{controller}/{action}", null, new { controller = "HttpStatus" });
 			}
 
-            // System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
         }
     }
 }
