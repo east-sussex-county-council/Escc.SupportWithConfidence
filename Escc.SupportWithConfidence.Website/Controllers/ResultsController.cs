@@ -8,6 +8,7 @@ using Escc.EastSussexGovUK.Mvc;
 using System.Threading.Tasks;
 using System.Configuration;
 using Escc.Net.Configuration;
+using Escc.Net;
 
 namespace Escc.SupportWithConfidence.Website.Controllers
 {
@@ -18,7 +19,7 @@ namespace Escc.SupportWithConfidence.Website.Controllers
         {
             var model = new SupportWithConfidenceViewModel();
 
-            var controller = new SearchController(new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new ConfigurationWebApiCredentialsProvider()));
+            var controller = new SearchController(new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new HttpClientProvider(null, new ConfigurationWebApiCredentialsProvider())));
             model.Providers = await controller.GetResults();
             model.TotalResults = controller.TotalResults;
             model.QueryStringParameters = controller.QueryStringParameters;
@@ -66,7 +67,7 @@ namespace Escc.SupportWithConfidence.Website.Controllers
                 "If you entered a postcode please ensure this is a full postcode within East Sussex. If you entered a town please check the spelling.");
 
             var model = new SupportWithConfidenceViewModel();
-            var controller = new SearchController(new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new ConfigurationWebApiCredentialsProvider()));
+            var controller = new SearchController(new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new HttpClientProvider(null, new ConfigurationWebApiCredentialsProvider())));
             model.Providers = await controller.GetResults();
             model.TotalResults = controller.TotalResults;
             model.QueryStringParameters = controller.QueryStringParameters;

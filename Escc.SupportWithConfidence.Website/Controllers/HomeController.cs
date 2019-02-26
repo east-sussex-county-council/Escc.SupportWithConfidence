@@ -9,6 +9,7 @@ using Exceptionless;
 using System.Threading.Tasks;
 using Escc.Net.Configuration;
 using System.Configuration;
+using Escc.Net;
 
 namespace Escc.SupportWithConfidence.Website.Controllers
 {
@@ -24,7 +25,7 @@ namespace Escc.SupportWithConfidence.Website.Controllers
             var model = new SupportWithConfidenceViewModel();
 
             // Get categories from the database table Category
-            var dataSource = new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new ConfigurationWebApiCredentialsProvider());
+            var dataSource = new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new HttpClientProvider(null, new ConfigurationWebApiCredentialsProvider()));
             var categories = await dataSource.GetAllCategoriesWithProvider(true);
 
             // Get category collection that is structured as a family tree
@@ -76,7 +77,7 @@ namespace Escc.SupportWithConfidence.Website.Controllers
             var model = new SupportWithConfidenceViewModel();
 
             // Get categories from the database table Category
-            var dataSource = new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new ConfigurationWebApiCredentialsProvider());
+            var dataSource = new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new HttpClientProvider(null, new ConfigurationWebApiCredentialsProvider()));
             var categories = await dataSource.GetAllCategoriesWithProvider(true);
 
             // Get category collection that is structured as a family tree

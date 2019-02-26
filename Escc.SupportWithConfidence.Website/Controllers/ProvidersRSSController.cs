@@ -1,4 +1,5 @@
-﻿using Escc.Net.Configuration;
+﻿using Escc.Net;
+using Escc.Net.Configuration;
 using Escc.SupportWithConfidence.Controls;
 using System;
 using System.Configuration;
@@ -10,7 +11,7 @@ namespace Escc.SupportWithConfidence.Website.Controllers
     public class ProvidersRSSController : Controller
     {
         // create a new search controller to get providers
-        public SearchController controller = new SearchController(new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new ConfigurationWebApiCredentialsProvider()));
+        public SearchController controller = new SearchController(new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new HttpClientProvider(null, new ConfigurationWebApiCredentialsProvider())));
 
         // GET: ProvidersRSS
         public async Task<ActionResult> Index()

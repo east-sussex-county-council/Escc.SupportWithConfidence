@@ -2,6 +2,7 @@
 using System.Configuration;
 using Escc.Data.Ado;
 using Escc.DatabaseFileControls.WebForms;
+using Escc.Net;
 using Escc.Net.Configuration;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -21,7 +22,7 @@ namespace Escc.SupportWithConfidence.Controls
         public override DatabaseFileData GetFileAttachment(int fileDataId, bool includeBlobData)
         {
             // Retrieve the image file from the database
-            IProviderDataSource dataSource = new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new ConfigurationWebApiCredentialsProvider());
+            IProviderDataSource dataSource = new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new HttpClientProvider(null, new ConfigurationWebApiCredentialsProvider()));
             return dataSource.GetImageFromDb(fileDataId, includeBlobData).Result;
         }   
 

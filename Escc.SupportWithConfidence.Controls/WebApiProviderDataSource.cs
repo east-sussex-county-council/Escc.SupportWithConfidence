@@ -15,27 +15,24 @@ namespace Escc.SupportWithConfidence.Controls
     {
         private static HttpClient _httpClient;
         private readonly Uri _apiBaseUrl;
-        private IWebApiCredentialsProvider _credentialsProvider;
+        private IHttpClientProvider _httpClientProvider;
 
         /// <summary>
         /// Creates a new <see cref="WebApiProviderDataSource"/>
         /// </summary>
         /// <param name="apiBaseUrl">The base URL for the web API</param>
-        /// <param name="credentialsProvider">A method of getting credentials to use for making requests to the web API</param>
-        public WebApiProviderDataSource(Uri apiBaseUrl, IWebApiCredentialsProvider credentialsProvider)
+        /// <param name="httpClientProvider">A method of getting an <see cref="HttpClient"/> to use for making requests to the web API</param>
+        public WebApiProviderDataSource(Uri apiBaseUrl, IHttpClientProvider httpClientProvider)
         {
-            _apiBaseUrl = apiBaseUrl;
-            _credentialsProvider = credentialsProvider;
+            _apiBaseUrl = apiBaseUrl ?? throw new ArgumentNullException(nameof(apiBaseUrl));
+            _httpClientProvider = httpClientProvider ?? throw new ArgumentNullException(nameof(httpClientProvider));
         }
 
         private void EnsureHttpClient()
         {
             if (_httpClient == null)
             {
-                _httpClient = new HttpClient(new HttpClientHandler()
-                {
-                    Credentials = _credentialsProvider?.CreateCredentials()
-                });
+                _httpClient = _httpClientProvider.GetHttpClient();
             }
         }
 

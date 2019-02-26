@@ -1,4 +1,5 @@
 ﻿using Escc.EastSussexGovUK.Mvc;
+using Escc.Net;
 using Escc.Net.Configuration;
 using Escc.SupportWithConfidence.Controls;
 using Escc.SupportWithConfidence.Website.Models;
@@ -24,7 +25,7 @@ namespace Escc.SupportWithConfidence.Website.Controllers
 
             int.TryParse(Request.QueryString["ref"], result: out reference);
 
-            var proMapper = new ProviderMapper(new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new ConfigurationWebApiCredentialsProvider()));
+            var proMapper = new ProviderMapper(new WebApiProviderDataSource(new Uri(ConfigurationManager.AppSettings["SupportWithConfidenceApiBaseUrl"]), new HttpClientProvider(null, new ConfigurationWebApiCredentialsProvider())));
             await proMapper.Map(reference);
 
             if (proMapper.Providers.Count > 0)
