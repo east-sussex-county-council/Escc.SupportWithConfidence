@@ -89,6 +89,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.Category.Depth = model.Category.ParentId.HasValue ? 2 : 1;
                 db.Categories.Add(model.Category);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -175,6 +176,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.Category.Depth = model.Category.ParentId.HasValue ? 2 : 1;
                 db.Entry(model.Category).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

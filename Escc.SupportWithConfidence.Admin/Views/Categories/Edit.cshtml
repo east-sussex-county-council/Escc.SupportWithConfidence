@@ -33,11 +33,6 @@
                         @Html.ValidationMessageFor(model => model.Category.ParentId, "", new { @class = "warning" })
                     </div>
                     <div class="formPart">
-                        @Html.LabelFor(cat => Model.Category.Depth)
-                        @Html.TextBoxFor(cat => Model.Category.Depth)
-                        @Html.ValidationMessageFor(model => model.Category.Depth, "", new { @class = "warning" })
-                    </div>
-                    <div class="formPart">
                         @Html.LabelFor(cat => Model.Category.Sequence)
                         @Html.TextBoxFor(cat => Model.Category.Sequence)
                         @Html.ValidationMessageFor(model => model.Category.Sequence, "", new { @class = "warning" })
