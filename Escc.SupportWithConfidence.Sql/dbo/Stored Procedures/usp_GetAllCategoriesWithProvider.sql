@@ -6,32 +6,30 @@ AS
 IF @HasProvider = 1
 BEGIN
 SELECT DISTINCT	
-		c.Id ,
+		c.CategoryId ,
 		Sequence,
         Code ,
         Description ,
         ParentId ,
         Depth ,
-        ProviderTypeId ,
         IsActive
-FROM dbo.Category AS c
-LEFT JOIN dbo.ProviderCategory AS pc ON c.Id = pc.CategoryId
+FROM dbo.Categories AS c
+LEFT JOIN dbo.ProviderCategory AS pc ON c.CategoryId = pc.CategoryId
 LEFT JOIN  dbo.Provider AS p ON pc.FlareId = p.FlareId
 WHERE IsActive = 1
 ORDER BY Sequence , Code
 END
 ELSE
 SELECT DISTINCT	
-		c.Id ,
+		c.CategoryId ,
 		Sequence,
         Code ,
         Description ,
         ParentId ,
         Depth ,
-        ProviderTypeId ,
         IsActive
-FROM dbo.Category AS c
-LEFT JOIN dbo.ProviderCategory AS pc ON c.Id = pc.CategoryId
+FROM dbo.Categories AS c
+LEFT JOIN dbo.ProviderCategory AS pc ON c.CategoryId = pc.CategoryId
 LEFT JOIN  dbo.Provider AS p ON pc.FlareId = p.FlareId
 ORDER BY Sequence , Code
 GO

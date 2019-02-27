@@ -1,0 +1,60 @@
+﻿@model Escc.SupportWithConfidence.Admin.Models.CategoryViewModel
+@using ClientDependency.Core.Mvc
+@using Escc.ClientDependencyFramework
+@{
+    Model.Metadata.Title = "Add a category";
+    Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
+    Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
+}
+<div class="full-page">
+    <div class="content text-content">
+        <h1>@Model.Metadata.Title</h1>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form service-form">
+                <div class="formBox">
+                    <div class="formPart">
+                        @Html.LabelFor(cat => Model.Category.Code)
+                        @Html.TextBoxFor(cat => Model.Category.Code)
+                        @Html.ValidationMessageFor(model => model.Category.Code, "", new { @class = "warning" })
+                    </div>
+                    <div class="formPart">
+                        @Html.LabelFor(cat => Model.Category.Description)
+                        @Html.TextBoxFor(cat => Model.Category.Description)
+                        @Html.ValidationMessageFor(model => model.Category.Description, "", new { @class = "warning" })
+                    </div>
+                    <div class="formPart">
+                        @Html.LabelFor(cat => Model.Category.ParentId)
+                        @Html.TextBoxFor(cat => Model.Category.ParentId)
+                        @Html.ValidationMessageFor(model => model.Category.ParentId, "", new { @class = "warning" })
+                    </div>
+                    <div class="formPart">
+                        @Html.LabelFor(cat => Model.Category.Depth)
+                        @Html.TextBoxFor(cat => Model.Category.Depth)
+                        @Html.ValidationMessageFor(model => model.Category.Depth, "", new { @class = "warning" })
+                    </div>
+                    <div class="formPart">
+                        @Html.LabelFor(cat => Model.Category.Sequence)
+                        @Html.TextBoxFor(cat => Model.Category.Sequence)
+                        @Html.ValidationMessageFor(model => model.Category.Sequence, "", new { @class = "warning" })
+                    </div>
+                    <div class="formPart">
+                        @Html.LabelFor(cat => Model.Category.IsActive)
+                        @Html.CheckBoxFor(cat => Model.Category.IsActive)
+                        @Html.ValidationMessageFor(model => model.Category.IsActive, "", new { @class = "warning" })
+                    </div>
+                </div>
+                
+                <div class="formButtons">
+                    <input type="submit" value="Save" />
+                </div>
+            </div>
+        }
+
+        <p>
+            @Html.ActionLink("Back to list", "Index")
+        </p>
+    </div>
+</div>

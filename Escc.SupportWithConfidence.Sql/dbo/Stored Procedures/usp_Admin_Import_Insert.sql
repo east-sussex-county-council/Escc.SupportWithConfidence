@@ -119,6 +119,8 @@ INSERT INTO [SupportWithConfidence].[dbo].[Import]
 IF @@ERROR <> 0 ROLLBACK TRANSACTION;
 ELSE COMMIT TRANSACTION;
 
+GO
 GRANT EXECUTE
     ON OBJECT::[dbo].[usp_Admin_Import_Insert] TO [SupportWithConfidenceAdminRole]
     AS [dbo];
+

@@ -66,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Audit.sql" />
-    <Build Include="dbo\Tables\Category.sql" />
     <Build Include="dbo\Tables\ImageData.sql" />
     <Build Include="dbo\Tables\PostcodeUsage.sql" />
     <Build Include="dbo\Tables\Provider.sql" />
@@ -82,7 +81,6 @@
     <Build Include="dbo\Stored Procedures\usp_GetPagedResultsForSearchTerm.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetPagedResultsByCategoryId.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetFastImageDetails.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetCategoryById.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetAllCategoriesWithProvider.sql" />
     <Build Include="dbo\Stored Procedures\usp_AddAmendImageData.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_Category_Insert.sql" />
@@ -91,7 +89,6 @@
     <Build Include="dbo\Stored Procedures\usp_Admin_GetProvider.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_Import_Insert.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_InsertImage.sql" />
-    <Build Include="dbo\Stored Procedures\usp_Admin_PostLoad.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_PostLoad_2.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_PreLoad.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_Provider_Insert.sql" />
@@ -105,5 +102,6 @@
     <Build Include="dbo\Stored Procedures\usp_PostcodeUsage_Monthly_Breakdown.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_Provider_ClearAccreditations.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_Provider_InsertAccreditation.sql" />
+    <Build Include="dbo\Tables\Categories.sql" />
   </ItemGroup>
 </Project>

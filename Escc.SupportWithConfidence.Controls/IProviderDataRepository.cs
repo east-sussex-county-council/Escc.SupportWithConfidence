@@ -26,14 +26,6 @@ namespace Escc.SupportWithConfidence.Controls
         /// <returns></returns>
         DataSet GetProvider(int providerId);
 
-        /// <summary>
-        /// Gets a category of providers by its identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        DataSet GetCategoryById(int id);
-
-
         bool SaveProviderInformation(int id, string experience, string expertise, string background, string services, string costs, string crb, bool publishToWeb);
 
         /// <summary>

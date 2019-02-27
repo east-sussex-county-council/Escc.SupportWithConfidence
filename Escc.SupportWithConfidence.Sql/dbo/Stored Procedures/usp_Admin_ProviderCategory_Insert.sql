@@ -18,6 +18,8 @@ VALUES
 @CategoryId
 )
 
+GO
 GRANT EXECUTE
     ON OBJECT::[dbo].[usp_Admin_ProviderCategory_Insert] TO [SupportWithConfidenceAdminRole]
     AS [dbo];
+

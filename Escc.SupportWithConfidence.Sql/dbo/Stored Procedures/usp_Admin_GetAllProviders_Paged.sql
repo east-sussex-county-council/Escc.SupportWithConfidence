@@ -137,8 +137,8 @@ WHERE
 	#tempProviders.tId > @firstRecord AND  #tempProviders.tId  < @lastRecord 
 ORDER BY tId ASC
 
-SELECT pc.FlareId, pc.CategoryId, c.Description FROM Category as c 
-INNER JOIN ProviderCategory as pc ON c.Id = pc.CategoryId
+SELECT pc.FlareId, pc.CategoryId, c.Description FROM Categories as c 
+INNER JOIN ProviderCategory as pc ON c.CategoryId = pc.CategoryId
 ORDER BY Pc.FlareId
 
 SELECT Count(*) as TotalResults FROM Provider

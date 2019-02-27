@@ -5,7 +5,6 @@ namespace Escc.SupportWithConfidence.ETL
 {
     /// <summary>
     /// Console application which performs ETL from Flare (trading standards system) and imports into support with confidence database.
-    /// Proxy database is on esdbcontent01s (SupportWithConfidenceProxy) and live database is essqlpub01s (SupportWithConfidence)
     /// Sponsors Mina O'Brien & Bianca Byrnes
     /// Developer David Hutson
     /// Project manager Sandra South

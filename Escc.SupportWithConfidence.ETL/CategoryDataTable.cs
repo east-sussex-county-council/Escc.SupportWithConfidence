@@ -16,7 +16,7 @@ namespace Escc.SupportWithConfidence.ETL
     {
         #region Fields
 
-        DataTable _dtCategory = new DataTable("Category");
+        DataTable _dtCategory = new DataTable("Categories");
         #endregion
 
         #region Properties

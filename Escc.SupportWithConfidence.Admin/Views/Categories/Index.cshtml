@@ -1,50 +1,60 @@
 ﻿@model Escc.SupportWithConfidence.Admin.Models.CategoriesViewModel
 @using ClientDependency.Core.Mvc
-@using System.Configuration
+@using Escc.ClientDependencyFramework
 @{
-    Model.Metadata.Title = "Support with Confidence";
+    Model.Metadata.Title = "Manage categories - Support with Confidence";
     Html.RequiresCss("~/css/support.css");
-    Html.RequiresJs("~/Scripts/CategoryShowHide.js");
+    Html.RequiresJs(JsFileAlias.Resolve("AccordionAndTabs"));
+    Html.RequiresCss(CssFileAlias.Resolve("NavigationSmall"));
+    Html.RequiresCss(CssFileAlias.Resolve("NavigationLarge"), MediaQueryAlias.Resolve("Large"));
 }
 
 <div class="full-page">
     <div class="content text-content">
         <h1>Manage categories</h1>
-
-
-        <ul id="navigation">
-            @foreach (var child in Model.Categories)
-            {
-                <li>
-                @if (child.Depth == 1)
+        <p class="main-action">
+            @Html.ActionLink("Add category", "Create")
+        </p>
+        <div class="accordion" role="application">
+            @{
+                // Create each list item <li> Category information </li>
+                var counter = 1;
+                foreach (var category in Model.Categories)
                 {
-                    @child.Description;
-                }
-                else
-                {
-                    <a href="@ConfigurationManager.AppSettings["CategoryResultPage"]?cat=@child.Id">@child.Description</a>
-                }
+                    <div class="category">
+                        <h2 id="accordion@(counter)" aria-controls="accordion@(counter)content" role="tab">@category.Description</h2>
+                        <div class="actions">
+                            <div>
+                                <a href="@Url.Action("Edit", "Categories", new { id = category.Id })">Edit <span class="aural">@category.Description</span></a>
+                                <a href="@Url.Action("Delete", "Categories", new { id = category.Id })">Delete <span class="aural">@category.Description</span></a>
+                            </div>
+                        </div>
+                    </div>
 
-                @if (child.Categories.Count > 0)
-                {
-                    <ul>
-                        @foreach (var grandChild in child.Categories)
-                        {
-                            <li>
-                            @if (grandChild.Depth == 1)
-                            {
-                                @grandChild.Description;
-                            }
-                            else
-                            {
-                                <a href="@ConfigurationManager.AppSettings["CategoryResultPage"]?cat=@grandChild.Id">@grandChild.Description</a>
-                            }
-                            </li>
-                        }
-                    </ul>
+                    // If the category (list item) has children, create a new nested unordered list and call itself to populate the list
+                    // items with the child categories (list items).
+                    if (category.Categories.Count > 0)
+                    {
+                        <div id="accordion@(counter)content" aria-labelledby="accordion@(counter)" role="tabpanel">
+                            <ul>
+                                @foreach (var child in category.Categories)
+                                {
+                                    <li class="category">
+                                        <p>@child.Description</p>
+                                        <div class="actions">
+                                            <div>
+                                                <a href="@Url.Action("Edit", "Categories", new { id = child.Id })">Edit</a>
+                                                <a href="@Url.Action("Delete", "Categories", new { id = child.Id })">Delete</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    counter++;
                 }
-                </li>
             }
-        </ul>
+        </div>
     </div>
 </div>

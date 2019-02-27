@@ -28,7 +28,7 @@ namespace Escc.SupportWithConfidence.Controls
             {
                 var category = new Category
                     {
-                        Id = Convert.ToInt16(dbcategory["Id"]),
+                        Id = Convert.ToInt16(dbcategory["CategoryId"]),
                         Code = dbcategory["Code"].ToString(),
                         Description = dbcategory["Description"].ToString(),
                         ParentId =
@@ -36,7 +36,6 @@ namespace Escc.SupportWithConfidence.Controls
                                 ? 0
                                 : Convert.ToInt16(dbcategory["ParentId"]),
                         Depth = Convert.ToInt16(dbcategory["Depth"]),
-                        ProviderTypeId = ProviderType.SupportwithConfidence,
                         IsActive = Convert.ToBoolean(dbcategory["IsActive"]),
                         Sequence = Convert.ToInt32(dbcategory["Sequence"])
                     };

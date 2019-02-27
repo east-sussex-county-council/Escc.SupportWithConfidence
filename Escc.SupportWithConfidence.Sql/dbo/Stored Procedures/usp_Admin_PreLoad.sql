@@ -3,7 +3,7 @@ AS
 BEGIN TRANSACTION
 
 DELETE FROM ProviderCategory
-DELETE FROM Category
+DELETE FROM Categories
 DELETE FROM Provider
 
 
@@ -11,6 +11,8 @@ DELETE FROM Provider
 IF @@ERROR <> 0 ROLLBACK TRANSACTION;
 ELSE COMMIT TRANSACTION;
 
+GO
 GRANT EXECUTE
     ON OBJECT::[dbo].[usp_Admin_PreLoad] TO [SupportWithConfidenceAdminRole]
     AS [dbo];
+

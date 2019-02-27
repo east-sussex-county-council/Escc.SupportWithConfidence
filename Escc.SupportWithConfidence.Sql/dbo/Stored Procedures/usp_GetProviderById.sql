@@ -50,8 +50,8 @@ AND
 PublishToWeb = @IsApproved
 
 
-SELECT pc.FlareId, pc.CategoryId, c.Description FROM Category as c 
-INNER JOIN ProviderCategory as pc ON c.Id = pc.CategoryId
+SELECT pc.FlareId, pc.CategoryId, c.Description FROM Categories as c 
+INNER JOIN ProviderCategory as pc ON c.CategoryId = pc.CategoryId
 WHERE pc.FlareId  = @FlareId
 ORDER BY Pc.FlareId
 GO

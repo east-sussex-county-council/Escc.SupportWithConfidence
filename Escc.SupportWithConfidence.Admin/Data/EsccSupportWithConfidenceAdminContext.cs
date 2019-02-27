@@ -20,5 +20,6 @@ namespace Escc.SupportWithConfidence.Admin.Data
         }
 
         public System.Data.Entity.DbSet<Accreditation> Accreditations { get; set; }
+        public System.Data.Entity.DbSet<Category> Categories { get; set; }
     }
 }

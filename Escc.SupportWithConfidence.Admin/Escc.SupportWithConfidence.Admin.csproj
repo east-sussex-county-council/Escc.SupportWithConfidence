@@ -231,8 +231,6 @@
     <Content Include="Global.asax" />
     <Content Include="images\bwc_logo.jpg" />
     <Content Include="images\silhouette.jpg" />
-    <Content Include="Scripts\button.js" />
-    <Content Include="Scripts\CategoryShowHide.js" />
     <Content Include="packages.config" />
     <Content Include="Views\PagingBarControl.ascx" />
     <Content Include="Web.config">
@@ -246,15 +244,24 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\ProvidersController.cs" />
-    <Compile Include="Controllers\EditCategoryController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Data\Category.cs" />
     <Compile Include="Data\EsccSupportWithConfidenceAdminContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Data\Accreditation.cs" />
+    <Compile Include="Migrations\201811271020375_InitialCreate.cs" />
+    <Compile Include="Migrations\201811271020375_InitialCreate.Designer.cs">
+      <DependentUpon>201811271020375_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902271303349_Manage_Categories_With_Entity_Framework.cs" />
+    <Compile Include="Migrations\201902271303349_Manage_Categories_With_Entity_Framework.Designer.cs">
+      <DependentUpon>201902271303349_Manage_Categories_With_Entity_Framework.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccreditationViewModel.cs" />
-    <Compile Include="Models\EditCategoryViewModel.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\CategoriesViewModel.cs" />
     <Compile Include="Models\ProviderViewModel.cs" />
     <Compile Include="Models\ProvidersViewModel.cs" />
@@ -272,7 +279,7 @@
     <Content Include="ImageHandler.ashx" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\EditCategory\Index.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Providers\Index.cshtml" />
     <Content Include="Views\Provider\Index.cshtml" />
     <Content Include="Views\Accreditations\Create.cshtml" />
@@ -280,6 +287,8 @@
     <Content Include="Views\Accreditations\Edit.cshtml" />
     <Content Include="Views\Accreditations\Index.cshtml" />
     <Content Include="Views\web.config" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
     <None Include="web.example.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -294,7 +303,17 @@
       <Name>Escc.SupportWithConfidence.Controls</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811271020375_InitialCreate.resx">
+      <DependentUpon>201811271020375_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902271303349_Manage_Categories_With_Entity_Framework.resx">
+      <DependentUpon>201902271303349_Manage_Categories_With_Entity_Framework.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

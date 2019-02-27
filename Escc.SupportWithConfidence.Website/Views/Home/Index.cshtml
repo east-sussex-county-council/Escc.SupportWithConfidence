@@ -1,9 +1,6 @@
 ﻿@model Escc.SupportWithConfidence.Website.Models.SupportWithConfidenceViewModel
 @using ClientDependency.Core.Mvc
 @using Escc.ClientDependencyFramework
-@using System.Configuration
-@using System.Text
-@using Escc.SupportWithConfidence.Controls
 @{ 
     Model.Metadata.Title = "Support with Confidence";
     Model.Metadata.IpsvPreferredTerms = "Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans";
@@ -37,30 +34,25 @@
                 @{
                     // Create each list item <li> Category information </li>
                     var counter = 1;
-                    var html = new StringBuilder();
                     foreach (var category in Model.Categories)
                     {
-                        html.Append($"<h2 id=\"accordion{counter}\" aria-controls=\"accordion{counter}content\" role=\"tab\">{category.Description}</h2>");
+                        <h2 id="accordion@(counter)" aria-controls="accordion@(counter)content" role="tab">@category.Description</h2>
 
                         // If the category (list item) has children, create a new nested unordered list and call itself to populate the list
                         // items with the child categories (list items).
                         if (category.Categories.Count > 0)
                         {
-                            html.Append($"<div id=\"accordion{counter}content\" aria-labelledby=\"accordion{counter}\" role=\"tabpanel\"><ul>");
-                            foreach (var child in category.Categories)
-                            {
-                                html.Append("<li>");
-                                html.Append("<a href=\"").Append(VirtualPathUtility.ToAbsolute("~/results.aspx")).Append("?cat=").Append(child.Id).Append("\">");
-                                html.Append(child.Description);
-                                html.Append("</a>");
-                                html.Append("</li>");
-                            }
-                            html.Append("</ul></div>");
+                            <div id="accordion@(counter)content" aria-labelledby="accordion@(counter)" role="tabpanel">
+                                <ul>
+                                    @foreach (var child in category.Categories)
+                                    {
+                                        <li><a href="@Url.Content("~/results.aspx?cat=" + child.Id)">@child.Description</a></li>
+                                    }
+                                </ul>
+                            </div>
                         }
                         counter++;
                     }
-
-                    @Html.Raw(html.ToString());
                 }
             </div>
 

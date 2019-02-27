@@ -2,21 +2,21 @@
 CREATE PROCEDURE [dbo].[usp_Admin_PostLoad_2]
 AS
 BEGIN TRANSACTION
-UPDATE Category SET IsActive = 1
-WHERE Category.Id IN (
-SELECT DISTINCT Category.ParentId from Category WHERE Category.Id IN
+UPDATE Categories SET IsActive = 1
+WHERE Categories.CategoryId IN (
+SELECT DISTINCT Categories.ParentId from Categories WHERE Categories.CategoryId IN
 (SELECT ProviderCategory.CategoryId FROM Provider
 INNER JOIN ProviderCategory ON ProviderCategory.FlareId = Provider.FlareId
-INNER JOIN Category ON Category.Id = ProviderCategory.CategoryId
+INNER JOIN Categories ON Categories.CategoryId = ProviderCategory.CategoryId
 WHERE
 Provider.PublishToWeb = 1
 ))
 
-UPDATE Category SET IsActive = 1
-WHERE Category.Id IN (
+UPDATE Categories SET IsActive = 1
+WHERE Categories.CategoryId IN (
 SELECT ProviderCategory.CategoryId FROM Provider
 INNER JOIN ProviderCategory ON ProviderCategory.FlareId = Provider.FlareId
-INNER JOIN Category ON Category.Id = ProviderCategory.CategoryId
+INNER JOIN Categories ON Categories.CategoryId = ProviderCategory.CategoryId
 WHERE
 Provider.PublishToWeb = 1
 )
@@ -34,8 +34,10 @@ WHERE pe.FlareId IS NULL
 IF @@ERROR <> 0 ROLLBACK TRANSACTION;
 ELSE COMMIT TRANSACTION;
 
+
+
+GO
 GRANT EXECUTE
     ON OBJECT::[dbo].[usp_Admin_PostLoad_2] TO [SupportWithConfidenceAdminRole]
     AS [dbo];
-
 

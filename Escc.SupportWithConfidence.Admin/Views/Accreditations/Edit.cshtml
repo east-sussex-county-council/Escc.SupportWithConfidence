@@ -18,16 +18,18 @@
                 <h1>@Model.Metadata.Title</h1>
                 @Html.HiddenFor(model => model.Accreditation.AccreditationId)
 
-                <div class="formPart">
-                    @Html.LabelFor(model => model.Accreditation.Name)
-                    @Html.EditorFor(model => model.Accreditation.Name)
-                    @Html.ValidationMessageFor(model => model.Accreditation.Name, "", new { @class = "warning" })
-                </div>
+                <div class="formBox">
+                    <div class="formPart">
+                        @Html.LabelFor(model => model.Accreditation.Name)
+                        @Html.EditorFor(model => model.Accreditation.Name)
+                        @Html.ValidationMessageFor(model => model.Accreditation.Name, "", new { @class = "warning" })
+                    </div>
 
-                <div class="formPart">
-                    @Html.LabelFor(model => model.Accreditation.Website)
-                    @Html.EditorFor(model => model.Accreditation.Website)
-                    @Html.ValidationMessageFor(model => model.Accreditation.Website, "", new { @class = "warning" })
+                    <div class="formPart">
+                        @Html.LabelFor(model => model.Accreditation.Website)
+                        @Html.EditorFor(model => model.Accreditation.Website)
+                        @Html.ValidationMessageFor(model => model.Accreditation.Website, "", new { @class = "warning" })
+                    </div>
                 </div>
 
                 <div class="formButtons">

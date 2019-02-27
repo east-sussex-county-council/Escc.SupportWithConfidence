@@ -1,11 +1,24 @@
-﻿ ul#navigation li{position:relative;}
-.expand {position:absolute; top:0; left:350px;}
-.collapse{position:absolute; top:0; left:350px;}
+﻿/* Categories
+
+   The aim is to use the same accordion layout as the front-end, but clicking a heading expands the accordion yet each heading also needs an edit link.
+
+   display: flex places the edit link after the heading
+   width: 0 allows the heading to take up the full 100% width of the flex container,
+   but the div inside still shows its full width because it has overflow: visible. 
+   position: relative displays it on top of the heading
+*/
+.category { display: flex; align-items: center; }
+.category > :first-child { width: 100%; }
+.category .actions {width: 0; overflow: visible; position: relative; left: -6em; }
+.category .actions > div { width: 6em; }
+.category .actions a:first-child { margin-right: 18px;}
+
+.accordion ul {margin: 0;}
+.accordion li { padding-left: .4375em; border-bottom: 1px solid #ccc; }
+
+/* Other pages */
 dl.itemDetail dt  {width:32%;}
-/*#showall {position:relative; top:-18px; left:160px;}*/
 .button {cursor:pointer;}
-
-
 
 .photo {float:right; margin-top: 1em; }
 .checkbox input[type=checkbox] { top: 0; }

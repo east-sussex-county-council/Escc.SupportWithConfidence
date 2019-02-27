@@ -15,7 +15,7 @@ DECLARE 	@firstRecord int, @lastRecord int, @ParentCategoryId int
 
 DECLARE  @ChildCategories TABLE (ChildId int)
 
-SELECT @ParentCategoryId = c.ParentId FROM dbo.Category AS c WHERE c.Id = @CategoryId
+SELECT @ParentCategoryId = c.ParentId FROM dbo.Categories AS c WHERE c.CategoryId = @CategoryId
 IF @ParentCategoryId IS NULL 
 BEGIN
 
@@ -46,11 +46,11 @@ CREATE TABLE #tempProviders
 
 
 		INSERT INTO @ChildCategories (ChildId)
-		SELECT  DISTINCT c.Id FROM dbo.Category AS c 
-		INNER JOIN dbo.ProviderCategory AS pc ON c.Id = pc.CategoryId
+		SELECT  DISTINCT c.CategoryId FROM dbo.Categories AS c 
+		INNER JOIN dbo.ProviderCategory AS pc ON c.CategoryId = pc.CategoryId
 		INNER JOIN dbo.Provider AS p ON pc.FlareId = p.FlareId	
 		WHERE c.IsActive = 1 AND p.PublishToWeb = 1 AND (c.ParentId  = @CategoryId AND c.ParentId IS NOT NULL)
-		ORDER BY c.Id
+		ORDER BY c.CategoryId
 
 		SET NOCOUNT ON
 	INSERT INTO #tempProviders
@@ -111,14 +111,14 @@ WHERE
 
 
 
-SELECT pc.FlareId,  pc.CategoryId, c.Description FROM Category as c 
-INNER JOIN ProviderCategory as pc ON c.Id = pc.CategoryId
+SELECT pc.FlareId,  pc.CategoryId, c.Description FROM Categories as c 
+INNER JOIN ProviderCategory as pc ON c.CategoryId = pc.CategoryId
 WHERE pc.FlareId  IN (Select FlareId FROM #tempProviders)
 ORDER BY Pc.FlareId
 
 SELECT COUNT(*) as TotalResults FROM #tempProviders
-SELECT c.Description FROM dbo.Category AS c
-WHERE c.Id = @CategoryId
+SELECT c.Description FROM dbo.Categories AS c
+WHERE c.CategoryId = @CategoryId
 
 DROP TABLE #tempProviders
 END
@@ -196,11 +196,11 @@ FROM
 	Provider as p
 INNER JOIN ProviderCategory as pc 
 	ON p.FlareId = pc.FlareId
-INNER JOIN Category as c 
-	ON pc.CategoryId = c.Id
+INNER JOIN Categories as c 
+	ON pc.CategoryId = c.CategoryId
 
-WHERE  pc.CategoryId IN  (SELECT  pc.CategoryId FROM dbo.Category AS c 
-		INNER JOIN dbo.ProviderCategory AS pc ON c.Id = pc.CategoryId
+WHERE  pc.CategoryId IN  (SELECT  pc.CategoryId FROM dbo.Categories AS c 
+		INNER JOIN dbo.ProviderCategory AS pc ON c.CategoryId = pc.CategoryId
 		INNER JOIN dbo.Provider AS p ON pc.FlareId = p.FlareId	
 		WHERE c.IsActive = 1 AND p.PublishToWeb = 1 AND (pc.CategoryId = @CategoryId))
 ORDER BY [Distance from me], [Name] ASC
@@ -214,14 +214,14 @@ WHERE
 
 
 
-SELECT pc.FlareId,  pc.CategoryId, c.Description FROM Category as c 
-INNER JOIN ProviderCategory as pc ON c.Id = pc.CategoryId
+SELECT pc.FlareId,  pc.CategoryId, c.Description FROM Categories as c 
+INNER JOIN ProviderCategory as pc ON c.CategoryId = pc.CategoryId
 WHERE pc.FlareId  IN (Select FlareId FROM #tempProviders2)
 ORDER BY Pc.FlareId
 
 SELECT COUNT(*) as TotalResults  FROM #tempProviders2
-SELECT c.Description FROM dbo.Category AS c
-WHERE c.Id = @CategoryId
+SELECT c.Description FROM dbo.Categories AS c
+WHERE c.CategoryId = @CategoryId
 
 
 DROP TABLE #tempProviders2

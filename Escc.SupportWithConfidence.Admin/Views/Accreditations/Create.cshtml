@@ -10,29 +10,31 @@
 }
 <div class="full-page">
     <div class="content text-content">
+        <h1>@Model.Metadata.Title</h1>
 
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
-        <div class="form service-form">
-            <h1>@Model.Metadata.Title</h1>
-            <div class="formPart">
-                @Html.LabelFor(model => model.Accreditation.Name)
-                @Html.EditorFor(model => model.Accreditation.Name)
-                @Html.ValidationMessageFor(model => model.Accreditation.Name, "", new { @class = "warning" })
-            </div>
+            <div class="form service-form">
+                <div class="formBox">
+                    <div class="formPart">
+                        @Html.LabelFor(model => model.Accreditation.Name)
+                        @Html.EditorFor(model => model.Accreditation.Name)
+                        @Html.ValidationMessageFor(model => model.Accreditation.Name, "", new { @class = "warning" })
+                    </div>
 
-            <div class="formPart">
-                @Html.LabelFor(model => model.Accreditation.Website)
-                @Html.EditorFor(model => model.Accreditation.Website)
-                @Html.ValidationMessageFor(model => model.Accreditation.Website, "", new { @class = "warning" })
-            </div>
+                    <div class="formPart">
+                        @Html.LabelFor(model => model.Accreditation.Website)
+                        @Html.EditorFor(model => model.Accreditation.Website)
+                        @Html.ValidationMessageFor(model => model.Accreditation.Website, "", new { @class = "warning" })
+                    </div>
+                </div>
 
-            <div class="formButtons">
-                <input type="submit" value="Save" />
+                <div class="formButtons">
+                    <input type="submit" value="Save" />
+                </div>
             </div>
-        </div>
         }
 
         <p>

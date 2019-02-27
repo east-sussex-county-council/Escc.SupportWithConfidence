@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using EsccWebTeam.SupportWithConfidence.Controls;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -17,8 +16,6 @@ namespace Escc.SupportWithConfidence.Controls
         public int ParentId { get; set; }
 
         public int Depth { get; set; }
-
-        public ProviderType ProviderTypeId { get; set; }
 
         public bool IsActive { get; set; }
 

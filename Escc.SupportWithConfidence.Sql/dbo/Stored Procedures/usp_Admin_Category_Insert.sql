@@ -10,16 +10,17 @@
 @IsActive bit
 )
 AS
+SET IDENTITY_INSERT [SupportWithConfidence].[dbo].[Categories] ON
+
 BEGIN TRANSACTION
 
-INSERT INTO [SupportWithConfidence].[dbo].[Category]
-           ([Id],
+INSERT INTO [SupportWithConfidence].[dbo].[Categories]
+           ([CategoryId],
            [Sequence]
            ,[Code]
            ,[Description]
            ,[ParentId]
            ,[Depth]
-           ,[ProviderTypeId]
            ,[IsActive])
      VALUES
            (
@@ -29,13 +30,16 @@ INSERT INTO [SupportWithConfidence].[dbo].[Category]
 			@Description,
 			@ParentId,
 			@Depth,
-			@ProviderTypeId,
 			@IsActive
            )
 
 IF @@ERROR <> 0 ROLLBACK TRANSACTION;
 ELSE COMMIT TRANSACTION;
 
+SET IDENTITY_INSERT [SupportWithConfidence].[dbo].[Categories] OFF
+
+GO
 GRANT EXECUTE
     ON OBJECT::[dbo].[usp_Admin_Category_Insert] TO [SupportWithConfidenceAdminRole]
     AS [dbo];
+

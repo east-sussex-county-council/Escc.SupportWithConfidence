@@ -34,7 +34,7 @@ SELECT
       ,pe.Experience
       ,pe.Background
       ,pe.Expertise
-	  ,pe.Services
+ 	  ,pe.Services
 	  ,pe.Costs
 	  ,pe.Crb,
 	  Accreditations.AccreditationId,
@@ -46,8 +46,8 @@ LEFT JOIN ProviderAccreditation ON p.FlareId = ProviderAccreditation.FlareId
 LEFT JOIN Accreditations ON ProviderAccreditation.AccreditationId = Accreditations.AccreditationId
 WHERE p.FlareId = @FlareId
 
-SELECT pc.FlareId, pc.CategoryId, c.Description FROM Category as c 
-INNER JOIN ProviderCategory as pc ON c.Id = pc.CategoryId
+SELECT pc.FlareId, pc.CategoryId, c.Description FROM Categories as c 
+INNER JOIN ProviderCategory as pc ON c.CategoryId = pc.CategoryId
 WHERE pc.FlareId  = @FlareId
 ORDER BY Pc.FlareId
 

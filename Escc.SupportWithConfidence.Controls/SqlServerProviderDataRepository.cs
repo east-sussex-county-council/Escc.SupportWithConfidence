@@ -139,19 +139,6 @@ namespace Escc.SupportWithConfidence.Controls
            
         }
 
-
-        /// <summary>
-        /// Gets a category of providers by its identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        public DataSet GetCategoryById(int id)
-        {
-            var parameters = new SqlParameter[1];
-            parameters[0] = new SqlParameter("@CategoryId", SqlDbType.Int) { Value = id };
-            return SqlServerProviderDataSource.QueryDatabase("usp_GetCategoryById", parameters, ConnectionType.User);
-        }
-
         /// <summary>
         /// Return all providers or only providers who are approved
         /// </summary>
