@@ -57,6 +57,8 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
         public async Task<ActionResult> Create()
         {
             var model = new CategoryViewModel();
+            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1).OrderBy(x => x.Sequence).ToListAsync();
+
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try
             {
@@ -94,6 +96,8 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1).OrderBy(x => x.Sequence).ToListAsync();
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try
@@ -143,6 +147,8 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 IsActive = category.IsActive
             };
 
+            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1 && x.CategoryId != id).OrderBy(x => x.Sequence).ToListAsync();
+
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try
             {
@@ -181,6 +187,8 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1 && x.CategoryId != model.Category.CategoryId).OrderBy(x => x.Sequence).ToListAsync();
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try

@@ -1,6 +1,7 @@
 ﻿@model Escc.SupportWithConfidence.Admin.Models.CategoryViewModel
 @using ClientDependency.Core.Mvc
 @using Escc.ClientDependencyFramework
+@using System.Globalization
 @{
     Model.Metadata.Title = "Edit " + Model.Category.Description;
     Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
@@ -29,7 +30,7 @@
                     </div>
                     <div class="formPart">
                         @Html.LabelFor(cat => Model.Category.ParentId)
-                        @Html.TextBoxFor(cat => Model.Category.ParentId)
+                        @Html.DropDownListFor(cat => Model.Category.ParentId, Model.PossibleParentCategories.Select(x => new SelectListItem {Value = x.CategoryId.ToString(CultureInfo.InvariantCulture), Text = x.Description }), string.Empty)
                         @Html.ValidationMessageFor(model => model.Category.ParentId, "", new { @class = "warning" })
                     </div>
                     <div class="formPart">
