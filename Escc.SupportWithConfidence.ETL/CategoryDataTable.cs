@@ -9,7 +9,7 @@ namespace Escc.SupportWithConfidence.ETL
 {
     /// <summary>
     /// This class creates a data table that holds the category list for provider services
-    /// The Flare data has been extended to accept parentid, depth, providertype and isactive to
+    /// The Flare data has been extended to accept parentid, depth and isactive to
     /// all for further filtering options on what and how to display the categories on the search page
     /// </summary>
     public class CategoryDataTable : IImportable
@@ -175,7 +175,6 @@ namespace Escc.SupportWithConfidence.ETL
                 }
 
                 parameters[5] = new SqlParameter("@Depth", SqlDbType.Int) { Value = (int)item["Depth"] };
-                parameters[6] = new SqlParameter("@ProviderTypeId", SqlDbType.BigInt) { Value = (int)item["ProviderTypeId"] };
                 parameters[7] = new SqlParameter("@IsActive", SqlDbType.Bit) { Value = (bool)item["IsActive"] };
 
 

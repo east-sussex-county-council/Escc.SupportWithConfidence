@@ -63,7 +63,6 @@
     <Compile Include="ProviderCategory.cs" />
     <Compile Include="ProviderCategoryMapper.cs" />
     <Compile Include="ProviderMapper.cs" />
-    <Compile Include="ProviderType.cs" />
     <Compile Include="QueryParameter.cs" />
     <Compile Include="Result.cs" />
     <Compile Include="ResultMapper.cs" />

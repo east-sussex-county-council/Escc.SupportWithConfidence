@@ -71,7 +71,6 @@
     <Build Include="dbo\Tables\Provider.sql" />
     <Build Include="dbo\Tables\ProviderCategory.sql" />
     <Build Include="dbo\Tables\ProviderExtra.sql" />
-    <Build Include="dbo\Tables\ProviderType.sql" />
     <Build Include="dbo\Tables\Accreditations.sql" />
     <Build Include="dbo\Tables\__MigrationHistory.sql" />
     <Build Include="dbo\Tables\ProviderAccreditation.sql" />

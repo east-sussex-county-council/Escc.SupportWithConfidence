@@ -6,7 +6,6 @@
 @Description nvarchar(70),
 @ParentId bigint,
 @Depth int,
-@ProviderTypeId bigint,
 @IsActive bit
 )
 AS
