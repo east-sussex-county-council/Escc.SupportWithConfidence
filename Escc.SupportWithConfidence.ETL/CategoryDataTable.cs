@@ -69,13 +69,12 @@ namespace Escc.SupportWithConfidence.ETL
             // Apply filter to categories to reorder so the they ordered by Code in ascending order.
             DataRow[] filtered = dtRawParentCategories.Select(expression, sortOrder);
 
-            // Duplicate ordered table and add ID and sequence numbers
+            // Duplicate ordered table and add ID 
             DataTable cat = dtRawParentCategories.Clone();
             cat.Columns.Add("Id", typeof(Int32));
             cat.Columns["Id"].AutoIncrement = true;
             cat.Columns["Id"].AutoIncrementSeed = 1;
             cat.Columns["Id"].SetOrdinal(0);
-            cat.Columns.Add("Sequence", typeof(Int32));
 
             // Import each row with new fields into duplicate table
             foreach (var item in filtered)
@@ -86,10 +85,9 @@ namespace Escc.SupportWithConfidence.ETL
             int parentId = 0;
             string code = string.Empty;
 
-            // Setup the sequence and which category is a parent and which is a child
+            // Setup which category is a parent and which is a child
             foreach (DataRow item in cat.Rows)
             {
-                item["Sequence"] = item["Id"];
                 if (item["Code"].ToString().Length == 1)
                 {
                     // We have a parent
@@ -164,7 +162,7 @@ namespace Escc.SupportWithConfidence.ETL
             {
 
                 parameters[0] = new SqlParameter("@Id", SqlDbType.BigInt) { Value = (int)item["Id"] };
-                parameters[1] = new SqlParameter("@Sequence", SqlDbType.BigInt) { Value = (int)item["Sequence"] };
+                parameters[1] = new SqlParameter("@Sequence", SqlDbType.BigInt) { Value = 0 };
                 parameters[2] = new SqlParameter("@Code", SqlDbType.VarChar) { Value = item["Code"] };
                 parameters[3] = new SqlParameter("@Description", SqlDbType.VarChar) { Value = item["Description"] };
                 if (item["ParentId"] == DBNull.Value)

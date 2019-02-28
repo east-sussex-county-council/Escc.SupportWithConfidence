@@ -7,6 +7,7 @@
     Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
     Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
     Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
+    Html.RequiresCss("~/css/support.css");
 }
 <div class="full-page">
     <div class="content text-content">
@@ -33,7 +34,8 @@
                     </div>
                     <div class="formPart">
                         @Html.LabelFor(cat => Model.Category.Sequence)
-                        @Html.TextBoxFor(cat => Model.Category.Sequence)
+                        <p class="form-help">0 is the default. Use negative numbers to sort first, and positive to sort last.</p>
+                        @Html.TextBoxFor(cat => Model.Category.Sequence, new { @class = "sort", type = "number" })
                         @Html.ValidationMessageFor(model => model.Category.Sequence, "", new { @class = "warning" })
                     </div>
                     <div class="formPart">

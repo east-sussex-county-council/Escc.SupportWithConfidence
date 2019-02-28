@@ -56,7 +56,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
         // GET: Categories/Create
         public async Task<ActionResult> Create()
         {
-            var model = new CategoryViewModel();
+            var model = new CategoryViewModel { Category = new data.Category() };
             model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1).OrderBy(x => x.Sequence).ToListAsync();
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);

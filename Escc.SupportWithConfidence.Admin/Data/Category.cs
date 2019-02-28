@@ -11,8 +11,7 @@ namespace Escc.SupportWithConfidence.Admin.Data
         [Key]
         public int CategoryId { get; set; }
 
-        [Required(ErrorMessage ="Please enter a number reflecting the order the category should appear in")]
-        [Display(Name ="Order")]
+        [Display(Name ="Sort order (if not alphabetical)")]
         public int Sequence { get; set; }
 
         [Required(ErrorMessage ="Please enter the Flare code for the category")]

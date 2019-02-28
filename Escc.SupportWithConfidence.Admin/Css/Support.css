@@ -16,8 +16,11 @@
 .accordion ul {margin: 0;}
 .accordion li { padding-left: .4375em; border-bottom: 1px solid #ccc; }
 
+/* Create/edit forms */
+label + .form-help { margin: 0; font-size: .85em; }
+.service-form input[type=number].sort { width: 2.5em; }
+
 /* Other pages */
-dl.itemDetail dt  {width:32%;}
 .button {cursor:pointer;}
 
 .photo {float:right; margin-top: 1em; }

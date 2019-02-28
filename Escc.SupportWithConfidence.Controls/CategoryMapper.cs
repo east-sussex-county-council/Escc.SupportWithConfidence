@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using EsccWebTeam.SupportWithConfidence.Controls;
+using System.Linq;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -24,45 +24,36 @@ namespace Escc.SupportWithConfidence.Controls
         public CategoryMapper(DataSet dbcategories)
         {
             if (dbcategories == null) return;
+
+            var categories = new List<Category>();
+
             foreach (DataRow dbcategory in dbcategories.Tables[0].Rows)
             {
-                var category = new Category
-                    {
-                        Id = Convert.ToInt16(dbcategory["CategoryId"]),
-                        Code = dbcategory["Code"].ToString(),
-                        Description = dbcategory["Description"].ToString(),
-                        ParentId =
+                categories.Add(new Category
+                {
+                    Id = Convert.ToInt16(dbcategory["CategoryId"]),
+                    Code = dbcategory["Code"].ToString(),
+                    Description = dbcategory["Description"].ToString(),
+                    ParentId =
                             dbcategory["ParentId"] == DBNull.Value
                                 ? 0
                                 : Convert.ToInt16(dbcategory["ParentId"]),
-                        Depth = Convert.ToInt16(dbcategory["Depth"]),
-                        IsActive = Convert.ToBoolean(dbcategory["IsActive"]),
-                        Sequence = Convert.ToInt32(dbcategory["Sequence"])
-                    };
-
-
-                if (dbcategory["ParentId"] == DBNull.Value)
-                {
-                    _topCategories.Add(category);
+                    Depth = Convert.ToInt16(dbcategory["Depth"]),
+                    IsActive = Convert.ToBoolean(dbcategory["IsActive"]),
+                    Sequence = Convert.ToInt32(dbcategory["Sequence"])
                 }
-                else
-                {
-                    var parentId = Convert.ToInt16(dbcategory["ParentId"]);
-                    foreach (var topCategory in _topCategories)
-                    {
-                        var parentCategory = topCategory.FindCategory(parentId);
-                        if (parentCategory == null) continue;
-                        parentCategory.Categories.Add(category);
-                        break;
-                    }
-                }
+                );
             }
 
-            var sorter = new CategorySorter();
-            _topCategories.Sort(sorter);
-            foreach (var category in _topCategories)
+            _topCategories = categories.Where(x => x.ParentId == 0).ToList();
+
+            foreach (var category in categories)
             {
-                category.Categories.Sort(sorter);
+                if (category.ParentId == 0) continue;
+
+                var parentCategory = _topCategories.FirstOrDefault(x => x.Id == category.ParentId);
+                if (parentCategory == null) continue;
+                parentCategory.Categories.Add(category);
             }
         }
 

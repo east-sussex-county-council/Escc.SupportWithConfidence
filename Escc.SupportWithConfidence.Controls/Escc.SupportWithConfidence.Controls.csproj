@@ -37,7 +37,6 @@
     <Compile Include="Accreditation.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="CategoryMapper.cs" />
-    <Compile Include="CategorySorter.cs" />
     <Compile Include="ConnectionType.cs" />
     <Compile Include="IProviderDataRepository.cs" />
     <Compile Include="LocationSearcher.cs" />
