@@ -78,6 +78,7 @@ namespace Escc.SupportWithConfidence.Controls
                     if (data.Tables.Count == 4)
                     {
                         CategoryHeading = data.Tables[3].Rows[0]["Description"].ToString();
+                        CategorySummary = data.Tables[3].Rows[0]["Summary"]?.ToString();
                     }
 
 
@@ -119,6 +120,7 @@ namespace Escc.SupportWithConfidence.Controls
         public int TotalResults { get; set; }
 
         public string CategoryHeading { get; set; }
+        public string CategorySummary { get; set; }
 
 
         private IList<IResult> _collection = new List<IResult>();

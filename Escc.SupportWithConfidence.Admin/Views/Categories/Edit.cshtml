@@ -1,13 +1,19 @@
 ﻿@model Escc.SupportWithConfidence.Admin.Models.CategoryViewModel
 @using ClientDependency.Core.Mvc
 @using Escc.ClientDependencyFramework
+@using Escc.Web
 @using System.Globalization
 @{
-    Model.Metadata.Title = "Edit " + Model.Category.Description;
+    Model.Metadata.Title = "Edit " + Model.Description;
     Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
     Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
     Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
     Html.RequiresCss("~/css/support.css");
+    Html.RequiresJs("~/scripts/tinymce/tinymce.min.js");
+    Html.RequiresJs("~/scripts/edit-category.js");
+
+    // For TinyMCE
+    new ContentSecurityPolicyHeaders(Response.Headers).AppendPolicy("style-src 'unsafe-inline'").UpdateHeaders();
 }
 <div class="full-page">
     <div class="content text-content">
@@ -16,37 +22,42 @@
         {
             @Html.AntiForgeryToken()
             <div class="form service-form">
-                @Html.HiddenFor(model => model.Category.CategoryId)
+                @Html.HiddenFor(model => model.CategoryId)
 
                 <div class="formBox">
                     <div class="formPart">
-                        @Html.LabelFor(cat => Model.Category.Code)
-                        @Html.TextBoxFor(cat => Model.Category.Code)
-                        @Html.ValidationMessageFor(model => model.Category.Code, "", new { @class = "warning" })
+                        @Html.LabelFor(cat => Model.Code)
+                        @Html.TextBoxFor(cat => Model.Code)
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "warning" })
                     </div>
                     <div class="formPart">
-                        @Html.LabelFor(cat => Model.Category.Description)
-                        @Html.TextBoxFor(cat => Model.Category.Description)
-                        @Html.ValidationMessageFor(model => model.Category.Description, "", new { @class = "warning" })
+                        @Html.LabelFor(cat => Model.Description)
+                        @Html.TextBoxFor(cat => Model.Description)
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "warning" })
                     </div>
                     <div class="formPart">
-                        @Html.LabelFor(cat => Model.Category.ParentId)
-                        @Html.DropDownListFor(cat => Model.Category.ParentId, Model.PossibleParentCategories.Select(x => new SelectListItem {Value = x.CategoryId.ToString(CultureInfo.InvariantCulture), Text = x.Description }), string.Empty)
-                        @Html.ValidationMessageFor(model => model.Category.ParentId, "", new { @class = "warning" })
+                        @Html.LabelFor(cat => Model.Summary)
+                        @Html.TextAreaFor(cat => Model.Summary)
+                        @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "warning" })
                     </div>
                     <div class="formPart">
-                        @Html.LabelFor(cat => Model.Category.Sequence)
+                        @Html.LabelFor(cat => Model.ParentId)
+                        @Html.DropDownListFor(cat => Model.ParentId, Model.PossibleParentCategories.Select(x => new SelectListItem { Value = x.CategoryId.ToString(CultureInfo.InvariantCulture), Text = x.Description }), string.Empty)
+                        @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "warning" })
+                    </div>
+                    <div class="formPart">
+                        @Html.LabelFor(cat => Model.Sequence)
                         <p class="form-help">0 is the default. Use negative numbers to sort first, and positive to sort last.</p>
-                        @Html.TextBoxFor(cat => Model.Category.Sequence, new { @class = "sort", type="number" })
-                        @Html.ValidationMessageFor(model => model.Category.Sequence, "", new { @class = "warning" })
+                        @Html.TextBoxFor(cat => Model.Sequence, new { @class = "sort", type = "number" })
+                        @Html.ValidationMessageFor(model => model.Sequence, "", new { @class = "warning" })
                     </div>
                     <div class="formPart">
-                        @Html.LabelFor(cat => Model.Category.IsActive)
-                        @Html.CheckBoxFor(cat => Model.Category.IsActive)
-                        @Html.ValidationMessageFor(model => model.Category.IsActive, "", new { @class = "warning" })
+                        @Html.LabelFor(cat => Model.IsActive)
+                        @Html.CheckBoxFor(cat => Model.IsActive)
+                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "warning" })
                     </div>
                 </div>
-                
+
                 <div class="formButtons">
                     <input type="submit" value="Save" />
                 </div>

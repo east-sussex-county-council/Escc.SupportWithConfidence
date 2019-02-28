@@ -11,23 +11,20 @@ namespace Escc.SupportWithConfidence.Admin.Data
         [Key]
         public int CategoryId { get; set; }
 
-        [Display(Name ="Sort order (if not alphabetical)")]
         public int Sequence { get; set; }
 
-        [Required(ErrorMessage ="Please enter the Flare code for the category")]
-        [Display(Name ="Flare category code")]
+        [Required]
         public string Code { get; set; }
 
-        [Required(ErrorMessage ="Please enter a name for the category")]
-        [Display(Name ="Name")]
+        [Required]
         public string Description { get; set; }
 
-        [Display(Name ="Parent category")]
+        public string Summary { get; set; }
+
         public int? ParentId { get; set; }
 
         public int Depth { get; set; }
 
-        [Display(Name="Publish on website")]
         public bool IsActive { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using Escc.Net.Configuration;
 using Escc.Net;
+using System.Web;
 
 namespace Escc.SupportWithConfidence.Website.Controllers
 {
@@ -24,6 +25,10 @@ namespace Escc.SupportWithConfidence.Website.Controllers
             model.TotalResults = controller.TotalResults;
             model.QueryStringParameters = controller.QueryStringParameters;
             model.CategoryHeading = controller.CategoryHeading;
+            if (!String.IsNullOrEmpty(controller.CategorySummary))
+            {
+                model.CategorySummary = new HtmlString(controller.CategorySummary);
+            }
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try
@@ -72,6 +77,10 @@ namespace Escc.SupportWithConfidence.Website.Controllers
             model.TotalResults = controller.TotalResults;
             model.QueryStringParameters = controller.QueryStringParameters;
             model.CategoryHeading = controller.CategoryHeading;
+            if (!String.IsNullOrEmpty(controller.CategorySummary))
+            {
+                model.CategorySummary = new HtmlString(controller.CategorySummary);
+            }
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try

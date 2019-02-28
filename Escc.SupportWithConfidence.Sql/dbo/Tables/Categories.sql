@@ -6,6 +6,9 @@
     [ParentId]    INT            NULL,
     [Depth]       INT            NOT NULL,
     [IsActive]    BIT            NOT NULL,
+    [Summary]     NVARCHAR (MAX) NULL,
     CONSTRAINT [PK_dbo.Categories] PRIMARY KEY CLUSTERED ([CategoryId] ASC)
 );
+
+
 

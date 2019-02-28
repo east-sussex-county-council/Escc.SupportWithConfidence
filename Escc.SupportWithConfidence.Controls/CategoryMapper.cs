@@ -31,7 +31,7 @@ namespace Escc.SupportWithConfidence.Controls
             {
                 categories.Add(new Category
                 {
-                    Id = Convert.ToInt16(dbcategory["CategoryId"]),
+                    CategoryId = Convert.ToInt16(dbcategory["CategoryId"]),
                     Code = dbcategory["Code"].ToString(),
                     Description = dbcategory["Description"].ToString(),
                     ParentId =
@@ -49,9 +49,13 @@ namespace Escc.SupportWithConfidence.Controls
 
             foreach (var category in categories)
             {
-                if (category.ParentId == 0) continue;
+                if (category.ParentId == 0)
+                {
+                    category.ParentId = null;
+                    continue;
+                }
 
-                var parentCategory = _topCategories.FirstOrDefault(x => x.Id == category.ParentId);
+                var parentCategory = _topCategories.FirstOrDefault(x => x.CategoryId == category.ParentId);
                 if (parentCategory == null) continue;
                 parentCategory.Categories.Add(category);
             }

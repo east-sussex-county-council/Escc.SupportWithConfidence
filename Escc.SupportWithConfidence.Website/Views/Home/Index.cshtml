@@ -46,7 +46,7 @@
                                 <ul>
                                     @foreach (var child in category.Categories)
                                     {
-                                        <li><a href="@Url.Content("~/results.aspx?cat=" + child.Id)">@child.Description</a></li>
+                                        <li><a href="@Url.Content("~/results.aspx?cat=" + child.CategoryId)">@child.Description</a></li>
                                     }
                                 </ul>
                             </div>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web;
 
 namespace Escc.SupportWithConfidence.Controls
 {
@@ -7,13 +8,15 @@ namespace Escc.SupportWithConfidence.Controls
     /// </summary>
     public class Category
     {
-        public int Id { get; set; }
+        public int CategoryId { get; set; }
 
         public string Code { get; set; }
 
         public string Description { get; set; }
 
-        public int ParentId { get; set; }
+        public IHtmlString Summary { get; set; }
+
+        public int? ParentId { get; set; }
 
         public int Depth { get; set; }
 

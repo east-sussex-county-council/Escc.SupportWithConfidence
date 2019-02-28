@@ -25,8 +25,8 @@
                         <h2 id="accordion@(counter)" aria-controls="accordion@(counter)content" role="tab">@category.Description</h2>
                         <div class="actions">
                             <div>
-                                <a href="@Url.Action("Edit", "Categories", new { id = category.Id })">Edit <span class="aural">@category.Description</span></a>
-                                <a href="@Url.Action("Delete", "Categories", new { id = category.Id })">Delete <span class="aural">@category.Description</span></a>
+                                <a href="@Url.Action("Edit", "Categories", new { id = category.CategoryId })">Edit <span class="aural">@category.Description</span></a>
+                                <a href="@Url.Action("Delete", "Categories", new { id = category.CategoryId })">Delete <span class="aural">@category.Description</span></a>
                             </div>
                         </div>
                     </div>
@@ -43,8 +43,8 @@
                                         <p>@child.Description</p>
                                         <div class="actions">
                                             <div>
-                                                <a href="@Url.Action("Edit", "Categories", new { id = child.Id })">Edit</a>
-                                                <a href="@Url.Action("Delete", "Categories", new { id = child.Id })">Delete</a>
+                                                <a href="@Url.Action("Edit", "Categories", new { id = child.CategoryId })">Edit</a>
+                                                <a href="@Url.Action("Delete", "Categories", new { id = child.CategoryId })">Delete</a>
                                             </div>
                                         </div>
                                     </li>

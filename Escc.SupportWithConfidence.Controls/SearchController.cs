@@ -19,6 +19,7 @@ namespace Escc.SupportWithConfidence.Controls
         }
 
         public string CategoryHeading { get; set; }
+        public string CategorySummary { get; set; }
 
         public int TotalResults { get; private set; }
 
@@ -40,6 +41,7 @@ namespace Escc.SupportWithConfidence.Controls
                                                                QueryStringParameters.CategoryId), QueryStringParameters);
                     TotalResults = _mapper.TotalResults;
                     CategoryHeading = _mapper.CategoryHeading;
+                    CategorySummary = _mapper.CategorySummary;
                     break;
                 case SearchCall.Provider:
                     _mapper.Map(

@@ -11,6 +11,8 @@ using data = Escc.SupportWithConfidence.Admin.Data;
 using Escc.SupportWithConfidence.Admin.Models;
 using Escc.SupportWithConfidence.Controls;
 using Exceptionless;
+using Escc.Html;
+using HtmlAgilityPack;
 
 namespace Escc.SupportWithConfidence.Admin.Controllers
 {
@@ -56,8 +58,8 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
         // GET: Categories/Create
         public async Task<ActionResult> Create()
         {
-            var model = new CategoryViewModel { Category = new data.Category() };
-            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1).OrderBy(x => x.Sequence).ToListAsync();
+            var model = new CategoryViewModel();
+            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1).OrderBy(x => x.Sequence).Select(x => new Category { CategoryId = x.CategoryId, Description = x.Description }).ToListAsync();
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try
@@ -91,13 +93,23 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.Category.Depth = model.Category.ParentId.HasValue ? 2 : 1;
-                db.Categories.Add(model.Category);
+                var dataCategory = new data.Category
+                {
+                    Code = model.Code,
+                    Depth = model.ParentId.HasValue ? 2 : 1,
+                    Description = model.Description,
+                    IsActive = model.IsActive,
+                    ParentId = model.ParentId,
+                    Sequence = model.Sequence,
+                    Summary = FilterHtml(model.Summary)
+                };
+
+                db.Categories.Add(dataCategory);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1).OrderBy(x => x.Sequence).ToListAsync();
+            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1).OrderBy(x => x.Sequence).Select(x => new Category { CategoryId = x.CategoryId, Description = x.Description }).ToListAsync();
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try
@@ -122,6 +134,34 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             return View(model);
         }
 
+        private static string FilterHtml(string html)
+        {
+            if (!String.IsNullOrEmpty(html))
+            {
+                var htmlSanitiser = new HtmlTagSanitiser();
+                html = htmlSanitiser.StripTags(html, new string[] { "p", "a", "strong" });
+
+                var htmlAgility = new HtmlDocument();
+                htmlAgility.LoadHtml(html);
+                var links = htmlAgility.DocumentNode.SelectNodes("//a");
+                if (links != null)
+                {
+                    foreach (var link in links)
+                    {
+                        var unwanted = link.Attributes.Where(attr => attr.Name != "href").ToList();
+                        foreach (var attr in unwanted)
+                        {
+                            link.Attributes.Remove(attr);
+                        }
+                    }
+                }
+
+                html = htmlAgility.DocumentNode.OuterHtml;
+            }
+
+            return html;
+        }
+
         // GET: Categories/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
@@ -130,24 +170,21 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var model = new CategoryViewModel();
-            var category = await db.Categories.FindAsync(id);
-            if (category == null)
+            var dataCategory = await db.Categories.FindAsync(id);
+            if (dataCategory == null)
             {
                 return HttpNotFound();
             }
 
-            model.Category = new data.Category()
-            {
-                CategoryId = category.CategoryId,
-                Code = category.Code,
-                Sequence = category.Sequence,
-                Description = category.Description,
-                ParentId = category.ParentId.GetValueOrDefault(),
-                Depth = category.Depth,
-                IsActive = category.IsActive
-            };
-
-            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1 && x.CategoryId != id).OrderBy(x => x.Sequence).ToListAsync();
+            model.CategoryId = dataCategory.CategoryId;
+            model.Code = dataCategory.Code;
+            model.Sequence = dataCategory.Sequence;
+            model.Description = dataCategory.Description;
+            model.Summary = dataCategory.Summary;
+            model.ParentId = dataCategory.ParentId.GetValueOrDefault();
+            model.Depth = dataCategory.Depth;
+            model.IsActive = dataCategory.IsActive;
+            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1 && x.CategoryId != id).OrderBy(x => x.Sequence).Select(x => new Category { CategoryId = x.CategoryId, Description = x.Description }).ToListAsync();
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try
@@ -182,13 +219,24 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.Category.Depth = model.Category.ParentId.HasValue ? 2 : 1;
-                db.Entry(model.Category).State = EntityState.Modified;
+                var dataCategory = new data.Category
+                {
+                    CategoryId = model.CategoryId,
+                    Code = model.Code,
+                    Depth = model.ParentId.HasValue ? 2 : 1,
+                    Description = model.Description,
+                    IsActive = model.IsActive,
+                    ParentId = model.ParentId,
+                    Sequence = model.Sequence,
+                    Summary = FilterHtml(model.Summary)
+                };
+
+                db.Entry(dataCategory).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1 && x.CategoryId != model.Category.CategoryId).OrderBy(x => x.Sequence).ToListAsync();
+            model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1 && x.CategoryId != model.CategoryId).OrderBy(x => x.Sequence).Select(x => new Category { CategoryId = x.CategoryId, Description = x.Description }).ToListAsync();
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try
@@ -222,11 +270,21 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var model = new CategoryViewModel();
-            model.Category = await db.Categories.FindAsync(id);
-            if (model.Category == null)
+            var dataCategory = await db.Categories.FindAsync(id);
+            
+            if (dataCategory == null)
             {
                 return HttpNotFound();
             }
+
+            model.CategoryId = dataCategory.CategoryId;
+            model.Code = dataCategory.Code;
+            model.Sequence = dataCategory.Sequence;
+            model.Description = dataCategory.Description;
+            model.Summary = dataCategory.Summary;
+            model.ParentId = dataCategory.ParentId.GetValueOrDefault();
+            model.Depth = dataCategory.Depth;
+            model.IsActive = dataCategory.IsActive;
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try

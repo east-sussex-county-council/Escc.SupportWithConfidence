@@ -117,7 +117,7 @@ WHERE pc.FlareId  IN (Select FlareId FROM #tempProviders)
 ORDER BY Pc.FlareId
 
 SELECT COUNT(*) as TotalResults FROM #tempProviders
-SELECT c.Description FROM dbo.Categories AS c
+SELECT c.Description, c.Summary FROM dbo.Categories AS c
 WHERE c.CategoryId = @CategoryId
 
 DROP TABLE #tempProviders
@@ -220,7 +220,7 @@ WHERE pc.FlareId  IN (Select FlareId FROM #tempProviders2)
 ORDER BY Pc.FlareId
 
 SELECT COUNT(*) as TotalResults  FROM #tempProviders2
-SELECT c.Description FROM dbo.Categories AS c
+SELECT c.Description, c.Summary FROM dbo.Categories AS c
 WHERE c.CategoryId = @CategoryId
 
 

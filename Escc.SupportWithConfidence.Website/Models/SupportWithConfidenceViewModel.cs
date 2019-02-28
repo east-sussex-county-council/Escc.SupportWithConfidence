@@ -17,5 +17,6 @@ namespace Escc.SupportWithConfidence.Website.Models
         public IList<Category> Categories { get; internal set; }
         public int TotalResults { get; internal set; }
         public string CategoryHeading { get; internal set; }
+        public IHtmlString CategorySummary { get; internal set; }
     }
 }

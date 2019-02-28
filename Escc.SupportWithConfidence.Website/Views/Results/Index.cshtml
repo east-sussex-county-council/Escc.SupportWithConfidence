@@ -71,6 +71,10 @@
             @if (Model.Providers.Count > 0)
             {
                 <h1>Search results for '@searchHeadingTerm'</h1>
+                if (Model.CategorySummary != null)
+                {
+                    @Model.CategorySummary
+                }
             }
             else
             {
