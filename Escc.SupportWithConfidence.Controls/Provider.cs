@@ -5,7 +5,7 @@ using Escc.AddressAndPersonalDetails;
 
 namespace Escc.SupportWithConfidence.Controls
 {
-    public class Provider : IResult
+    public class Provider
     {
         public int Id { get; set; }
 
@@ -85,34 +85,5 @@ namespace Escc.SupportWithConfidence.Controls
 
         public bool IsPaTrained { get; set; }
         public Uri ImageUrl { get; set; }
-
-        #region IResult Members
-
-        public string View()
-        {
-            var html = new StringBuilder();
-            html.Append("<dl class=\"itemDetail\"><dt>Name</dt>");
-            html.Append(String.Format("<dd><p><a href=\"provider.aspx?ref={0}\">{1}</a></p></dd>", FlareId, ProviderName));
-            if (PublishAddress)
-            {
-                html.Append(String.Format("<dt>Address</dt><dd>{0}</dd>", Address.GetSimpleAddress()));
-            }
-
-            if (!string.IsNullOrEmpty(Telephone))
-            {
-                html.Append(String.Format("<dt>Telephone</dt><dd>{0}</dd>", Telephone));
-            }
-            if (!string.IsNullOrEmpty(Email))
-            {
-                html.Append(String.Format("<dt>Email</dt><dd>{0}</dd>", Email));
-            }
-            html.Append("</dl>");
-
-
-
-            return html.ToString();
-        }
-
-        #endregion
     }
 }

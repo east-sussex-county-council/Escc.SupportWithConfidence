@@ -239,6 +239,6 @@
         </div>
         @{ Html.EndForm(); }
 
-        <p><a href="@Url.Content("~/providers.aspx")">Manage providers</a></p>
+        <p>@Html.ActionLink("Manage providers", "Index", "Providers")</p>
     </div>
 </div>

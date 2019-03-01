@@ -10,7 +10,22 @@
 
         @foreach (var provider in Model.Providers)
         {
-            @Html.Raw(provider.View())
+            <dl class="itemDetail"><dt>Name</dt>
+            <dd><p><a href="@Url.Action("Index", "Provider")?ref=@provider.FlareId">@provider.ProviderName</a></p></dd>
+            @if (@provider.PublishAddress)
+            {
+                <dt>Address</dt><dd>@provider.Address.GetSimpleAddress()</dd>
+            }
+
+            @if (!string.IsNullOrEmpty(provider.Telephone))
+            {
+                <dt>Telephone</dt><dd>@provider.Telephone</dd>
+            }
+            @if (!string.IsNullOrEmpty(provider.Email))
+            {
+                <dt>Email</dt><dd>@provider.Email</dd>
+            }
+            </dl>
         }
 
         @{ Html.RenderPartial("~/Views/PagingBarControl.ascx", Model.PagingController); }

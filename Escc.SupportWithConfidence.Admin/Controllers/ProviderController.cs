@@ -116,7 +116,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
 
                 if (success)
                 {
-                    return new RedirectResult(Url.Content("~/providers.aspx"));
+                    return new RedirectResult(Url.Action("Index", "Providers"));
                 }
             }
 

@@ -20,13 +20,6 @@ namespace Escc.SupportWithConfidence.Admin
                 defaults: new { id = UrlParameter.Optional }
             );
 
-            // Preserve old URLs from when this was a WebForms app
-            routes.MapRoute(
-                name: "WebForms",
-                url: "{controller}.aspx",
-                defaults: new { controller = "Default", action = "Index" }
-            );
-            
             // Home page
             routes.MapRoute(
                 name: "Default",
