@@ -1,6 +1,5 @@
 ﻿using System.Data.SqlClient;
 using Microsoft.ApplicationBlocks.Data;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Data;
 using System.Configuration;
 
@@ -14,11 +13,7 @@ namespace Escc.SupportWithConfidence.ETL
     {
         public static string ConnectionString()
         {
-            var empty = string.Empty;
-
             return ConfigurationManager.ConnectionStrings["livedb"].ConnectionString;
-
-           
         }
 
 

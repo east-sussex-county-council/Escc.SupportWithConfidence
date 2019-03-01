@@ -208,7 +208,7 @@ namespace Escc.SupportWithConfidence.ETL
                 parameters[36] = new SqlParameter("@IsBwcMember", SqlDbType.VarChar) { Value = item["IsBwcMember"] };
                 parameters[37] = new SqlParameter("@Id", SqlDbType.BigInt) { Value = (int)item["Id"] };
 
-                DataAccess.Save(ConfigurationManager.AppSettings["Save_Import"], parameters);
+                DataAccess.Save("usp_Admin_Import_Insert", parameters);
 
 
             }

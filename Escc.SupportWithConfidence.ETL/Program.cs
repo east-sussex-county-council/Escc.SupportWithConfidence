@@ -30,7 +30,7 @@ namespace Escc.SupportWithConfidence.ETL
             {
                 // Generic error message to tell developers the import failed. Most likely cause is a data formatting issue in the overnight data csv file.
                 // Review resource file in project to see location of CSV files.
-                throw new Exception("Support with Confidence ETL failed. Extract of Flare data was not loaded. Check CSV files are not corrupted or may have been renamed. System was unable to map datatables and load the live system. No update has occured.");
+                throw new Exception("Support with Confidence ETL failed. Extract of Flare data was not loaded. Check CSV file is not corrupted or may have been renamed. System was unable to map datatables and load the live system. No update has occured.");
             }
         }
 

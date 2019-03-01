@@ -3,7 +3,6 @@ using System.Collections;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
 
 namespace Escc.SupportWithConfidence.ETL
 {
@@ -160,7 +159,7 @@ namespace Escc.SupportWithConfidence.ETL
 
 
 
-                DataAccess.Save(ConfigurationManager.AppSettings["Save_Provider"], parameters);
+                DataAccess.Save("usp_Admin_Provider_Insert", parameters);
             }
         }
     }

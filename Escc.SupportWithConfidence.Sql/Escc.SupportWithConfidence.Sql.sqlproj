@@ -82,7 +82,6 @@
     <Build Include="dbo\Stored Procedures\usp_GetFastImageDetails.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetAllCategoriesWithProvider.sql" />
     <Build Include="dbo\Stored Procedures\usp_AddAmendImageData.sql" />
-    <Build Include="dbo\Stored Procedures\usp_Admin_Category_Insert.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_GetAllProviders.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_GetAllProviders_Paged.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_GetProvider.sql" />
