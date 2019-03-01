@@ -386,6 +386,10 @@
     <Compile Include="Migrations\201902281154147_Add_Category_Summary.Designer.cs">
       <DependentUpon>201902281154147_Add_Category_Summary.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903011150271_Remove_Flare_Category_Code.cs" />
+    <Compile Include="Migrations\201903011150271_Remove_Flare_Category_Code.Designer.cs">
+      <DependentUpon>201903011150271_Remove_Flare_Category_Code.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccreditationViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
@@ -442,6 +446,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902281154147_Add_Category_Summary.resx">
       <DependentUpon>201902281154147_Add_Category_Summary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903011150271_Remove_Flare_Category_Code.resx">
+      <DependentUpon>201903011150271_Remove_Flare_Category_Code.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

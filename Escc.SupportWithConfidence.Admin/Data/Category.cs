@@ -14,9 +14,6 @@ namespace Escc.SupportWithConfidence.Admin.Data
         public int Sequence { get; set; }
 
         [Required]
-        public string Code { get; set; }
-
-        [Required]
         public string Description { get; set; }
 
         public string Summary { get; set; }

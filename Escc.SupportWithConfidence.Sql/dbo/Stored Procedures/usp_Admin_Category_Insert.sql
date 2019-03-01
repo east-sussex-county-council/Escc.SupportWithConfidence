@@ -2,7 +2,6 @@
 (
 @Id bigint,
 @Sequence bigint,
-@Code char(10),
 @Description nvarchar(70),
 @ParentId bigint,
 @Depth int,
@@ -16,7 +15,6 @@ BEGIN TRANSACTION
 INSERT INTO [SupportWithConfidence].[dbo].[Categories]
            ([CategoryId],
            [Sequence]
-           ,[Code]
            ,[Description]
            ,[ParentId]
            ,[Depth]
@@ -25,7 +23,6 @@ INSERT INTO [SupportWithConfidence].[dbo].[Categories]
            (
            @Id,
 			@Sequence,
-			@Code,
 			@Description,
 			@ParentId,
 			@Depth,

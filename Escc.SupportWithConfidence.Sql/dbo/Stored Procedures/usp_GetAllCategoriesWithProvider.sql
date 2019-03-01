@@ -8,7 +8,6 @@ BEGIN
 SELECT DISTINCT	
 		c.CategoryId ,
 		Sequence,
-        Code ,
         Description ,
         ParentId ,
         Depth ,
@@ -23,7 +22,6 @@ ELSE
 SELECT DISTINCT	
 		c.CategoryId ,
 		Sequence,
-        Code ,
         Description ,
         ParentId ,
         Depth ,

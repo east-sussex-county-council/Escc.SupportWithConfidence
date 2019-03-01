@@ -26,11 +26,6 @@
 
                 <div class="formBox">
                     <div class="formPart">
-                        @Html.LabelFor(cat => Model.Code)
-                        @Html.TextBoxFor(cat => Model.Code)
-                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "warning" })
-                    </div>
-                    <div class="formPart">
                         @Html.LabelFor(cat => Model.Description)
                         @Html.TextBoxFor(cat => Model.Description)
                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "warning" })

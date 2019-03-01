@@ -11,10 +11,6 @@ namespace Escc.SupportWithConfidence.Admin.Models
     {
         public int CategoryId { get; set; }
 
-        [Required(ErrorMessage = "Please enter the Flare code for the category")]
-        [Display(Name = "Flare category code")]
-        public string Code { get; set; }
-
         [Required(ErrorMessage = "Please enter a name for the category")]
         [Display(Name = "Name")]
         public string Description { get; set; }

@@ -105,7 +105,6 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             {
                 var dataCategory = new data.Category
                 {
-                    Code = model.Code,
                     Depth = model.ParentId.HasValue ? 2 : 1,
                     Description = model.Description,
                     IsActive = false,
@@ -187,7 +186,6 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             }
 
             model.CategoryId = dataCategory.CategoryId;
-            model.Code = dataCategory.Code;
             model.Sequence = dataCategory.Sequence;
             model.Description = dataCategory.Description;
             model.Summary = dataCategory.Summary;
@@ -231,7 +229,6 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 var dataCategory = new data.Category
                 {
                     CategoryId = model.CategoryId,
-                    Code = model.Code,
                     Depth = model.ParentId.HasValue ? 2 : 1,
                     Description = model.Description,
                     ParentId = model.ParentId,
@@ -289,7 +286,6 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             }
 
             model.CategoryId = dataCategory.CategoryId;
-            model.Code = dataCategory.Code;
             model.Sequence = dataCategory.Sequence;
             model.Description = dataCategory.Description;
             model.Summary = dataCategory.Summary;

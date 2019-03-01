@@ -73,7 +73,6 @@ namespace Escc.SupportWithConfidence.Controls
                 categories.Add(new Category
                 {
                     CategoryId = Convert.ToInt16(dbcategory["CategoryId"]),
-                    Code = dbcategory["Code"].ToString(),
                     Description = dbcategory["Description"].ToString(),
                     ParentId =
                             dbcategory["ParentId"] == DBNull.Value

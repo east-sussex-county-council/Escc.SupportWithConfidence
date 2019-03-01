@@ -156,42 +156,41 @@ namespace Escc.SupportWithConfidence.ETL
         /// </summary>
         public void Commit()
         {
-            var parameters = new SqlParameter[8];
+            var parameters = new SqlParameter[7];
 
             foreach (DataRow item in _dtCategory.Rows)
             {
 
                 parameters[0] = new SqlParameter("@Id", SqlDbType.BigInt) { Value = (int)item["Id"] };
                 parameters[1] = new SqlParameter("@Sequence", SqlDbType.BigInt) { Value = 0 };
-                parameters[2] = new SqlParameter("@Code", SqlDbType.VarChar) { Value = item["Code"] };
-                parameters[3] = new SqlParameter("@Description", SqlDbType.VarChar) { Value = item["Description"] };
+                parameters[2] = new SqlParameter("@Description", SqlDbType.VarChar) { Value = item["Description"] };
                 if (item["ParentId"] == DBNull.Value)
                 {
-                    parameters[4] = new SqlParameter("@ParentId", SqlDbType.BigInt) { Value = DBNull.Value };
+                    parameters[3] = new SqlParameter("@ParentId", SqlDbType.BigInt) { Value = DBNull.Value };
                 }
                 else
                 {
-                    parameters[4] = new SqlParameter("@ParentId", SqlDbType.BigInt) { Value = (int)item["ParentId"] };
+                    parameters[3] = new SqlParameter("@ParentId", SqlDbType.BigInt) { Value = (int)item["ParentId"] };
                 }
 
-                parameters[5] = new SqlParameter("@Depth", SqlDbType.Int) { Value = (int)item["Depth"] };
-                parameters[7] = new SqlParameter("@IsActive", SqlDbType.Bit) { Value = (bool)item["IsActive"] };
+                parameters[4] = new SqlParameter("@Depth", SqlDbType.Int) { Value = (int)item["Depth"] };
+                parameters[5] = new SqlParameter("@IsActive", SqlDbType.Bit) { Value = (bool)item["IsActive"] };
 
 
                 if (ConfigurationManager.AppSettings["CategoryTransformationEnabled"] == "true")
                 {
-                    if (CategoryTransformation.ExcludeCategory(parameters[2].Value.ToString()))
+                    if (CategoryTransformation.ExcludeCategory(item["Code"].ToString()))
                     {
                         continue;
                     }
 
-                    var transformedCategory = parameters[3].Value.ToString();
+                    var transformedCategory = parameters[2].Value.ToString();
                     
                     transformedCategory = CategoryTransformation.ProperCase(transformedCategory);
                     transformedCategory = CategoryTransformation.ReplaceAmpersand(transformedCategory);
                     transformedCategory = CategoryTransformation.SubsituteCategory(transformedCategory);
 
-                    parameters[3].Value = transformedCategory;
+                    parameters[2].Value = transformedCategory;
 
                     DataAccess.Save(ConfigurationManager.AppSettings["Save_Categories"], parameters);
                 }
