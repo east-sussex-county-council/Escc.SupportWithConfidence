@@ -9,7 +9,6 @@
     Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
     Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
     Html.RequiresCss("~/css/support.css");
-    Html.RequiresJs("~/scripts/tinymce/tinymce.min.js");
     Html.RequiresJs("~/scripts/edit-category.js");
 
     // For TinyMCE
@@ -59,3 +58,7 @@
         </p>
     </div>
 </div>
+@section JavaScript
+{
+    <script src="@Url.Content("~/scripts/tinymce/tinymce.min.js")"></script>
+}

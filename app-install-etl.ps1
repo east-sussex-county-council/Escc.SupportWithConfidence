@@ -11,9 +11,9 @@ Param(
   [Parameter(Mandatory=$True,HelpMessage="Where are the XDT transforms for the *.example.config files? (required)")]
   [string]$transformsFolder,
 
-  [Parameter(Mandatory=$True,HelpMessage="What is the name of the IIS site where the application is being set up? (required)")]
+  [Parameter(Mandatory=$True,HelpMessage="What is the name of the IIS site this application is being set up to support? (required)")]
   [string]$websiteName,
-	
+
   [Parameter(Mandatory=$True,HelpMessage="Why is this change being made? (required)")]
   [string]$comment
 )
@@ -54,8 +54,6 @@ Example: C:\>set GIT_ORIGIN_URL=https://example-git-server.com/{0}"
 ### END BOOTSTRAP. #####################################################
 ########################################################################
 
-$projectName = "Escc.SupportWithConfidence.Admin" 
-$sourceFolder = NormaliseFolderPath $sourceFolder "$PSScriptRoot\$projectName"
 $destinationFolder = NormaliseFolderPath $destinationFolder
 $backupFolder = NormaliseFolderPath $backupFolder
 if (!$backupFolder) { $backupFolder = "$destinationFolder\backups" }
@@ -63,35 +61,40 @@ $backupFolder = "$backupFolder\$websiteName"
 $destinationFolder = "$destinationFolder\$websiteName"
 $transformsFolder = NormaliseFolderPath $transformsFolder
 
+# Install the ETL application
+$projectName = "Escc.SupportWithConfidence.ETL" 
+$appSourceFolder = NormaliseFolderPath $sourceFolder "$PSScriptRoot\$projectName"
+
 BackupApplication "$destinationFolder/$projectName" $backupFolder $comment
 
-robocopy $sourceFolder "$destinationFolder/$projectName" /MIR /IF *.cshtml *.ascx *.asax *.ashx *.dll *.js *.css *.woff *.jpg csc.* csi.* /XD aspnet_client obj Properties App_Start "Connected Services" Data Models Migrations Controllers
-copy "$sourceFolder\Views\web.config" "$destinationFolder\$projectName\Views\web.config"
-del "$destinationFolder\$projectName\App_Data\ClientDependency\*.*"
-
-TransformConfig "$sourceFolder\web.example.config" "$destinationFolder\$projectName\web.config" "$transformsFolder\$projectName\web.config.xdt"
-if (Test-Path "$transformsFolder\$projectName\web.config.$websiteName.xdt") {
-	TransformConfig "$destinationFolder\$projectName\web.config" "$destinationFolder\$projectName\web.temp1.config" "$transformsFolder\$projectName\web.config.$websiteName.xdt"
-	copy "$destinationFolder\$projectName\web.temp1.config" "$destinationFolder\$projectName\web.config"
-	del "$destinationFolder\$projectName\web.temp1.config"
+# Which is newer, debug or release?
+$debugExists = Test-Path "$appSourceFolder/bin/Debug/$projectName.exe"
+$releaseExists = Test-Path "$appSourceFolder/bin/Release/$projectName.exe"
+if (!$debugExists -and !$releaseExists) {
+	Write-Host "$projectName.exe file not found. Build the project and try again."
+	Exit
+} elseif ($debugExists -and !$releaseExists) {
+	$buildFolder = "Debug"
+} elseif (!$debugExists -and $releaseExists) {
+	$buildFolder = "Release"
+} else {
+	if ((Get-Item "$appSourceFolder/bin/Debug/$projectName.exe").LastWriteTimeUtc -gt (Get-Item "$appSourceFolder/bin/Release/$projectName.exe").LastWriteTimeUtc) {
+		$buildFolder = "Debug"
+	} else {
+		$buildFolder = "Release"
+	}
 }
 
-EnableDotNet40InIIS
-CreateApplicationPool "$projectName-$websiteName"
-CheckSiteExistsBeforeAddingApplication $websiteName
-CreateVirtualDirectory $websiteName "supportwithconfidence" "$destinationFolder\$projectName" true "$projectName-$websiteName"
-DisableAnonymousAuthentication $websiteName "supportwithconfidence"
-EnableWindowsAuthentication $websiteName "supportwithconfidence"
+# Copy files.
+robocopy "$appSourceFolder/bin/$buildFolder" "$destinationFolder/$projectName" /MIR /IF *.dll *.pdb *.exe
 
-# Give application pool account write access so that it can create clientDependency cache files
-Write-Host "Granting Modify access to the application pool account"
-if (!(Test-Path "$destinationFolder\$projectName\App_Data")) {
-	md "$destinationFolder\$projectName\App_Data"
+TransformConfig "$appSourceFolder\app.example.config" "$destinationFolder\$projectName\$projectName.exe.config" "$transformsFolder\$projectName\app.config.xdt"
+if (Test-Path "$transformsFolder\$projectName\app.config.$websiteName.xdt") {
+	# Transform to temp file to avoid file locking problem
+	TransformConfig "$destinationFolder\$projectName\$projectName.exe.config" "$destinationFolder\$projectName\$projectName.exe.temp.config" "$transformsFolder\$projectName\app.config.$websiteName.xdt"
+	copy "$destinationFolder\$projectName\$projectName.exe.temp.config" "$destinationFolder\$projectName\$projectName.exe.config"
+	del "$destinationFolder\$projectName\$projectName.exe.temp.config"
 }
-$acl = Get-Acl "$destinationFolder/$projectName/App_Data"
-$rule = New-Object System.Security.AccessControl.FileSystemAccessRule("IIS AppPool\$projectName-$websiteName", "Modify", "ContainerInherit,ObjectInherit", "None", "Allow")
-$acl.SetAccessRule($rule)
-Set-Acl "$destinationFolder/$projectName/App_Data" $acl
 
 Write-Host
-Write-Host "Done." -ForegroundColor "Green"
+Write-Host "Done. The ETL application needs to be configured as a scheduled task, if you have not already done so." -ForegroundColor "Green"
