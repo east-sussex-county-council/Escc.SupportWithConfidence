@@ -67,7 +67,15 @@ namespace Escc.SupportWithConfidence.Controls
 
         public string LastModified { get; set; }
 
-        public string CategoryList { get; set; }
+        /// <summary>
+        /// Categories where this provider should be listed
+        /// </summary>
+        public IList<Category> Categories { get; internal set; } = new List<Category>();
+
+        /// <summary>
+        /// IDs of categories where this provider should be listed - used when editing the provider
+        /// </summary>
+        public string[] CategoryIds { get; set; }
 
         public string Services { get; set; }
 

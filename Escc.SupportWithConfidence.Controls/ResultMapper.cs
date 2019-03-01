@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Web;
 using Escc.AddressAndPersonalDetails;
 
@@ -68,7 +69,7 @@ namespace Escc.SupportWithConfidence.Controls
 
                         if (Convert.ToInt32(catRow["FlareId"]) == result.Id)
                         {
-                            result.CategoryList += "<li><a href=\"results.aspx?cat=" + catRow["CategoryId"] + "\">" + catRow["Description"] + "</a></li>";
+                            result.Categories.Add(new Category { CategoryId = Int32.Parse(catRow["CategoryId"].ToString(), CultureInfo.InvariantCulture), Description = catRow["Description"].ToString() });
                         }
                     }
 

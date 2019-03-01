@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -41,12 +42,12 @@ namespace Escc.SupportWithConfidence.Controls
         /// </summary>
         /// <param name="hasProvider">if set to <c>true</c> only select categories with at least one provider.</param>
         /// <returns></returns>
-        public async Task<DataSet> GetAllCategoriesWithProvider(bool hasProvider)
+        public async Task<IEnumerable<Category>> GetAllCategoriesWithProvider(bool hasProvider)
         {
             EnsureHttpClient();
 
             var json = await _httpClient.GetStringAsync(new Uri(_apiBaseUrl.ToString().TrimEnd('/') + "/api/Categories?hasProvider=" + hasProvider));
-            return JsonConvert.DeserializeObject<DataSet>(json);
+            return JsonConvert.DeserializeObject<IEnumerable<Category>>(json);
         }
 
 

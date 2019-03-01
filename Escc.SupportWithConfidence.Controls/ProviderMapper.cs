@@ -128,18 +128,14 @@ namespace Escc.SupportWithConfidence.Controls
                         provider.PublishToWeb = dbProvider["PublishToWeb"] != DBNull.Value && Convert.ToBoolean(dbProvider["PublishToWeb"]);
                         provider.CqcCheckDate = dbProvider["CqcCheckDate"].ToString() == "" ? string.Empty : DateTime.Parse(dbProvider["CqcCheckDate"].ToString()).ToString("MMMM yyyy", CultureInfo.CurrentCulture);
 
-                        //provider.IsDeleted = dbProvider["IsDeleted"] == DBNull.Value ? false : Convert.ToBoolean(dbProvider["IsDeleted"]);
-                        //provider.LastModified = dbProvider["LastModified"] == DBNull.Value ? string.Empty : dbProvider["LastModified"].ToString();
-
                         foreach (DataRow catRow in data.Tables[1].Rows)
                         {
-
                             if (Convert.ToInt32(catRow["FlareId"]) == provider.FlareId)
                             {
-                                provider.CategoryList += "<li><a href=\"/socialcare/athome/approvedproviders/Results.aspx?cat=" + catRow["CategoryId"] + "\">" + catRow["Description"] + "</a></li>";
+                                provider.Categories.Add(new Category { CategoryId = Int32.Parse(catRow["CategoryId"].ToString(), CultureInfo.InvariantCulture), Description = catRow["Description"].ToString() });
                             }
                         }
-
+                        provider.Categories = provider.Categories.OrderBy(x => x.Description).ToList();
 
                         if (data.Tables.Count == 3)
                         {

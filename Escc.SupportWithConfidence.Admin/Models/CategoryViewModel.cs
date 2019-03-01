@@ -27,9 +27,6 @@ namespace Escc.SupportWithConfidence.Admin.Models
 
         public int Depth { get; set; }
 
-        [Display(Name = "Publish on website")]
-        public bool IsActive { get; set; }
-
         [Display(Name = "Sort order (if not alphabetical)")]
         public int Sequence { get; set; }
 

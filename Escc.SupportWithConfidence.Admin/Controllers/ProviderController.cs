@@ -104,6 +104,16 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                         repo.SaveProviderAccreditation(model.Provider.FlareId, accreditationId);
                     }
                 }
+
+                repo.ClearCategories(model.Provider.FlareId);
+                if (model.Provider.CategoryIds != null)
+                {
+                    foreach (var categoryId in model.Provider.CategoryIds)
+                    {
+                        repo.SaveProviderCategory(model.Provider.FlareId, categoryId);
+                    }
+                }
+
                 if (success)
                 {
                     return new RedirectResult(Url.Content("~/providers.aspx"));

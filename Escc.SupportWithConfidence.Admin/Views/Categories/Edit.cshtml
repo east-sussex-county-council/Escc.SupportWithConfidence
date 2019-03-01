@@ -51,11 +51,6 @@
                         @Html.TextBoxFor(cat => Model.Sequence, new { @class = "sort", type = "number" })
                         @Html.ValidationMessageFor(model => model.Sequence, "", new { @class = "warning" })
                     </div>
-                    <div class="formPart">
-                        @Html.LabelFor(cat => Model.IsActive)
-                        @Html.CheckBoxFor(cat => Model.IsActive)
-                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "warning" })
-                    </div>
                 </div>
 
                 <div class="formButtons">

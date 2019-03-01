@@ -20,10 +20,19 @@
 label + .form-help { margin: 0; font-size: .85em; }
 .service-form input[type=number].sort { width: 2.5em; }
 
-/* Other pages */
-.button {cursor:pointer;}
+/* Edit provider */
+template { display: none; } /* IE */
+
+.edit-categories {margin-left: 0; list-style-type: none; border-top: 1px solid #ccc;}
+.edit-categories > li { display: flex; align-items: center; border-bottom: 1px solid #ccc;}
+.edit-categories > li > p { flex-grow: 1;}
+.edit-categories > li input[type=text] { width: 3em;}
+.edit-categories .button.remove-category, form .add-category-section .button.add-category { margin-bottom: 0; }
 
 .photo {float:right; margin-top: 1em; }
 .checkbox input[type=checkbox] { top: 0; }
+
+/* Other pages */
+.button {cursor:pointer;}
 
 .text-content .service-form input.input-validation-error { border: 1px solid #b21313; }

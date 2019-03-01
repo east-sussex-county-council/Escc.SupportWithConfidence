@@ -99,6 +99,32 @@ namespace Escc.SupportWithConfidence.Controls
         }
 
         /// <summary>
+        /// Clears the categories for a provider, ready to supply an updated set.
+        /// </summary>
+        /// <param name="flareId">The flare identifier.</param>
+        public void ClearCategories(int flareId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@FlareId", flareId, DbType.Int32);
+
+            SaveToDatabase("usp_Admin_Provider_ClearCategories", parameters);
+        }
+
+        /// <summary>
+        /// Adds a category to a provider
+        /// </summary>
+        /// <param name="flareId">The flare identifier.</param>
+        /// <param name="categoryId">The category identifier.</param>
+        public void SaveProviderCategory(int flareId, string categoryId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@FlareId", flareId, DbType.Int32);
+            parameters.Add("@CategoryId", categoryId, DbType.Int32);
+
+            SaveToDatabase("usp_Admin_ProviderCategory_Insert", parameters);
+        }
+
+        /// <summary>
         /// Clears the accreditations for a provider, ready to supply an updated set.
         /// </summary>
         /// <param name="flareId">The flare identifier.</param>

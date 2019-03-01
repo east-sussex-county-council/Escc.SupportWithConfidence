@@ -33,9 +33,6 @@ namespace Escc.SupportWithConfidence.ETL
 
         #endregion
 
-
-
-
         #region Constructor
 
         public ProviderCategoryDataTable(DataTable import, DataTable category)
@@ -46,8 +43,6 @@ namespace Escc.SupportWithConfidence.ETL
 
             _dtProviderCategory.Columns.Add("FlareId", typeof(Int32));
             _dtProviderCategory.Columns.Add("CategoryId", typeof(Int32));
-
-
 
             Fill();
         }
@@ -74,16 +69,11 @@ namespace Escc.SupportWithConfidence.ETL
         /// </summary>
         public void Fill()
         {
-
-
             var categoryLookup = _dtCategory.Rows.Cast<DataRow>().ToDictionary(item => item["Code"].ToString(), item => (Int32)item["Id"]);
-
 
             // Loop over the import table extract providerid and Cat 1 - 8
             // Look up on category for the code
-            // Insert id, providerid and catid
-
-
+            // Insert providerid and catid
             foreach (DataRow item in _dtImport.Rows)
             {
                 int providerId = int.Parse(item["UniqueId"].ToString());
@@ -106,27 +96,7 @@ namespace Escc.SupportWithConfidence.ETL
                     }
 
                 }
-
-
             }
-
-
-            DataRow[] filtered = _dtProviderCategory.Select("", "");
-
-            DataTable dtProviderCategoryTemp = _dtProviderCategory.Clone();
-            dtProviderCategoryTemp.Columns.Add("Id", typeof(Int32));
-            dtProviderCategoryTemp.Columns["Id"].AutoIncrement = true;
-            dtProviderCategoryTemp.Columns["Id"].AutoIncrementSeed = 1;
-            dtProviderCategoryTemp.Columns["Id"].SetOrdinal(0);
-
-            _dtProviderCategory = null;
-            _dtProviderCategory = dtProviderCategoryTemp;
-            foreach (DataRow item in filtered)
-            {
-                _dtProviderCategory.ImportRow(item);
-            }
-
-
         }
 
         /// <summary>
@@ -134,16 +104,11 @@ namespace Escc.SupportWithConfidence.ETL
         /// </summary>
         public void Commit()
         {
-            var parameters = new SqlParameter[3];
+            var parameters = new SqlParameter[2];
             foreach (DataRow item in _dtProviderCategory.Rows)
             {
-
-
-                parameters[0] = new SqlParameter("@Id", SqlDbType.BigInt) { Value = (int)item["Id"] };
-                parameters[1] = new SqlParameter("@FlareId", SqlDbType.BigInt) { Value = (int)item["FlareId"] };
-                parameters[2] = new SqlParameter("@CategoryId", SqlDbType.BigInt) { Value = (int)item["CategoryId"] };
-
-
+                parameters[0] = new SqlParameter("@FlareId", SqlDbType.BigInt) { Value = (int)item["FlareId"] };
+                parameters[1] = new SqlParameter("@CategoryId", SqlDbType.BigInt) { Value = (int)item["CategoryId"] };
 
                 DataAccess.Save(ConfigurationManager.AppSettings["Save_ProviderCategory"], parameters);
             }

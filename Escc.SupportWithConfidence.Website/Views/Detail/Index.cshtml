@@ -174,27 +174,32 @@
                 }
 
                 <h2>Category listings</h2>
-                <ul>@Html.Raw(Model.Provider.CategoryList)</ul>
+                <ul>
+                    @foreach (var category in Model.Provider.Categories)
+                    {
+                        <li><a href="@Url.Content("~/results.aspx")?cat=@category.CategoryId">@category.Description</a></li>
+                    }
+                </ul>
 
                 if (Model.Provider.Crb.Length > 0)
-                {
+                        {
                     <h2>Criminal records information</h2>
                     <p>@Html.Raw(Model.Provider.Crb)</p>
                 }
-                else
-                {
-                    if (Model.Provider.CrbCheckDate.Trim().Length > 0)
-                    {
+                        else
+                        {
+                            if (Model.Provider.CrbCheckDate.Trim().Length > 0)
+                            {
                         <h2>Date of last Criminal Records check</h2>
                         <p>@Model.Provider.CrbCheckDate</p>
-                    }
-                    else if (Model.Provider.CqcCheckDate.Trim().Length > 0)
-                    {
+                            }
+                            else if (Model.Provider.CqcCheckDate.Trim().Length > 0)
+                            {
                         <h2>Date of Care Quality Commission (CQC) Registration</h2>
                         <p>@Model.Provider.CqcCheckDate</p>
+                            }
+                        }
                     }
-                }
-            }
             <p><a href="@Url.Content("~/")" class="newsearch">New search</a></p>
         </div>
     </article>

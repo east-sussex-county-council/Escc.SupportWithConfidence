@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Escc.SupportWithConfidence.Controls
@@ -20,7 +21,7 @@ namespace Escc.SupportWithConfidence.Controls
         public int TotalResults { get; set; }
         public string QueryString { get; set; }
         public bool ShowDistance { get; set; }
-        public string CategoryList { get; set; }
+        public IList<Category> Categories { get; internal set; } = new List<Category>();
         public string Availability { get; set; }
 
         public string View()
@@ -64,7 +65,12 @@ namespace Escc.SupportWithConfidence.Controls
                 html.Append(String.Format("<dt>Availability</dt><dd class=\"availability\">{0}</dd>", Availability));
             }
 
-            html.Append(String.Format("<dt class=\"screen\">Categories</dt><dd class=\"category screen\"><ul>{0}</ul></dd></dl>", CategoryList));
+            html.Append("<dt class=\"screen\">Categories</dt><dd class=\"category screen\"><ul>");
+            foreach(var category in Categories)
+            {
+                html.Append("<li><a href=\"results.aspx?cat=").Append(category.CategoryId).Append("\">").Append(category.Description).Append("</a></li>");
+            }
+            html.Append("</ul></dd></dl>");
 
 
             return html.ToString();

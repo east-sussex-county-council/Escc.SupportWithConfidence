@@ -20,6 +20,16 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
     {
         private data.EsccSupportWithConfidenceAdminContext db = new data.EsccSupportWithConfidenceAdminContext();
 
+        public async Task<ActionResult> AutoComplete(string term)
+        {
+            IProviderDataSource _dataSource = new SqlServerProviderDataSource();
+
+            // Get categories from the database table Category
+            var categories = await _dataSource.GetAllCategoriesWithProvider(false);
+
+            return Json(categories.Where(x => x.Depth == 2 && x.Description.StartsWith(term, StringComparison.CurrentCultureIgnoreCase)).Select(x => new { id = x.CategoryId, value = x.Description }), JsonRequestBehavior.AllowGet);
+        }
+
         public async Task<ActionResult> Index()
         {
             IProviderDataSource _dataSource = new SqlServerProviderDataSource();
@@ -98,7 +108,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                     Code = model.Code,
                     Depth = model.ParentId.HasValue ? 2 : 1,
                     Description = model.Description,
-                    IsActive = model.IsActive,
+                    IsActive = false,
                     ParentId = model.ParentId,
                     Sequence = model.Sequence,
                     Summary = FilterHtml(model.Summary)
@@ -183,7 +193,6 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             model.Summary = dataCategory.Summary;
             model.ParentId = dataCategory.ParentId.GetValueOrDefault();
             model.Depth = dataCategory.Depth;
-            model.IsActive = dataCategory.IsActive;
             model.PossibleParentCategories = await db.Categories.Where(x => x.Depth == 1 && x.CategoryId != id).OrderBy(x => x.Sequence).Select(x => new Category { CategoryId = x.CategoryId, Description = x.Description }).ToListAsync();
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
@@ -225,11 +234,13 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                     Code = model.Code,
                     Depth = model.ParentId.HasValue ? 2 : 1,
                     Description = model.Description,
-                    IsActive = model.IsActive,
                     ParentId = model.ParentId,
                     Sequence = model.Sequence,
                     Summary = FilterHtml(model.Summary)
                 };
+
+                var providerData = await new SqlServerProviderDataSource().GetPagedResultsByCategoryId(0,0,1,1,model.CategoryId);
+                dataCategory.IsActive = dataCategory.Depth == 2 && providerData != null && providerData.Tables.Count > 0 && providerData.Tables[0].Rows.Count > 0;
 
                 db.Entry(dataCategory).State = EntityState.Modified;
                 await db.SaveChangesAsync();
@@ -284,7 +295,6 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             model.Summary = dataCategory.Summary;
             model.ParentId = dataCategory.ParentId.GetValueOrDefault();
             model.Depth = dataCategory.Depth;
-            model.IsActive = dataCategory.IsActive;
 
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try

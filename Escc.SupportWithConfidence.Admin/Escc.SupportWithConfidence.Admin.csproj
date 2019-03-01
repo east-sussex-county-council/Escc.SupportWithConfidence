@@ -236,6 +236,7 @@
     <Content Include="images\silhouette.jpg" />
     <Content Include="scripts\edit-category.js" />
     <Content Include="packages.config" />
+    <Content Include="scripts\edit-provider.js" />
     <Content Include="scripts\tinymce\jquery.tinymce.min.js" />
     <Content Include="scripts\tinymce\license.txt" />
     <Content Include="scripts\tinymce\plugins\advlist\plugin.js" />

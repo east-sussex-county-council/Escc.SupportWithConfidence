@@ -102,5 +102,6 @@
     <Build Include="dbo\Stored Procedures\usp_Admin_Provider_ClearAccreditations.sql" />
     <Build Include="dbo\Stored Procedures\usp_Admin_Provider_InsertAccreditation.sql" />
     <Build Include="dbo\Tables\Categories.sql" />
+    <Build Include="dbo\Stored Procedures\usp_Admin_Provider_ClearCategories.sql" />
   </ItemGroup>
 </Project>

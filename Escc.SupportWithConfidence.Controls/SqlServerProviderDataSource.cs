@@ -59,11 +59,34 @@ namespace Escc.SupportWithConfidence.Controls
         /// </summary>
         /// <param name="hasProvider">if set to <c>true</c> only select categories with at least one provider.</param>
         /// <returns></returns>
-        public Task<DataSet> GetAllCategoriesWithProvider(bool hasProvider)
+        public Task<IEnumerable<Category>> GetAllCategoriesWithProvider(bool hasProvider)
         {
             var parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@HasProvider", SqlDbType.Int) { Value = hasProvider };
-            return Task.FromResult(QueryDatabase("usp_GetAllCategoriesWithProvider", parameters, ConnectionType.User));
+            var dataSet = QueryDatabase("usp_GetAllCategoriesWithProvider", parameters, ConnectionType.User);
+            if (dataSet == null) return null;
+
+            var categories = new List<Category>();
+
+            foreach (DataRow dbcategory in dataSet.Tables[0].Rows)
+            {
+                categories.Add(new Category
+                {
+                    CategoryId = Convert.ToInt16(dbcategory["CategoryId"]),
+                    Code = dbcategory["Code"].ToString(),
+                    Description = dbcategory["Description"].ToString(),
+                    ParentId =
+                            dbcategory["ParentId"] == DBNull.Value
+                                ? 0
+                                : Convert.ToInt16(dbcategory["ParentId"]),
+                    Depth = Convert.ToInt16(dbcategory["Depth"]),
+                    IsActive = Convert.ToBoolean(dbcategory["IsActive"]),
+                    Sequence = Convert.ToInt32(dbcategory["Sequence"])
+                }
+                );
+            }
+
+            return Task.FromResult(categories as IEnumerable<Category>);
         }
 
         /// <summary>
@@ -149,16 +172,6 @@ namespace Escc.SupportWithConfidence.Controls
             parameters[0] = new SqlParameter("@IsApproved", SqlDbType.Int) { Value = thatAreApproved };
             return QueryDatabase("usp_GetAllCategories", parameters, ConnectionType.User);
         }
-
-        public DataSet GetProviderByCategoryId(int id, bool thatIsApproved)
-        {
-            var parameters = new SqlParameter[2];
-            parameters[0] = new SqlParameter("@FlareId", SqlDbType.Int) { Value = id };
-            parameters[1] = new SqlParameter("@IsApproved", SqlDbType.Int) { Value = thatIsApproved };
-
-            return QueryDatabase("usp_GetProviderByCategoryId", parameters, ConnectionType.User);
-        }
-
 
         /// <summary>
         /// Gets an image file from the database

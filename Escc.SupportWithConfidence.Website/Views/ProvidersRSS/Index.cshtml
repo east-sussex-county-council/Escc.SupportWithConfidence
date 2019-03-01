@@ -32,7 +32,12 @@
             var html = "https://apps.eastsussex.gov.uk/socialcare/athome/approvedproviders/detail.aspx?ref=" + provider.Id;
             <item>
                 <title> @provider.Name</title>
-                <description>@provider.CategoryList </description>
+                <description><ul>
+                    @foreach (var category in provider.Categories)
+                    {
+                        <li><a href="https://apps.eastsussex.gov.uk/socialcare/athome/approvedproviders/results.aspx?cat=@category.CategoryId">@category.Description</a></li>
+                    }
+                </ul></description>
                 @Html.Raw(string.Format("<link>{0}</link>", html))
                 <pubdate></pubdate>
                 <guid ispermalink="false"></guid>

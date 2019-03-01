@@ -29,6 +29,19 @@ namespace Escc.SupportWithConfidence.Controls
         bool SaveProviderInformation(int id, string experience, string expertise, string background, string services, string costs, string crb, bool publishToWeb);
 
         /// <summary>
+        /// Clears the categories for a provider, ready to supply an updated set.
+        /// </summary>
+        /// <param name="flareId">The flare identifier.</param>
+        void ClearCategories(int flareId);
+
+        /// <summary>
+        /// Adds a category to a provider
+        /// </summary>
+        /// <param name="flareId">The flare identifier.</param>
+        /// <param name="categoryId">The category identifier.</param>
+        void SaveProviderCategory(int flareId, string categoryId);
+
+        /// <summary>
         /// Clears the accreditations for a provider, ready to supply an updated set.
         /// </summary>
         /// <param name="flareId">The flare identifier.</param>

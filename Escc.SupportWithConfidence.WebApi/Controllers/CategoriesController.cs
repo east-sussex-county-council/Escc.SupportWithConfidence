@@ -19,7 +19,7 @@ namespace Escc.SupportWithConfidence.WebApi.Controllers
         /// <param name="hasProvider">if set to <c>true</c> only select categories with at least one provider.</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<DataSet> GetAll(bool hasProvider = true)
+        public async Task<IEnumerable<Category>> GetAll(bool hasProvider = true)
         {
             try
             {

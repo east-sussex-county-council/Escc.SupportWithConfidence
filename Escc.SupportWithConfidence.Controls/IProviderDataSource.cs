@@ -18,7 +18,7 @@ namespace Escc.SupportWithConfidence.Controls
         /// </summary>
         /// <param name="hasProvider">if set to <c>true</c> only select categories with at least one provider.</param>
         /// <returns></returns>
-        Task<DataSet> GetAllCategoriesWithProvider(bool hasProvider);
+        Task<IEnumerable<Category>> GetAllCategoriesWithProvider(bool hasProvider);
 
         /// <summary>
         /// Return provider using provider Id or only return the provider by provider Id if approved

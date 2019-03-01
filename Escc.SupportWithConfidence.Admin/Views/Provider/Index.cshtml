@@ -2,11 +2,12 @@
 @using ClientDependency.Core.Mvc
 @using Escc.ClientDependencyFramework
 @{
-    Model.Metadata.Title = "Support with Confidence";
+    Model.Metadata.Title = $"Edit {Model.Provider.ProviderName}";
     Html.RequiresCss(CssFileAlias.Resolve("FormsSmall"));
     Html.RequiresCss(CssFileAlias.Resolve("FormsMedium"), MediaQueryAlias.Resolve("Medium"));
     Html.RequiresCss(CssFileAlias.Resolve("FormsLarge"), MediaQueryAlias.Resolve("Large"));
     Html.RequiresCss("~/css/support.css");
+    Html.RequiresJs("~/scripts/edit-provider.js");
 }
 <div class="full-page">
     <div class="content text-content">
@@ -131,9 +132,6 @@
                 <p>@Model.Provider.Availability</p>
             }
 
-            <h2>Category listings</h2>
-            <ul>@Html.Raw(Model.Provider.CategoryList)</ul>
-
             @if (Model.Provider.CrbCheckDate.Trim().Length > 0)
             {
                 <h2>Date of last Criminal Records check</h2>
@@ -154,6 +152,7 @@
             <h2>Editable bits</h2>
             @Html.HiddenFor(p => p.Provider.FlareId)
             <div class="formBox">
+
                 <div class="formPart">
                     @{ Model.Provider.Experience = Model.Provider.Experience.Replace("<br />", Environment.NewLine); }
                     @Html.LabelFor(p => p.Provider.Experience)
@@ -175,12 +174,12 @@
                 <fieldset>
                     <legend>Accreditations</legend>
                     <span class="radioButtonList">
-                    @foreach (var accreditation in Model.Accreditations)
-                    {
-                        var accreditationApplies = (Model.Provider.Accreditations.FirstOrDefault(providerAccreditation => providerAccreditation.AccreditationId == accreditation.AccreditationId) != null);
-                        <input type="checkbox" value="@accreditation.AccreditationId" @(accreditationApplies ? " checked=\"checked\"" : string.Empty) name="Provider.Accreditations.AccreditationId" id="accreditation-@accreditation.AccreditationId" />
-                        <label for="accreditation-@accreditation.AccreditationId">@accreditation.Name</label>
-                    }
+                        @foreach (var accreditation in Model.Accreditations)
+                        {
+                            var accreditationApplies = (Model.Provider.Accreditations.FirstOrDefault(providerAccreditation => providerAccreditation.AccreditationId == accreditation.AccreditationId) != null);
+                            <input type="checkbox" value="@accreditation.AccreditationId" @(accreditationApplies ? " checked=\"checked\"" : string.Empty) name="Provider.Accreditations.AccreditationId" id="accreditation-@accreditation.AccreditationId" />
+                            <label for="accreditation-@accreditation.AccreditationId">@accreditation.Name</label>
+                        }
                     </span>
                 </fieldset>
 
@@ -201,6 +200,31 @@
                     @Html.LabelFor(p => p.Provider.Crb, "Criminal records information")
                     @Html.TextAreaFor(p => p.Provider.Crb)
                 </div>
+
+                <fieldset>
+                    <legend>Categories</legend>
+                    <ol class="edit-categories">
+                        @foreach (var category in Model.Provider.Categories)
+                        {
+                            <li>
+                                <p>@category.Description</p>
+                                <input type="hidden" name="Provider.CategoryIds" value="@category.CategoryId" />
+                                <button class="button remove-category">Remove <span class="aural">@category.Description</span></button>
+                            </li>
+                        }
+                    </ol>
+                    <template id="category-template">
+                        <li>
+                            <p></p>
+                            <input type="hidden" name="Provider.CategoryIds" value="" />
+                            <button class="button remove-category">Remove <span class="aural"></span></button>
+                        </li>
+                    </template>
+                    <div class="formPart add-category-section">
+                        <label for="select-category">Add category</label>
+                        <input type="search" id="select-category" autocomplete="off" data-autocomplete-url="@Url.Action("Autocomplete", "Categories")" />
+                    </div>
+                </fieldset>
 
                 <div class="radioButtonList checkbox">
                     @Html.LabelFor(p => p.Provider.PublishToWeb, "Publish on website")
