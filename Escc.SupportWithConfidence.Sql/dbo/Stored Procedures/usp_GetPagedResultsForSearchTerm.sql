@@ -93,7 +93,7 @@ SELECT DISTINCT
 FROM 
 	Provider as p
 INNER JOIN dbo.ProviderCategory AS pc ON pc.FlareId = p.FlareId
-INNER JOIN dbo.Category AS c ON c.id = pc.CategoryId
+INNER JOIN dbo.Categories AS c ON c.CategoryId = pc.CategoryId
 WHERE  
 c.IsActive = 1 AND p.PublishToWeb = 1
 AND
@@ -113,12 +113,11 @@ WHERE
 
 
 
-SELECT pc.FlareId, pc.CategoryId, c.Description FROM Category as c 
-INNER JOIN ProviderCategory as pc ON c.Id = pc.CategoryId
+SELECT pc.FlareId, pc.CategoryId, c.Description FROM Categories as c 
+INNER JOIN ProviderCategory as pc ON c.CategoryId = pc.CategoryId
 WHERE pc.FlareId  IN (Select FlareId FROM #tempProviders)
 ORDER BY pc.FlareId
 
---SELECT @TotalResults  = COUNT(*) FROM #tempProviders
 SELECT COUNT(*) as TotalResults  FROM #tempProviders
 
 DROP TABLE #tempProviders
