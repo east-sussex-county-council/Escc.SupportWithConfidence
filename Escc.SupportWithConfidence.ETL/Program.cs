@@ -14,7 +14,7 @@ namespace Escc.SupportWithConfidence.ETL
     {
         static void Main()
         {
-            ExceptionlessClient.Current.Startup();
+            ExceptionlessClient.Default.Startup();
 
             // Controller is the engine for the ETL process and is the pipe through which all calls and returns are made
 
