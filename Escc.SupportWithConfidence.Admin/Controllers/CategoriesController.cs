@@ -27,7 +27,7 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
             // Get categories from the database table Category
             var categories = await _dataSource.GetAllCategoriesWithProvider(false);
 
-            return Json(categories.Where(x => x.Depth == 2 && x.Description.StartsWith(term, StringComparison.CurrentCultureIgnoreCase)).Select(x => new { id = x.CategoryId, value = x.Description }), JsonRequestBehavior.AllowGet);
+            return Json(categories.Where(x => x.Depth == 2 && x.Description.ToUpperInvariant().Contains(term.ToUpperInvariant())).Select(x => new { id = x.CategoryId, value = x.Description }), JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> Index()
