@@ -1,16 +1,10 @@
 ﻿@model Escc.SupportWithConfidence.Website.Models.SupportWithConfidenceViewModel
 @using ClientDependency.Core.Mvc
 @using Escc.ClientDependencyFramework
-@{ 
+@{
     Model.Metadata.Title = "Support with Confidence";
-    Model.Metadata.IpsvPreferredTerms = "Trading standards; Consumer protection; Carer support; Health and social care professionals; Care for the disabled; Home care; Care for the elderly; Day care; Care plans";
-    Model.Metadata.LgilType = "Applications for service";
-    Model.Metadata.LgtlType = "Forms";
-    Model.Metadata.DateIssued = "2004-11-20";
-    Model.Metadata.Keywords = "vetted; approved; home care; care services; Support with confidence";
+    Model.Metadata.DateIssued = new DateTimeOffset(new DateTime(2004, 11, 20));
     Model.Metadata.Description = "Find providers which are approved members of the Support with Confidence scheme in East Sussex";
-    Model.Metadata.RssFeedTitle = "Help at home you can trust";
-    Model.Metadata.RssFeedUrl = new Uri(Request.Url, Url.Content("~/ProvidersRSS")).ToString();
 
     Model.ShowEastSussex1SpaceWidget = true;
 
@@ -23,6 +17,9 @@
     Html.RequiresJs(JsFileAlias.Resolve("AccordionAndTabs"));
     Html.RequiresCss(CssFileAlias.Resolve("NavigationSmall"));
     Html.RequiresCss(CssFileAlias.Resolve("NavigationLarge"), MediaQueryAlias.Resolve("Large"));
+}
+@section Metadata {
+<link rel="alternative" type="application/rss+xml" href="@(new Uri(Request.Url, Url.Content("~/ProvidersRSS")))" title="Help at home you can trust - East Sussex County Council" />
 }
 
 <div class="article">
