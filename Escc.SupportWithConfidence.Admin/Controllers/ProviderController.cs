@@ -110,7 +110,10 @@ namespace Escc.SupportWithConfidence.Admin.Controllers
                 {
                     foreach (var categoryId in model.Provider.CategoryIds)
                     {
-                        repo.SaveProviderCategory(model.Provider.FlareId, categoryId);
+                        if (!string.IsNullOrEmpty(categoryId)) // IE11 posts an additional empty one
+                        {
+                            repo.SaveProviderCategory(model.Provider.FlareId, categoryId);
+                        }
                     }
                 }
 
