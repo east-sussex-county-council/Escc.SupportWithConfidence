@@ -203,6 +203,7 @@ WHERE  pc.CategoryId IN  (SELECT  pc.CategoryId FROM dbo.Categories AS c
 		INNER JOIN dbo.ProviderCategory AS pc ON c.CategoryId = pc.CategoryId
 		INNER JOIN dbo.Provider AS p ON pc.FlareId = p.FlareId	
 		WHERE c.IsActive = 1 AND p.PublishToWeb = 1 AND (pc.CategoryId = @CategoryId))
+		AND p.PublishToWeb = 1
 ORDER BY [Distance from me], [Name] ASC
 
 

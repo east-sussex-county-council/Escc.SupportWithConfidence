@@ -97,7 +97,7 @@ INNER JOIN dbo.Categories AS c ON c.CategoryId = pc.CategoryId
 WHERE  
 c.IsActive = 1 AND p.PublishToWeb = 1
 AND
-(p.ProviderName LIKE @Name) OR (p.ProviderName LIKE '') OR p.ContactName LIKE @Name
+((p.ProviderName LIKE @Name) OR (p.ProviderName LIKE '') OR p.ContactName LIKE @Name)
 
 ORDER BY [Distance from me], [Name] ASC
 
